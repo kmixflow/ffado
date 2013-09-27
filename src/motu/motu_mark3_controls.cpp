@@ -29,4 +29,23 @@
 
 namespace Motu {
 
+
+/* This function does the magic to set a control in MK3 mixers */
+bool setMixerControl(int channel, int key, int value)
+{
+	/* See motu_firewire_protocol-mk3.txt for details */
+
+	/*PLAN:
+	 *
+	 * 1.- Check channel value
+	 * 2.- Depending on the channel, check the key
+	 * 3.- Depending on the above, check if value is within parameters; if not set to min or max
+	 * 4.- Format the 3qualet to 02 aa 66 bb - cc dd ee v1 - v2 v3 v4 00
+	 * 5.- Set the control value
+	 */
+
+
+	return false;
+}
+
 }

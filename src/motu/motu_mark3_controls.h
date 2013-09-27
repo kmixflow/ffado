@@ -64,7 +64,7 @@ the packet serial number and start operating the mixer*/
 #define MOTU_MK3CTRL_BUS_REVERB_SEND       0x000102
 #define MOTU_MK3CTRL_INPUT_REVERB_SEND     0x000102
 #define MOTU_MK3CTRL_BUS_REVERB_RETURN     0x010102
-#define MOTU_MK3CTRL_INPUT_TRIM			   0x020001
+#define MOTU_MK3CTRL_INPUT_TRIM            0x020001
 #define MOTU_MK3CTRL_BUS_MASTER_FADER      0x020002
 #define MOTU_MK3CTRL_CHANNEL_PAN           0x020002 /*CAUTION*/
 #define MOTU_MK3CTRL_CHANNEL_FADER         0x030002
@@ -229,7 +229,7 @@ the packet serial number and start operating the mixer*/
 #define MOTU_MK3CTRL_ON                           0x01
 #define MOTU_MK3CTRL_OFF                          0x00
 
-#define MOTUMK3CTRL_CHANNEL                       0x02 /* 02->1c */
+#define MOTU_MK3CTRL_CHANNEL                      0x02 /* 02->1c */
 
 
 }

@@ -241,7 +241,7 @@ class PanelManager(QWidget):
         # moment though we don't need to know precisely which model we're
         # using.
         if vendorId == 0x1f2:
-            modelId = 0x00000000
+            modelId = unitVersion;
 
         # The RME devices use unitVersion to differentiate models. 
         # Therefore in the configuration file we use the config file's
