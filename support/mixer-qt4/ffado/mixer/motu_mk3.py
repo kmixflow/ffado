@@ -561,87 +561,66 @@ class Motu_Mk3(QWidget):
         list.setItemText(6, "ADAT 7-8")
         list.setMaxCount(7)
 
-    def initValues_g1(self):
-        # Set up widgets for generation-1 devices (only the 828mk1 for now). 
-        # For now disable all mix faders and analog controls since we don't
-        # know how to control them (and it's not clear that they are even
-        # present in the hardware).
-        self.disable_hide(self.mixtab)
-        self.disable_hide(self.masterbox)
-        self.disable_hide(self.analog_settings_box)
+    
+    def initValues_g3(self):
+        # Set up widgets for generation-3 devices
 
-        # The 828mk1 didn't have meter controls
-        self.disable_hide(self.meter_src)
-        self.disable_hide(self.aesebu_meter)
-        self.disable_hide(self.peakhold_time)
-        self.disable_hide(self.cliphold_time)
-
-        # For the moment hide this control too since it's not clear how
-        # it might be used to interact with the 828mk1.  Ultimately we
-        # may be able to reset its items and use it for the monitor source
-        # selector.
-        self.disable_hide(self.phones_src)
-        self.disable_hide(self.phones_src_frame)
-
-    def initValues_g2(self):
-        # Set up widgets for generation-2 devices
-
-        # The 828Mk2 has separate Mic inputs but no AES/EBU, so use the
+        # The 828Mk3 has separate Mic inputs but no AES/EBU, so use the
         # AES/EBU mixer controls as "Mic" controls.  If a device comes along
         # with both mic and AES inputs this approach will have to be
         # re-thought.
-        # Doing this means that on the 828Mk2, the mixer matrix elements
+        # Doing this means that on the 828Mk3, the mixer matrix elements
         # used for AES/EBU on other models are used for the Mic channels. 
-        # So long as the MixerChannels_828Mk2 definition in
+        # So long as the MixerChannels_828Mk3 definition in
         # motu_avdevice.cpp defines the mic channels immediately after the 8
         # analog channels we'll be right.  Note that we don't need to change
         # the matrix lookup tables (self.ChannelFaders etc) because the QT
         # controls are still named *aesebu*.
-        if (self.model == MOTU_MODEL_828mkII):
+        if (self.model == MOTU_MODEL_828mk3):
             self.mix1_tab.setTabText(1, "Mic inputs");
             self.mix2_tab.setTabText(1, "Mic inputs");
             self.mix3_tab.setTabText(1, "Mic inputs");
             self.mix4_tab.setTabText(1, "Mic inputs");
         else:
-            # Only the Traveler and 896HD have AES/EBU inputs, so disable the AES/EBU
+            # Only the Travelermk3 and 896HDmk3 have AES/EBU inputs, so disable the AES/EBU
             # tab for all other models.
-            if (self.model!=MOTU_MODEL_TRAVELER and self.model!=MOTU_MODEL_896HD):
+            if (self.model!=MOTU_MODEL_TRAVELERmk3 and self.model!=MOTU_MODEL_896HDmk3):
                 self.mix1_tab.setTabEnabled(1, False)
                 self.mix2_tab.setTabEnabled(1, False)
                 self.mix3_tab.setTabEnabled(1, False)
                 self.mix4_tab.setTabEnabled(1, False)
 
-        # All models except the 896HD and 8pre have SPDIF inputs.
-        if (self.model==MOTU_MODEL_8PRE or self.model==MOTU_MODEL_896HD):
+        # All models except the 896HDmk3 have SPDIF inputs.
+        if (self.model==MOTU_MODEL_896HDmk3):
             self.mix1_tab.setTabEnabled(2, False);
             self.mix2_tab.setTabEnabled(2, False);
             self.mix3_tab.setTabEnabled(2, False);
             self.mix4_tab.setTabEnabled(2, False);
 
         # Devices without AES/EBU inputs/outputs (currently all except the
-        # Traveler and 896HD) have dedicated "MainOut" outputs instead. 
+        # Travelermk3 and 896HDmk3) have dedicated "MainOut" outputs instead. 
         # AES/EBU is normally ID 6 in the destination lists and "MainOut"
-        # displaces it on non-AES/EBU models.  The 896HD has both AES/EBU
+        # displaces it on non-AES/EBU models.  The 896HDmk3 has both AES/EBU
         # and MainOut which complicates this; it uses ID 6 for MainOut and
         # ID 7 (nominally SPDIF) for AES/EBU.  Therefore change ID 6 to
         # "MainOut" for everything but the Traveler, and set ID 7 (nominally
         # SPDIF) to AES/EBU for the 896HD.
-        if (self.model != MOTU_MODEL_TRAVELER):
+        if (self.model != MOTU_MODEL_TRAVELERmk3):
             self.mix1_dest.setItemText(6, "MainOut")
             self.mix2_dest.setItemText(6, "MainOut")
             self.mix3_dest.setItemText(6, "MainOut")
             self.mix4_dest.setItemText(6, "MainOut")
             self.phones_src.setItemText(6, "MainOut")
-        if (self.model == MOTU_MODEL_896HD):
+        if (self.model == MOTU_MODEL_896HDmk3):
             self.mix1_dest.setItemText(7, "AES/EBU")
             self.mix2_dest.setItemText(7, "AES/EBU")
             self.mix3_dest.setItemText(7, "AES/EBU")
             self.mix4_dest.setItemText(7, "AES/EBU")
             self.phones_src.setItemText(7, "AES/EBU")
 
-        # The Ultralite doesn't have ADAT channels (or any optical ports at
+        # The Ultralitemk3 doesn't have ADAT channels (or any optical ports at
         # all)
-        if (self.model == MOTU_MODEL_ULTRALITE):
+        if (self.model == MOTU_MODEL_ULTRALITEmk3):
             self.mix1_tab.setTabEnabled(3, False)  # ADAT page
             self.mix2_tab.setTabEnabled(3, False)  # ADAT page
             self.mix3_tab.setTabEnabled(3, False)  # ADAT page
@@ -649,28 +628,13 @@ class Motu_Mk3(QWidget):
             self.optical_in_mode.setEnabled(False)
             self.optical_out_mode.setEnabled(False)
 
-        # The 896HD and 8pre don't have optical SPDIF (aka Toslink) capability
-        if (self.model==MOTU_MODEL_896HD or self.model==MOTU_MODEL_8PRE):
+        # The 896HDmk3 don't have optical SPDIF (aka Toslink) capability
+        if (self.model==MOTU_MODEL_896HDmk3):
             self.optical_in_mode.removeItem(2)
             self.optical_out_mode.removeItem(2)
 
-        # The 8pre doesn't have software phones/main fader controls
-        if (self.model==MOTU_MODEL_8PRE):
-            self.disable_hide(self.mainout_fader)
-            self.disable_hide(self.phones_fader)
-            self.disable_hide(self.masterbox)
-
-        # The 8pre's destination list is rather different to all other 
-        # models.
-        if (self.model==MOTU_MODEL_8PRE):
-            self.set_8pre_dest_list(self.mix1_dest)
-            self.set_8pre_dest_list(self.mix2_dest)
-            self.set_8pre_dest_list(self.mix3_dest)
-            self.set_8pre_dest_list(self.mix4_dest)
-            self.set_8pre_dest_list(self.phones_src)
-
-        # Only the 896HD has meter controls
-        if (self.model != MOTU_MODEL_896HD):
+        # Only the 896HDmk3 has meter controls
+        if (self.model != MOTU_MODEL_896HDmk3):
             self.disable_hide(self.meter_src)
             self.disable_hide(self.aesebu_meter)
             self.disable_hide(self.peakhold_time)
@@ -717,8 +681,8 @@ class Motu_Mk3(QWidget):
             self.mix4adat8.setEnabled(False)
 
         # Ensure the correct input controls are active for a given interface.
-        # Only the Ultralite has phase inversion switches.
-        if (not(self.model == MOTU_MODEL_ULTRALITE)):
+        # Only the Ultralitemk3 has phase inversion switches.
+        if (not(self.model == MOTU_MODEL_ULTRALITEmk3)):
             self.disable_hide(self.ana1_invert)
             self.disable_hide(self.ana2_invert)
             self.disable_hide(self.ana3_invert)
@@ -731,7 +695,7 @@ class Motu_Mk3(QWidget):
             self.disable_hide(self.spdif2_invert)
         # The Traveler has pad switches for analog 1-4 only; other interfaces
         # don't have pad switches at all.
-        if (not(self.model == MOTU_MODEL_TRAVELER)):
+        if (not(self.model == MOTU_MODEL_TRAVELERmk3)):
             self.disable_hide(self.ana1_pad)
             self.disable_hide(self.ana2_pad)
             self.disable_hide(self.ana3_pad)
@@ -743,7 +707,7 @@ class Motu_Mk3(QWidget):
         # The Traveler has level and boost switches for analog 5-8.  The
         # 8pre, Ultralite and the 896HD don't implement them.  All other
         # interfaces have them over analog 1-8.
-        if (self.model==MOTU_MODEL_TRAVELER or self.model==MOTU_MODEL_ULTRALITE or self.model==MOTU_MODEL_896HD or self.model==MOTU_MODEL_8PRE):
+        if (self.model==MOTU_MODEL_TRAVELERmk3 or self.model==MOTU_MODEL_ULTRALITEmk3 or self.model==MOTU_MODEL_896HDmk3):
             self.disable_hide(self.ana1_level)
             self.disable_hide(self.ana2_level)
             self.disable_hide(self.ana3_level)
@@ -752,7 +716,7 @@ class Motu_Mk3(QWidget):
             self.disable_hide(self.ana2_boost)
             self.disable_hide(self.ana3_boost)
             self.disable_hide(self.ana4_boost)
-        if (self.model==MOTU_MODEL_ULTRALITE or self.model==MOTU_MODEL_896HD or self.model==MOTU_MODEL_8PRE):
+        if (self.model==MOTU_MODEL_ULTRALITEmk3 or self.model==MOTU_MODEL_896HDmk3):
             self.disable_hide(self.ana5_level)
             self.disable_hide(self.ana6_level)
             self.disable_hide(self.ana7_level)
@@ -763,7 +727,7 @@ class Motu_Mk3(QWidget):
             self.disable_hide(self.ana8_boost)
         # The Traveler has trimgain for analog 1-4.  The Ultralite has trimgain for
         # analog 1-8 and SPDIF 1-2.  All other interfaces don't have trimgain.
-        if (not(self.model==MOTU_MODEL_TRAVELER or self.model==MOTU_MODEL_ULTRALITE)):
+        if (not(self.model==MOTU_MODEL_TRAVELERmk3 or self.model==MOTU_MODEL_ULTRALITEmk3)):
             self.disable_hide(self.ana1_trimgain)
             self.disable_hide(self.ana1_trimgain_label)
             self.disable_hide(self.ana2_trimgain)
@@ -772,7 +736,7 @@ class Motu_Mk3(QWidget):
             self.disable_hide(self.ana3_trimgain_label)
             self.disable_hide(self.ana4_trimgain)
             self.disable_hide(self.ana4_trimgain_label)
-        if (not(self.model == MOTU_MODEL_ULTRALITE)):
+        if (not(self.model == MOTU_MODEL_ULTRALITEmk3)):
             self.disable_hide(self.ana5_trimgain)
             self.disable_hide(self.ana5_trimgain_label)
             self.disable_hide(self.ana6_trimgain)
@@ -788,10 +752,6 @@ class Motu_Mk3(QWidget):
             self.disable_hide(self.spdif2_trimgain_label)
             self.disable_hide(self.spdif2ctrl)
 
-        # The 8pre has no digital controls for the analog inputs, so there's
-        # no point in showing the frame which would normally contain them.
-        if (self.model == MOTU_MODEL_8PRE):
-            self.disable_hide(self.analog_settings_box)
 
     def initValues(self):
         # Is the device streaming?
@@ -805,15 +765,8 @@ class Motu_Mk3(QWidget):
         self.sample_rate = self.hw.getDiscrete('/Mixer/Info/SampleRate')
         log.debug("device sample rate: %d" % (self.sample_rate))
 
-        # For the moment none of the "Mk3" (aka Generation-3) devices are
-        # supported by ffado-mixer.
-        if (self.model==MOTU_MODEL_828mk3 or self.model==MOTU_MODEL_ULTRALITEmk3 or self.model==MOTU_MODEL_ULTRALITEmk3_HYB or self.model==MOTU_MODEL_TRAVELERmk3 or self.model==MOTU_MODEL_896HDmk3):
-            log.debug("Generation-3 MOTU devices are not yet supported by ffado-mixer")
-            return
-        elif (self.model==MOTU_MODEL_828MkI):
-            self.initValues_g1()
-        else:
-            self.initValues_g2()
+
+        self.initValues_g3()
 
         # Now fetch the current values into the respective controls.  Don't
         # bother fetching controls which are disabled.
