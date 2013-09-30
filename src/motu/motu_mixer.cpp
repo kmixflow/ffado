@@ -280,15 +280,32 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 
     bool result = true;
 
-    if (DevicesProperty[m_motu_model-1].m3mixer == NULL) {
-        debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer controls defined for model %d\n", m_motu_model);
-        return false;
-    }
+    //Construcción de variables importantes:
 
-    // FIXME: Details to come
-    result = false;
+        bool result = true;
+		MotuMatrixMixer *fader_mmixer = NULL;
+		MotuMatrixMixer *pan_mmixer = NULL;
+		MotuMatrixMixer *solo_mmixer = NULL;
+		MotuMatrixMixer *mute_mmixer = NULL;
+		const struct MatrixMixBus *buses = NULL;
+		const struct MatrixMixChannel *channels = NULL;
+		unsigned int bus, ch, i;
 
-    return result;
+	    //for (i=0; i<DevicesProperty[m_motu_model-1].mixer->n_mixer_ctrls; i++) {
+		//const struct MixerCtrl *ctrl = &DevicesProperty[m_motu_model-1].mixer->mixer_ctrl[i];
+		unsigned int type;
+		char name[100];
+		char label[100];
+
+		//FIXME: Build audio controls automatically from mixer description
+        //if (type & MOTU_CTRL_MIX_DEST) {
+		snprintf(name, 100, "%s%s", "Control name", "dest");
+		snprintf(label,100, "%s%s", "Control label","dest");
+		result &= m_MixerContainer->addElement(new MixDestMk3(*this, name, label, "Description"));
+		//type &= ~MOTU_CTRL_MIX_DEST;
+        //}
+
+		return result;
 }
 
 bool

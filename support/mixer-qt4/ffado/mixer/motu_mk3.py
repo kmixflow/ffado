@@ -551,17 +551,6 @@ class Motu_Mk3(QWidget):
         widget.hide()
         widget.setEnabled(False)
 
-    # Set destination lists for the 8pre.  MainOut is index 2 and for the
-    # moment we assume the ADAT options follow that.
-    def set_8pre_dest_list(self, list):
-        list.setItemText(2, "MainOut")
-        list.setItemText(3, "ADAT 1-2")
-        list.setItemText(4, "ADAT 3-4")
-        list.setItemText(5, "ADAT 5-6")
-        list.setItemText(6, "ADAT 7-8")
-        list.setMaxCount(7)
-
-    
     def initValues_g3(self):
         # Set up widgets for generation-3 devices
 
