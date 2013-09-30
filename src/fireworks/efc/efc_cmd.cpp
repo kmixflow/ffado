@@ -74,10 +74,12 @@ const char *eIOConfigRegisterToString(const enum eIOConfigRegister reg) {
     switch (reg) {
         case eCR_Mirror:
             return "Mirror";
-        case eCR_DigitalMode:
-            return "DigitalMode";
+        case eCR_DigitalInterface:
+            return "DigitalInterface";
         case eCR_Phantom:
             return "Phantom";
+        case eCR_IsocMap:
+            return "IsocMap";
         default:
             return "invalid";
     }
