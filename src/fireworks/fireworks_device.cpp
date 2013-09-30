@@ -318,6 +318,10 @@ Device::buildMixer()
         new HwInfoControl(*this, HwInfoControl::eHIF_GroupInCount, "GroupInCount"));
     result &= m_HwInfoContainer->addElement(
         new HwInfoControl(*this, HwInfoControl::eHIF_PhantomPower, "PhantomPower"));
+    result &= m_HwInfoContainer->addElement(
+        new HwInfoControl(*this, HwInfoControl::eHIF_OpticalInterface, "OpticalInterface"));
+    result &= m_HwInfoContainer->addElement(
+        new HwInfoControl(*this, HwInfoControl::eHIF_PlaybackRouting, "PlaybackRouting"));
 
     // add a save settings control
     result &= this->addElement(
@@ -336,9 +340,17 @@ Device::buildMixer()
         result &= this->addElement(
             new IOConfigControl(*this, eCR_Mirror, "ChannelMirror"));
     }
+    if(m_HwInfo.hasOpticalInterface()) {
+        result &= this->addElement(
+            new IOConfigControl(*this, eCR_DigitalInterface, "DigitalInterface"));
+    }
     if(m_HwInfo.hasSoftwarePhantom()) {
         result &= this->addElement(
             new IOConfigControl(*this, eCR_Phantom, "PhantomPower"));
+    }
+    if(m_HwInfo.hasPlaybackRouting()) {
+        result &= this->addElement(
+            new PlaybackRoutingControl(*this, "PlaybackRouting"));
     }
 
     if (!result) {
