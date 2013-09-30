@@ -8,3 +8,4 @@ version.h
 *.o
 *.os
 *.so
+.*project

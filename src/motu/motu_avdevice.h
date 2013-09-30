@@ -357,8 +357,29 @@ struct MotuMixer {
 };
 
 // Structures used for devices which use the "Mark3" mixer protocol
-struct MotuMark3Mixer {
+struct MixerMk3Ctrl {
+    const char *name, *label, *desc;
+    unsigned int type;
+    unsigned int dev_register;
 };
+struct MatrixMk3MixBus {
+    const char *name;
+    unsigned int address;
+};
+struct MatrixMk3MixChannel {
+    const char *name;
+    unsigned int flags;
+    unsigned int addr_ofs;
+};
+struct MotuMk3Mixer {
+    const MixerCtrl *mixer_ctrl;
+    unsigned int n_mixer_ctrls;
+    const MatrixMixBus *mixer_buses;
+    unsigned int n_mixer_buses;
+    const MatrixMixChannel *mixer_channels;
+    unsigned int n_mixer_channels;
+};
+
 
 struct DevicePropertyEntry {
     PortGroupEntry *portgroup_entry;
@@ -461,6 +482,7 @@ private:
 public:
     unsigned int ReadRegister(fb_nodeaddr_t reg);
     signed int WriteRegister(fb_nodeaddr_t reg, quadlet_t data);
+    signed int WriteRegisterMk3(fb_nodeaddr_t reg, octlet_t data);
 
 private:
     Control::Container *m_MixerContainer;

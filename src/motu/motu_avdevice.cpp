@@ -2598,4 +2598,22 @@ signed int MotuDevice::WriteRegister(fb_nodeaddr_t reg, quadlet_t data) {
     return (err==0)?0:-1;
 }
 
+signed int MotuDevice::WriteRegisterMk3(fb_nodeaddr_t reg, octlet_t data) {
+/*
+ * Attempts to write the given data to the requested MOTU Mk3 register.
+ */
+
+    unsigned int err = 0;
+    data = CondSwapToBus64(data);
+
+    // Note: 1394Service::write() expects a physical ID, not the node id
+    if (get1394Service().write(0xffc0 | getNodeId(), reg, 1, &data) <= 0) {
+        err = 1;
+        debugError("Error doing motu write to register 0x%012llx\n",reg);
+    }
+
+    SleepRelativeUsec(100);
+    return (err==0)?0:-1;
+}
+
 }

@@ -34,12 +34,48 @@ namespace Motu {
 
 class MotuDevice;
 
+class MotuDiscreteCtrlMk3
+    : public Control::Discrete
+{
+public:
+    MotuDiscreteCtrlMk3(MotuDevice &parent);
+    MotuDiscreteCtrlMk3(MotuDevice &parent, std::string name, std::string label, std::string descr);
+
+    virtual bool setValue(int v) = 0;
+    virtual int getValue() = 0;
+
+    // default implementations
+    virtual bool setValue(int idx, int v)
+        {return setValue(v);};
+    virtual int getValue(int idx)
+        {return getValue();};
+
+    virtual int getMinimum() {return 0;};
+    virtual int getMaximum() {return 0;};
+
+protected:
+    MotuDevice    &m_parent;
+};
+
+class MixDestMk3
+    : public MotuDiscreteCtrlMk3
+{
+public:
+    MixDestMk3(MotuDevice &parent);
+    MixDestMk3(MotuDevice &parent, std::string name, std::string label, std::string descr);
+
+    virtual bool setValue(int v);
+    virtual int getValue();
+};
+
+
+
 /* A "register" value used to signify that a particular control in a matrix
  * mixer is not available on the current interface.
  */
 #define MOTU_MK3CTRL_NONE                  0xffffffff
 
-
+#define MOTU_MK3CTRL_SWITCH					0x0200690000000000
 
 /*The following flags needs to be sent to MOTU_G3_REG_MIXER to reset
 the packet serial number and start operating the mixer*/
@@ -135,7 +171,7 @@ the packet serial number and start operating the mixer*/
 
 #define MOTU_MK3CTRL_TRIM_MIC_MIN       0x00000000 /*    0 dB  */
 #define MOTU_MK3CTRL_TRIM_MIC_MAX       0x42540000 /*  +53 dB  */
-#define MOTU_MK3CTRL_TRIM_LINE_MAX      0xc2c00000 /*  -96 dB  */
+#define MOTU_MK3CTRL_TRIM_LINE_MIN      0xc2c00000 /*  -96 dB  */
 #define MOTU_MK3CTRL_TRIM_LINE_MAX      0x41b00000 /*  +22 dB  */
 
 #define MOTU_MK3CTRL_BALANCE_MIN        0xbf800000 /* -1 */
