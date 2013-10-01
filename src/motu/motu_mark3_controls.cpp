@@ -30,10 +30,6 @@
 namespace Motu {
 
 
-#define MK3CTRL_SWITCH					0x0200690000000000
-#define MK3CTRL_BUS_OUTPUT_ASSIGN     	0x0000000000000002
-#define MK3CTRL_DISABLED				0x000000ff00000000
-#define MK3CTRL_MAGIC_NUMBER		    0x0002000000000000
 
 
 MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent)
@@ -46,9 +42,9 @@ MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent, std::string name, s
 : Control::Discrete(&parent)
 , m_parent(parent)
 {
-    bool setName(name);
-    bool setLabel(label);
-    bool setDescription(descr);
+    setName(name);
+    setLabel(label);
+    setDescription(descr);
 }
 
 MixDestMk3::MixDestMk3(MotuDevice &parent)
@@ -61,11 +57,18 @@ MixDestMk3::MixDestMk3(MotuDevice &parent, std::string name, std::string label, 
 {
 }
 
+//Example: Assigning Mix1 out to none:  0x020169ff00000002
+//FIRST Quadlet
+#define MK3CTRL_SWITCH					0x02006900
+#define MK3CTRL_DISABLED				0x000000ff
+#define MK3CTRL_MAGIC_NUMBER		    0x00010000
+
+//SECOND Quadlet
+#define MK3CTRL_BUS_OUTPUT_ASSIGN     	0x00000002
+
 bool
 MixDestMk3::setValue(int v)
 {
-
-
 
     unsigned int val;
     debugOutput(DEBUG_LEVEL_VERBOSE, "setValue for switch %s (0x%04x) to %d\n",
@@ -73,12 +76,12 @@ MixDestMk3::setValue(int v)
 
     //FIXME: This is a hack to skip the "heartbeat" counting by resetting the magic number
     m_parent.WriteRegister(MOTU_G3_REG_MIXER, 0x00000000);
-    m_parent.WriteRegister(MOTU_G3_REG_MIXER, 0x00010000);
 
+    quadlet_t data[2];
+    data[0] = MK3CTRL_SWITCH | MK3CTRL_MAGIC_NUMBER | MK3CTRL_DISABLED;
+    data[1] = MK3CTRL_BUS_OUTPUT_ASSIGN;
 
-    val = MK3CTRL_SWITCH | MK3CTRL_BUS_OUTPUT_ASSIGN | MK3CTRL_MAGIC_NUMBER | MK3CTRL_DISABLED;
-
-    m_parent.WriteRegisterMk3(MOTU_G3_REG_MIXER, val);
+    m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2);
 
     //FIXME: Return an error if was not possible to write to the register
     return true;

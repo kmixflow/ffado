@@ -278,7 +278,6 @@ MotuDevice::buildMixerAudioControls(void) {
 bool
 MotuDevice::buildMark3MixerAudioControls(void) {
 
-    bool result = true;
 
     //Construcción de variables importantes:
 
