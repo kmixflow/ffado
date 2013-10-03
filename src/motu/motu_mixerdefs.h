@@ -40,6 +40,7 @@ extern const MotuMixer Mixer_896HD;
 extern const MotuMixer Mixer_8pre;
 extern const MotuMixer Mixer_828Mk1;
 
+extern const MotuMark3Mixer Mixer_TravelerMk3;
 }
 
 #endif

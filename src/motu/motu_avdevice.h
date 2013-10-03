@@ -358,6 +358,12 @@ struct MotuMixer {
 
 // Structures used for devices which use the "Mark3" mixer protocol
 struct MotuMark3Mixer {
+    const MixerCtrl *mixer_ctrl;
+    unsigned int n_mixer_ctrls;
+    const MatrixMixBus *mixer_buses;
+    unsigned int n_mixer_buses;
+    const MatrixMixChannel *mixer_channels;
+    unsigned int n_mixer_channels;
 };
 
 struct DevicePropertyEntry {

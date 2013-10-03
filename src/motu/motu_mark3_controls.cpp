@@ -71,7 +71,7 @@ MixDestMk3::setValue(int v)
 {
 
     unsigned int val;
-    debugOutput(DEBUG_LEVEL_VERBOSE, "setValue for switch %s (0x%04x) to %d\n",
+    debugOutput(DEBUG_LEVEL_VERBOSE, "setValue for switch %s (0x%X) to %d\n",
       getName().c_str(), MOTU_G3_REG_MIXER, v);
 
     //FIXME: This is a hack to skip the "heartbeat" counting by resetting the magic number
@@ -81,9 +81,11 @@ MixDestMk3::setValue(int v)
     data[0] = MK3CTRL_SWITCH | MK3CTRL_MAGIC_NUMBER | MK3CTRL_DISABLED;
     data[1] = MK3CTRL_BUS_OUTPUT_ASSIGN;
 
-    m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2);
-
-    //FIXME: Return an error if was not possible to write to the register
+    if(m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2)){
+    	debugOutput(DEBUG_LEVEL_VERBOSE, "Error writing data[0]=(0x%X) data[1]=(0x%X) to register (0x%X)", data[0], data[1], MOTU_G3_REG_MIXER);
+    	return false;
+    }
+    debugOutput(DEBUG_LEVEL_VERBOSE, "So far so good writing data[0]=(0x%X) data[1]=(0x%X) to register (0x%X)", data[0], data[1], MOTU_G3_REG_MIXER);
     return true;
 }
 

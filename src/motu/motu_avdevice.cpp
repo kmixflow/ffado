@@ -754,7 +754,7 @@ const DevicePropertyEntry DevicesProperty[] = {
     { PORTGROUPS(ULTRALITEmk3_hybrid),
       Ports_ULTRALITEmk3_hybrid, N_ELEMENTS( Ports_ULTRALITEmk3_hybrid ), 192000 }, // Ultralite mk3 hybrid
     { PORTGROUPS(TRAVELERmk3), 
-      Ports_TRAVELERmk3,  N_ELEMENTS( Ports_TRAVELERmk3 ),  192000 },
+      Ports_TRAVELERmk3,  N_ELEMENTS( Ports_TRAVELERmk3 ),  192000, NULL, &Mixer_TravelerMk3, },
     { PORTGROUPS(896mk3), 
       NULL, 0,  192000 },  // 896 Mk 3
 };
