@@ -47,7 +47,7 @@ MotuDiscreteCtrlMk3::setValue(int value)
 {
 	if(this->m_key == MOTU_MK3_KEY_NONE){
 		debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a discrete control with unintialized key\n");
-		return false;
+		return true;
 	}
 	//FIXME: This is a hack to avoid the "heartbeat" counting by resetting the serial number
 	m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET0);
@@ -68,6 +68,12 @@ MotuDiscreteCtrlMk3::setValue(int value)
 	return true;
 }
 
+int
+MotuDiscreteCtrlMk3::getValue()
+{
+	return 0;
+}
+
 MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int bus,
 		std::string name, std::string label, std::string descr)
 : MotuDiscreteCtrlMk3(parent, bus, name, label, descr)
@@ -79,16 +85,7 @@ MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int bus,
 bool
 MixDestMk3::setValue(int value)
 {
-	//TODO: Implement this:
-	/*
-	 *
-	 * debugOutput(DEBUG_LEVEL_VERBOSE, "setValue for channel pan 0x%04x to %d\n", m_register, v);
-
-    if (m_register == MOTU_CTRL_NONE) {
-        debugOutput(DEBUG_LEVEL_WARNING, "use of MOTU_CTRL_NONE in non-matrix control\n");
-        return true;
-    }
-	 */
+	//FIXME: Implement mixer parsing from motu_mark3_mixerdefs.cpp
     unsigned int dest;
 	switch (value) {
 		case 0:
