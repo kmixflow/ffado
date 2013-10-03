@@ -30,46 +30,49 @@
 namespace Motu {
 
 
-
-
-MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent)
+MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int key)
 : Control::Discrete(&parent)
 , m_parent(parent)
+, m_key(key)
 {
 }
 
-MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent, std::string name, std::string label, std::string descr)
+MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int key,
+		std::string name, std::string label, std::string descr)
 : Control::Discrete(&parent)
 , m_parent(parent)
+, m_key(key)
 {
     setName(name);
     setLabel(label);
     setDescription(descr);
 }
 
-MixDestMk3::MixDestMk3(MotuDevice &parent)
-: MotuDiscreteCtrlMk3(parent)
+MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int key)
+: MotuDiscreteCtrlMk3(parent, key)
 {
 }
 
-MixDestMk3::MixDestMk3(MotuDevice &parent, std::string name, std::string label, std::string descr)
-: MotuDiscreteCtrlMk3(parent, name, label, descr)
+MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int key,
+		std::string name, std::string label, std::string descr)
+: MotuDiscreteCtrlMk3(parent, key, name, label, descr)
 {
 }
 
 //Example: Assigning Mix1 out to none:  0x020169ff00000002
 //FIRST Quadlet
 #define MK3CTRL_SWITCH					0x02006900
-#define MK3CTRL_DISABLED				0x000000ff
-#define MK3CTRL_MAGIC_NUMBER		    0x00020000
+#define MK3CTRL_SERIAL_NUMBER		    0x00020000
 
 //SECOND Quadlet
-#define MK3CTRL_BUS_OUTPUT_ASSIGN     	0x00000002
+#define MK3CTRL_MIX_OUTPUT_ASSIGN     	0x00000002
+#define MK3CTRL_MIX1                    0x00000000
+#define MK3CTRL_MIX2                    0x01000000
 
 bool
 MixDestMk3::setValue(int value)
 {
-    long unsigned int dest;
+    unsigned int dest;
 	switch (value) {
 		case 0:
 			dest = MOTU_MK3CTRL_MIX_DEST_DISABLED;
@@ -99,22 +102,21 @@ MixDestMk3::setValue(int value)
 			dest = MOTU_MK3CTRL_MIX_DEST_DISABLED;
 			break;
 	}
-    debugOutput(DEBUG_LEVEL_WARNING, "setValue for switch %s (0x%X) to %d\n",
+    debugOutput(DEBUG_LEVEL_WARNING, "setValue for switch %s (0x%X) to MK3 mixer register\n",
       getName().c_str(), MOTU_G3_REG_MIXER, value);
 
-    //FIXME: This is a hack to skip the "heartbeat" counting by resetting the magic number
+    //FIXME: This is a hack to skip the "heartbeat" counting by resetting the serial number
     m_parent.WriteRegister(MOTU_G3_REG_MIXER, 0x00000000);
     m_parent.WriteRegister(MOTU_G3_REG_MIXER, 0x00010000);
 
     quadlet_t data[2];
-    data[0] = MK3CTRL_SWITCH | MK3CTRL_MAGIC_NUMBER | dest;
-    data[1] = MK3CTRL_BUS_OUTPUT_ASSIGN;
+    data[0] = MK3CTRL_SWITCH | MK3CTRL_SERIAL_NUMBER | dest;
+    data[1] = MK3CTRL_MIX_OUTPUT_ASSIGN | this->m_key;
 
     if(m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2)){
-    	debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to register (0x%08x)\n", data[0], data[1], MOTU_G3_REG_MIXER);
+    	debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to MK3 mixer register\n", data[0], data[1], MOTU_G3_REG_MIXER);
     	return false;
     }
-    debugOutput(DEBUG_LEVEL_WARNING, "So far so good writing data[0]=(0x%08x) data[1]=(0x%08x) to register (0x%08x)\n", data[0], data[1], MOTU_G3_REG_MIXER);
     return true;
 }
 

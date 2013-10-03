@@ -38,8 +38,9 @@ class MotuDiscreteCtrlMk3
     : public Control::Discrete
 {
 public:
-    MotuDiscreteCtrlMk3(MotuDevice &parent);
-    MotuDiscreteCtrlMk3(MotuDevice &parent, std::string name, std::string label, std::string descr);
+    MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int key);
+    MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int key,
+    		std::string name, std::string label, std::string descr);
 
     virtual bool setValue(int v) = 0;
     virtual int getValue() = 0;
@@ -55,14 +56,16 @@ public:
 
 protected:
     MotuDevice    &m_parent;
+    unsigned long int  m_key;
 };
 
 class MixDestMk3
     : public MotuDiscreteCtrlMk3
 {
 public:
-    MixDestMk3(MotuDevice &parent);
-    MixDestMk3(MotuDevice &parent, std::string name, std::string label, std::string descr);
+    MixDestMk3(MotuDevice &parent, unsigned long int key);
+    MixDestMk3(MotuDevice &parent, unsigned long int key,
+    		std::string name, std::string label, std::string descr);
 
     virtual bool setValue(int v);
     virtual int getValue();
@@ -97,22 +100,31 @@ the packet serial number and start operating the mixer*/
  */
 
 /* Control key definitions */
-#define MOTU_MK3CTRL_MIX_DEST_DISABLED     0x000000ff
-#define MOTU_MK3CTRL_MIX_DEST_MAIN_L_R     0x00000000
-#define MOTU_MK3CTRL_MIX_DEST_ANALOG_1_2   0x00000001
-#define MOTU_MK3CTRL_MIX_DEST_ANALOG_3_4   0x00000002
-#define MOTU_MK3CTRL_MIX_DEST_ANALOG_5_6   0x00000003
-#define MOTU_MK3CTRL_MIX_DEST_ANALOG_7_8   0x00000004
-#define MOTU_MK3CTRL_MIX_DEST_SPDIF        0x00000005
-#define MOTU_MK3CTRL_MIX_DEST_PHONES       0x00000006
-#define MOTU_MK3CTRL_MIX_DEST_ADAT_A_1_2   0x00000007
-#define MOTU_MK3CTRL_MIX_DEST_ADAT_A_3_4   0x00000008
-#define MOTU_MK3CTRL_MIX_DEST_ADAT_A_5_6   0x00000009
-#define MOTU_MK3CTRL_MIX_DEST_ADAT_A_7_8   0x0000000a
-#define MOTU_MK3CTRL_MIX_DEST_ADAT_B_1_2   0x0000000b
-#define MOTU_MK3CTRL_MIX_DEST_ADAT_B_3_4   0x0000000c
-#define MOTU_MK3CTRL_MIX_DEST_ADAT_B_5_6   0x0000000d
-#define MOTU_MK3CTRL_MIX_DEST_ADAT_B_7_8   0x0000000e
+#define MOTU_MK3CTRL_MIX_DEST_DISABLED     0xff
+#define MOTU_MK3CTRL_MIX_DEST_MAIN_L_R     0x00
+#define MOTU_MK3CTRL_MIX_DEST_ANALOG_1_2   0x01
+#define MOTU_MK3CTRL_MIX_DEST_ANALOG_3_4   0x02
+#define MOTU_MK3CTRL_MIX_DEST_ANALOG_5_6   0x03
+#define MOTU_MK3CTRL_MIX_DEST_ANALOG_7_8   0x04
+#define MOTU_MK3CTRL_MIX_DEST_SPDIF        0x05
+#define MOTU_MK3CTRL_MIX_DEST_PHONES       0x06
+#define MOTU_MK3CTRL_MIX_DEST_ADAT_A_1_2   0x07
+#define MOTU_MK3CTRL_MIX_DEST_ADAT_A_3_4   0x08
+#define MOTU_MK3CTRL_MIX_DEST_ADAT_A_5_6   0x09
+#define MOTU_MK3CTRL_MIX_DEST_ADAT_A_7_8   0x0a
+#define MOTU_MK3CTRL_MIX_DEST_ADAT_B_1_2   0x0b
+#define MOTU_MK3CTRL_MIX_DEST_ADAT_B_3_4   0x0c
+#define MOTU_MK3CTRL_MIX_DEST_ADAT_B_5_6   0x0d
+#define MOTU_MK3CTRL_MIX_DEST_ADAT_B_7_8   0x0e
+
+#define MOTU_MK3CTRL_MIX1                  0x00000000
+#define MOTU_MK3CTRL_MIX2                  0x02000000
+#define MOTU_MK3CTRL_MIX3                  0x03000000
+#define MOTU_MK3CTRL_MIX4                  0x05000000
+#define MOTU_MK3CTRL_MIX5                  0x06000000
+#define MOTU_MK3CTRL_MIX6                  0x07000000
+#define MOTU_MK3CTRL_MIX7                  0x08000000
+#define MOTU_MK3CTRL_MIX8                  0x09000000
 
 #define MOTU_MK3CTRL_BUS_REVERB_SEND       0x000102
 #define MOTU_MK3CTRL_INPUT_REVERB_SEND     0x000102

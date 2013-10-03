@@ -331,7 +331,5 @@ const MotuMixer Mixer_828Mk1 = {
   MixerCtrls_828Mk1, N_ELEMENTS(MixerCtrls_828Mk1),
   NULL, 0, NULL, 0};
 
-const MotuMark3Mixer Mixer_TravelerMk3 = MOTUMIXER(
-    MixerCtrls_Traveler, MixerBuses_Traveler, MixerChannels_Traveler);
 
 }

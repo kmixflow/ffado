@@ -284,26 +284,26 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 	    MotuMatrixMixer *pan_mmixer = NULL;
 	    MotuMatrixMixer *solo_mmixer = NULL;
 	    MotuMatrixMixer *mute_mmixer = NULL;
-	    const struct MatrixMixBus *buses = NULL;
-	    const struct MatrixMixChannel *channels = NULL;
+	    const struct MatrixMixBusMk3 *buses = NULL;
+	    const struct MatrixMixChannelMk3 *channels = NULL;
 	    unsigned int bus, ch, i;
 
-	    if (DevicesProperty[m_motu_model-1].m3mixer == NULL) {
+	    if (DevicesProperty[m_motu_model-1].mk3mixer == NULL) {
 	        debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer defined for model %d\n", m_motu_model);
 	        return true;
 	    } else {
-	        buses = DevicesProperty[m_motu_model-1].m3mixer->mixer_buses;
+	        buses = DevicesProperty[m_motu_model-1].mk3mixer->mixer_buses;
 	        result = false;
 	        if (buses == NULL) {
 	            debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer buses defined for model %d\n", m_motu_model);
 	        } else
 	            result = true;
-	        channels = DevicesProperty[m_motu_model-1].m3mixer->mixer_channels;
+	        channels = DevicesProperty[m_motu_model-1].mk3mixer->mixer_channels;
 	        if (channels == NULL) {
 	            debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer channels defined for model %d\n", m_motu_model);
 	        } else
 	            result = true;
-	        if (DevicesProperty[m_motu_model-1].m3mixer->mixer_ctrl == NULL) {
+	        if (DevicesProperty[m_motu_model-1].mk3mixer->mixer_ctrl == NULL) {
 	            debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer device controls defined for model %d\n", m_motu_model);
 	        } else
 	            result = true;
@@ -324,14 +324,14 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 	        MOTU_CTRL_MASK_MUTE_VALUE, MOTU_CTRL_MASK_MUTE_SETENABLE);
 	    result &= m_MixerContainer->addElement(mute_mmixer);
 
-	    for (bus=0; bus<DevicesProperty[m_motu_model-1].m3mixer->n_mixer_buses; bus++) {
+	    for (bus=0; bus<DevicesProperty[m_motu_model-1].mk3mixer->n_mixer_buses; bus++) {
 	        fader_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
 	        pan_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
 	        solo_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
 	        mute_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
 	    }
 
-	    for (ch=0; ch<DevicesProperty[m_motu_model-1].m3mixer->n_mixer_channels; ch++) {
+	    for (ch=0; ch<DevicesProperty[m_motu_model-1].mk3mixer->n_mixer_channels; ch++) {
 	        uint32_t flags = channels[ch].flags;
 	        if (flags & MOTU_CTRL_CHANNEL_FADER)
 	            fader_mmixer->addColInfo(channels[ch].name, 0, channels[ch].addr_ofs);
@@ -349,8 +349,8 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 
 	    // Single non-matrixed mixer controls get added here.  Channel controls are supported
 	    // here, but usually these will be a part of a matrix mixer.
-	    for (i=0; i<DevicesProperty[m_motu_model-1].m3mixer->n_mixer_ctrls; i++) {
-	        const struct MixerCtrl *ctrl = &DevicesProperty[m_motu_model-1].m3mixer->mixer_ctrl[i];
+	    for (i=0; i<DevicesProperty[m_motu_model-1].mk3mixer->n_mixer_ctrls; i++) {
+	        const struct MixerCtrlMk3 *ctrl = &DevicesProperty[m_motu_model-1].mk3mixer->mixer_ctrl[i];
 	        unsigned int type;
 	        char name[100];
 	        char label[100];
@@ -414,9 +414,8 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "dest");
 	            snprintf(label,100, "%s%s", ctrl->label,"dest");
 	            result &= m_MixerContainer->addElement(
-	                new MixDestMk3(*this, name, label, ctrl->desc));
+	                new MixDestMk3(*this, ctrl->key, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_MIX_DEST;
-	            debugOutput(DEBUG_LEVEL_INFO, "Added MikDestMk3 Control with name: %d and desc: %d\n", ctrl->name, ctrl->desc);
 	        }
 
 	        /*if (type & MOTU_CTRL_INPUT_UL_GAIN) {
@@ -538,13 +537,14 @@ MotuDevice::buildMixer() {
     }
 
     if (DevicesProperty[m_motu_model-1].mixer != NULL &&
-        DevicesProperty[m_motu_model-1].m3mixer != NULL) {
+        DevicesProperty[m_motu_model-1].mk3mixer != NULL) {
         debugError("MOTU model %d has pre-Mark3 and Mark3 mixer descriptions\n", m_motu_model);
         return false;
     }
 
     // Create and populate the top-level matrix mixers
-    result = buildMark3MixerAudioControls();
+    //FIXME: Shouldn't we call only the appropiate builder function?
+    result = buildMixerAudioControls() | buildMark3MixerAudioControls();
 
     /* Now add some general device information controls.  These may yet
      * become device-specific if it turns out to be easier that way.

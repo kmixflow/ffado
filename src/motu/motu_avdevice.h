@@ -357,12 +357,26 @@ struct MotuMixer {
 };
 
 // Structures used for devices which use the "Mark3" mixer protocol
+struct MixerCtrlMk3 {
+    const char *name, *label, *desc;
+    unsigned int type; //Is this useful?
+    unsigned long int key;
+};
+struct MatrixMixBusMk3 {
+    const char *name;
+    unsigned int address;
+};
+struct MatrixMixChannelMk3 {
+    const char *name;
+    unsigned int flags;
+    unsigned int addr_ofs;
+};
 struct MotuMark3Mixer {
-    const MixerCtrl *mixer_ctrl;
+    const MixerCtrlMk3 *mixer_ctrl;
     unsigned int n_mixer_ctrls;
-    const MatrixMixBus *mixer_buses;
+    const MatrixMixBusMk3 *mixer_buses;
     unsigned int n_mixer_buses;
-    const MatrixMixChannel *mixer_channels;
+    const MatrixMixChannelMk3 *mixer_channels;
     unsigned int n_mixer_channels;
 };
 
@@ -374,7 +388,7 @@ struct DevicePropertyEntry {
     signed int MaxSampleRate;
     // A device will set at most one of the *mixer fields
     const struct MotuMixer *mixer;
-    const struct MotuMark3Mixer *m3mixer;
+    const struct MotuMark3Mixer *mk3mixer;
     // Others features can be added here like MIDI port presence.
 };
 
