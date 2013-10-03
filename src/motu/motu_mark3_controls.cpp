@@ -61,31 +61,60 @@ MixDestMk3::MixDestMk3(MotuDevice &parent, std::string name, std::string label, 
 //FIRST Quadlet
 #define MK3CTRL_SWITCH					0x02006900
 #define MK3CTRL_DISABLED				0x000000ff
-#define MK3CTRL_MAGIC_NUMBER		    0x00010000
+#define MK3CTRL_MAGIC_NUMBER		    0x00020000
 
 //SECOND Quadlet
 #define MK3CTRL_BUS_OUTPUT_ASSIGN     	0x00000002
 
 bool
-MixDestMk3::setValue(int v)
+MixDestMk3::setValue(int value)
 {
-
-    unsigned int val;
-    debugOutput(DEBUG_LEVEL_VERBOSE, "setValue for switch %s (0x%X) to %d\n",
-      getName().c_str(), MOTU_G3_REG_MIXER, v);
+    long unsigned int dest;
+	switch (value) {
+		case 0:
+			dest = MOTU_MK3CTRL_MIX_DEST_DISABLED;
+			break;
+		case 1:
+			dest = MOTU_MK3CTRL_MIX_DEST_PHONES;
+			break;
+		case 2:
+			dest = MOTU_MK3CTRL_MIX_DEST_MAIN_L_R; //Traveler's Analog 1-2
+			break;
+		case 3:
+			dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_1_2; //Traveler's Analog 3-4
+			break;
+		case 4:
+			dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_3_4; //Traveler's Analog 5-6
+			break;
+		case 5:
+			dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_5_6; //Traveler's Analog 7-8
+			break;
+		case 6:
+			dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_7_8; //Traveler's AES 1-2
+			break;
+		case 7:
+			dest = MOTU_MK3CTRL_MIX_DEST_SPDIF; //Traveler's AES 1-2
+			break;
+		default:
+			dest = MOTU_MK3CTRL_MIX_DEST_DISABLED;
+			break;
+	}
+    debugOutput(DEBUG_LEVEL_WARNING, "setValue for switch %s (0x%X) to %d\n",
+      getName().c_str(), MOTU_G3_REG_MIXER, value);
 
     //FIXME: This is a hack to skip the "heartbeat" counting by resetting the magic number
     m_parent.WriteRegister(MOTU_G3_REG_MIXER, 0x00000000);
+    m_parent.WriteRegister(MOTU_G3_REG_MIXER, 0x00010000);
 
     quadlet_t data[2];
-    data[0] = MK3CTRL_SWITCH | MK3CTRL_MAGIC_NUMBER | MK3CTRL_DISABLED;
+    data[0] = MK3CTRL_SWITCH | MK3CTRL_MAGIC_NUMBER | dest;
     data[1] = MK3CTRL_BUS_OUTPUT_ASSIGN;
 
     if(m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2)){
-    	debugOutput(DEBUG_LEVEL_VERBOSE, "Error writing data[0]=(0x%X) data[1]=(0x%X) to register (0x%X)", data[0], data[1], MOTU_G3_REG_MIXER);
+    	debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to register (0x%08x)\n", data[0], data[1], MOTU_G3_REG_MIXER);
     	return false;
     }
-    debugOutput(DEBUG_LEVEL_VERBOSE, "So far so good writing data[0]=(0x%X) data[1]=(0x%X) to register (0x%X)", data[0], data[1], MOTU_G3_REG_MIXER);
+    debugOutput(DEBUG_LEVEL_WARNING, "So far so good writing data[0]=(0x%08x) data[1]=(0x%08x) to register (0x%08x)\n", data[0], data[1], MOTU_G3_REG_MIXER);
     return true;
 }
 
