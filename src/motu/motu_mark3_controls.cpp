@@ -29,45 +29,46 @@
 
 namespace Motu {
 
-
-MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int key)
-: Control::Discrete(&parent)
-, m_parent(parent)
-, m_key(key)
-{
-}
-
-MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int key,
+MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int bus,
 		std::string name, std::string label, std::string descr)
 : Control::Discrete(&parent)
 , m_parent(parent)
-, m_key(key)
 {
     setName(name);
     setLabel(label);
     setDescription(descr);
+    m_key = MOTU_MK3_KEY_NONE;
+    //TODO: Check if bus is valid
+    m_bus = bus;
 }
 
-MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int key)
-: MotuDiscreteCtrlMk3(parent, key)
+bool
+MotuDiscreteCtrlMk3::setValue(int value)
 {
+	//FIXME: This is a hack to avoid the "heartbeat" counting by resetting the serial number
+	m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET0);
+	m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET1);
+
+	quadlet_t data[2];
+	//First quadlet
+	data[0] = MOTU_MK3_DISCRETE_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | value;
+	//Second quadlet
+	data[1] = this->m_bus | this->m_key;
+
+	if(m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2)){
+		debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to MK3 mixer register\n", data[0], data[1], MOTU_G3_REG_MIXER);
+		return false;
+	}
+	return true;
 }
 
-MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int key,
+MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int bus,
 		std::string name, std::string label, std::string descr)
-: MotuDiscreteCtrlMk3(parent, key, name, label, descr)
+: MotuDiscreteCtrlMk3(parent, bus, name, label, descr)
 {
+	this->m_key |= MOTU_MK3_MIX_DEST_ASSIGN_CTRL;
 }
 
-//Example: Assigning Mix1 out to none:  0x020169ff00000002
-//FIRST Quadlet
-#define MK3CTRL_SWITCH					0x02006900
-#define MK3CTRL_SERIAL_NUMBER		    0x00020000
-
-//SECOND Quadlet
-#define MK3CTRL_MIX_OUTPUT_ASSIGN     	0x00000002
-#define MK3CTRL_MIX1                    0x00000000
-#define MK3CTRL_MIX2                    0x01000000
 
 bool
 MixDestMk3::setValue(int value)
@@ -100,24 +101,10 @@ MixDestMk3::setValue(int value)
 			break;
 		default:
 			dest = MOTU_MK3CTRL_MIX_DEST_DISABLED;
+			debugOutput(DEBUG_LEVEL_WARNING, "MixDestMk3 value %d not implemented\n", value);
 			break;
 	}
-    debugOutput(DEBUG_LEVEL_WARNING, "setValue for switch %s (0x%X) to MK3 mixer register\n",
-      getName().c_str(), MOTU_G3_REG_MIXER, value);
-
-    //FIXME: This is a hack to skip the "heartbeat" counting by resetting the serial number
-    m_parent.WriteRegister(MOTU_G3_REG_MIXER, 0x00000000);
-    m_parent.WriteRegister(MOTU_G3_REG_MIXER, 0x00010000);
-
-    quadlet_t data[2];
-    data[0] = MK3CTRL_SWITCH | MK3CTRL_SERIAL_NUMBER | dest;
-    data[1] = MK3CTRL_MIX_OUTPUT_ASSIGN | this->m_key;
-
-    if(m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2)){
-    	debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to MK3 mixer register\n", data[0], data[1], MOTU_G3_REG_MIXER);
-    	return false;
-    }
-    return true;
+	return MotuDiscreteCtrlMk3::setValue(value);
 }
 
 int

@@ -38,36 +38,36 @@ class MotuDiscreteCtrlMk3
     : public Control::Discrete
 {
 public:
-    MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int key);
-    MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int key,
+    MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int bus,
     		std::string name, std::string label, std::string descr);
 
-    virtual bool setValue(int v) = 0;
+    virtual bool setValue(int value) = 0;
     virtual int getValue() = 0;
 
     // default implementations
-    virtual bool setValue(int idx, int v)
-        {return setValue(v);};
-    virtual int getValue(int idx)
-        {return getValue();};
+	virtual bool setValue(int idx, int v)
+		{return setValue(v);};
+	virtual int getValue(int idx)
+		{return getValue();};
 
-    virtual int getMinimum() {return 0;};
-    virtual int getMaximum() {return 0;};
+	virtual int getMinimum() {return 0;};
+	virtual int getMaximum() {return 0;};
+
 
 protected:
     MotuDevice    &m_parent;
     unsigned long int  m_key;
+    unsigned long int  m_bus;
 };
 
 class MixDestMk3
     : public MotuDiscreteCtrlMk3
 {
 public:
-    MixDestMk3(MotuDevice &parent, unsigned long int key);
-    MixDestMk3(MotuDevice &parent, unsigned long int key,
+    MixDestMk3(MotuDevice &parent, unsigned long int bus,
     		std::string name, std::string label, std::string descr);
 
-    virtual bool setValue(int v);
+    virtual bool setValue(int value);
     virtual int getValue();
 };
 
@@ -76,14 +76,14 @@ public:
 /* A "register" value used to signify that a particular control in a matrix
  * mixer is not available on the current interface.
  */
-#define MOTU_MK3CTRL_NONE                  0xffffffff
+#define MOTU_MK3CTRL_NONE          0xffffffff
 
-#define MOTU_MK3CTRL_SWITCH					0x0200690000000000
+#define MOTU_MK3_KEY_NONE          0x00000000
 
-/*The following flags needs to be sent to MOTU_G3_REG_MIXER to reset
-the packet serial number and start operating the mixer*/
-#define MOTU_MK3CTRL_MIXER_RESET1  0x00000000
-#define MOTU_MK3CTRL_MIXER_RESET2  0x00010000
+/*The following quadlets needs to be sent to MOTU_G3_REG_MIXER to reset
+the packet serial number and begin interaction with the mixer*/
+#define MOTU_MK3CTRL_MIXER_RESET0  0x00000000
+#define MOTU_MK3CTRL_MIXER_RESET1  0x00010000
 
 /*The following flags are sent for request device status???
  *  (aa = packet serial number)*/
@@ -91,15 +91,20 @@ the packet serial number and start operating the mixer*/
 #define MOTU_MK3CTRL_MIXER_GET2    0x02aa0000
 
 /*Mask for packet serial number */
-#define MOTU_MK3CTRL_MIXER_SERIAL_NUMBER_MASK	   0x00ff0000
+#define MOTU_MK3CTRL_SERIAL_NUMBER		   0x00020000
+#define MOTU_MK3CTRL_SERIAL_NUMBER_MASK	   0x00ff0000
+
 
 /*
  *
- * CONTINUOUS CONTROLS
+ * Discrete controls
  *
  */
 
 /* Control key definitions */
+#define MOTU_MK3_MIX_DEST_ASSIGN_CTRL     0x00000002
+#define MOTU_MK3_DISCRETE_CTRL            0x02006900
+
 #define MOTU_MK3CTRL_MIX_DEST_DISABLED     0xff
 #define MOTU_MK3CTRL_MIX_DEST_MAIN_L_R     0x00
 #define MOTU_MK3CTRL_MIX_DEST_ANALOG_1_2   0x01
@@ -126,12 +131,48 @@ the packet serial number and start operating the mixer*/
 #define MOTU_MK3CTRL_MIX7                  0x08000000
 #define MOTU_MK3CTRL_MIX8                  0x09000000
 
+/*
+ *
+ * DISCRETE CONTROLS KEYS
+ *
+ */
+/*
+#define MOTU_MK3CTRL_INPUT_CHANNEL_DYNAMICS       0x000001
+#define MOTU_MK3CTRL_BUS_OUTPUT_ASSIGN            0x000002
+#define MOTU_MK3CTRL_OUTPUT_CHANNEL_DYNAMICS      0x000003
+#define MOTU_MK3CTRL_TALKBACK_CHANNEL             0x000300
+#define MOTU_MK3CTRL_TALKBACK_LISTEN              0x000400
+#define MOTU_MK3CTRL_MIX_CHANNEL_MUTE             0x000002
+#define MOTU_MK3CTRL_BUS_MUTE                     0x000102
+#define MOTU_MK3CTRL_OUTPUT_MONITOR               0x000c03
+#define MOTU_MK3CTRL_INPUT_CHANNEL_MODE           0x010001
+#define MOTU_MK3CTRL_REVERB_SPLIT_POINT           0x010004
+#define MOTU_MK3CTRL_MIX_CHANNEL_SOLO             0x010002 //mm
+#define MOTU_MK3CTRL_LVLR_OUTPUT_CHANNEL_MODE     0x010a03
+#define MOTU_MK3CTRL_TALKBACK_OUTPUT_CHANNEL_TALK 0x010c03
+#define MOTU_MK3CTRL_TALKBACK_OUTPUT_CHANNEL_LSTN 0x020c03
+#define MOTU_MK3CTRL_INPUT_CHANNEL_SWAP           0x030001
+#define MOTU_MK3CTRL_INPUT_CHANNEL_STEREO_MODE    0x040001
+#define MOTU_MK3CTRL_INPUT_CHANNEL_VLIMIT         0x060001
+#define MOTU_MK3CTRL_INPUT_CHANNEL_COMP_MODE      0x060a01
+#define MOTU_MK3CTRL_INPUT_CHANNEL_LVLR_MODE      0x060b01
+#define MOTU_MK3CTRL_OUTPUT_CHANNEL_COMP_MODE     0x060903
+#define MOTU_MK3CTRL_INPUT_CHANNEL_VLIMIT_LOOKAH  0x070001
+#define MOTU_MK3CTRL_INPUT_CHANEL_SOFT_CLIP       0x080801
+#define MOTU_MK3CTRL_INPUT_CHANEL_COMP_MODE       0x0c0004
+
+#define MOTU_MK3CTRL_ON                           0x01
+#define MOTU_MK3CTRL_OFF                          0x00
+
+#define MOTU_MK3CTRL_CHANNEL                      0x02 // 02->1c
+
+
 #define MOTU_MK3CTRL_BUS_REVERB_SEND       0x000102
 #define MOTU_MK3CTRL_INPUT_REVERB_SEND     0x000102
 #define MOTU_MK3CTRL_BUS_REVERB_RETURN     0x010102
 #define MOTU_MK3CTRL_INPUT_TRIM            0x020001
 #define MOTU_MK3CTRL_BUS_MASTER_FADER      0x020002
-#define MOTU_MK3CTRL_CHANNEL_PAN           0x020002 /*CAUTION*/
+#define MOTU_MK3CTRL_CHANNEL_PAN           0x020002 //CAUTION
 #define MOTU_MK3CTRL_CHANNEL_FADER         0x030002
 #define MOTU_MK3CTRL_CHANNEL_BALANCE       0x050002
 #define MOTU_MK3CTRL_CHANNEL_WIDTH         0x060002
@@ -186,7 +227,7 @@ the packet serial number and start operating the mixer*/
 #define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_MODEL_B  0x01
 #define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_MODEL_C  0x02
 #define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_MODEL_D  0x03
-#define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_MODEL_E  0x04
+#define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_MODEL_E  0x04*/
 
 /*
  *
@@ -194,107 +235,76 @@ the packet serial number and start operating the mixer*/
  *
  */
 
-/* Channel section limits */
-#define MOTU_MK3CTRL_FADER_MIN          0x00000000 /* -inf dB  */
-#define MOTU_MK3CTRL_FADER_MAX          0x3f800000 /*    0 dB  */
-
-#define MOTU_MK3CTRL_TRIM_MIC_MIN       0x00000000 /*    0 dB  */
-#define MOTU_MK3CTRL_TRIM_MIC_MAX       0x42540000 /*  +53 dB  */
-#define MOTU_MK3CTRL_TRIM_LINE_MIN      0xc2c00000 /*  -96 dB  */
-#define MOTU_MK3CTRL_TRIM_LINE_MAX      0x41b00000 /*  +22 dB  */
-
-#define MOTU_MK3CTRL_BALANCE_MIN        0xbf800000 /* -1 */
-#define MOTU_MK3CTRL_BALANCE_MAX        0x3f800000 /* +1 */
-
-#define MOTU_MK3CTRL_CH_WIDTH_MIN       0x00000000 /* 0 */
-#define MOTU_MK3CTRL_CH_WIDTH_MAX       0x3f800000 /* 1 */
-
-#define MOTU_MK3CTRL_PAN_LEFT           0xbf800000 /* Pan 100% Left  */
-#define MOTU_MK3CTRL_PAN_RGHT           0x3f800000 /* Pan 100% Right */
-
-/* Dynamics section limits */
-#define MOTU_MK3CTRL_COMP_TRIM_MIN      0xc0c00000 /*  -6 dB  */
-#define MOTU_MK3CTRL_COMP_TRIM_MAX      0x00000000 /*   0 dB  */
-#define MOTU_MK3CTRL_COMP_RATIO_MIN     0x3f800000 /*   1:1   */
-#define MOTU_MK3CTRL_COMP_RATIO_MAX     0x41200000 /*  10:1   */
-#define MOTU_MK3CTRL_COMP_ATTACK_MIN    0x41200000 /*  10 ms  */
-#define MOTU_MK3CTRL_COMP_ATTACK_MAX    0x42c80000 /* 100 ms  */
-#define MOTU_MK3CTRL_COMP_RELEASE_MIN   0x41200000 /*  10 ms  */
-#define MOTU_MK3CTRL_COMP_RELEASE_MAX   0x44fa1200 /*   2 s   */
-#define MOTU_MK3CTRL_COMP_THRESHOLD_MIN 0xc2400000 /* -48 dB  */
-#define MOTU_MK3CTRL_COMP_THRESHOLD_MAX 0x00000000 /*   0 dB  */
-
-#define MOTU_MK3CTRL_LVLR_MAKEUP_MIN    0x00000000 /*   ? db  */
-#define MOTU_MK3CTRL_LVLR_MAKEUP_MAX    0x42c80000 /*   ? db  */
-#define MOTU_MK3CTRL_LVLR_REDUCTION_MIN 0x00000000 /*   ? db  */
-#define MOTU_MK3CTRL_LVLR_REDUCTION_MAX 0x42c80000 /*   ? db  */
-
-/* EQ section limits */
-#define MOTU_MK3CTRL_EQ_FREQ_MIN  0x41a00001 /*   20 Hz  */
-#define MOTU_MK3CTRL_EQ_FREQ_MAX  0x469c4004 /*   20 kHz */
-#define MOTU_MK3CTRL_EQ_GAIN_MIN  0xc1a00000 /*  -20 dB  */
-#define MOTU_MK3CTRL_EQ_GAIN_MAX  0x41a00000 /*  +20 dB  */
-#define MOTU_MK3CTRL_EQ_Q_MIN     0x3c23d70a /* 0.01     */
-#define MOTU_MK3CTRL_EQ_Q_MAX     0x40400000 /* 3.00     */
-
-/*Reverb section limits */
-#define MOTU_MK3CTRL_REVERB_MIN                    0x00000000 /* -inf dB */
-#define MOTU_MK3CTRL_REVERB_MAX                    0x3f800000 /*    0 dB */
-#define MOTU_MK3CTRL_REVERB_PREDELAY_MIN           0x00000000 /*    0 ms  */
-#define MOTU_MK3CTRL_REVERB_PREDELAY_MAX           0x42c80000 /*  100 ms  */
-#define MOTU_MK3CTRL_REVERB_SHELF_FREQ_MIN         0x447a0000 /*    1 kHz */
-#define MOTU_MK3CTRL_REVERB_SHELF_FREQ_MAX         0x469c4000 /*   20 kHz */
-#define MOTU_MK3CTRL_REVERB_SHELF_CUT_MIN          0xc2200000 /*  -40 dB  */
-#define MOTU_MK3CTRL_REVERB_SHELF_CUT_MAX          0x00000000 /*    0 dB  */
-#define MOTU_MK3CTRL_REVERB_TIME_MIN               0x42c80000 /*  100 ms  */
-#define MOTU_MK3CTRL_REVERB_TIME_MAX               0x476a6000 /*   60 s   */
-#define MOTU_MK3CTRL_REVERB_DESIGN_TIME_MIN        0x00000000 /*    0 %   */
-#define MOTU_MK3CTRL_REVERB_DESIGN_TIME_MAX        0x42c80000 /*  100 %   */
-#define MOTU_MK3CTRL_REVERB_DESIGN_CROSS_LOW_MIN   0x42c80000 /*  100 Hz  */
-#define MOTU_MK3CTRL_REVERB_DESIGN_CROSS_LOW_MAX   0x469c4004 /*   20 kHz */
-#define MOTU_MK3CTRL_REVERB_DESIGN_CROSS_HIGH_MIN  0x447a0000 /*    1 kHz */
-#define MOTU_MK3CTRL_REVERB_DESIGN_CROSS_HIGH_MAX  0x469c4004 /*   20 kHz */
-#define MOTU_MK3CTRL_REVERB_DESIGN_WIDTH_MIN       0x469c4004 /* -100 %   */
-#define MOTU_MK3CTRL_REVERB_DESIGN_WIDTH_MAX       0x3f800000 /* +100 %   */
-#define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_SIZE_MIN 0x42480000 /*   50 %   */
-#define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_SIZE_MAX 0x43c64000 /*  400 %   */
-#define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_LVL_MIN  0x00000000 /* -inf dB  */
-#define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_LVL_MAX  0x3f800000 /*    0 dB  */
-
 /*
- *
- * DISCRETE CONTROLS KEYS
- *
- */
+// Channel section limits
+#define MOTU_MK3CTRL_FADER_MIN          0x00000000 // -inf dB
+#define MOTU_MK3CTRL_FADER_MAX          0x3f800000 //    0 dB
 
-#define MOTU_MK3CTRL_INPUT_CHANNEL_DYNAMICS       0x000001
-#define MOTU_MK3CTRL_BUS_OUTPUT_ASSIGN            0x000002
-#define MOTU_MK3CTRL_OUTPUT_CHANNEL_DYNAMICS      0x000003
-#define MOTU_MK3CTRL_TALKBACK_CHANNEL             0x000300
-#define MOTU_MK3CTRL_TALKBACK_LISTEN              0x000400
-#define MOTU_MK3CTRL_MIX_CHANNEL_MUTE             0x000002
-#define MOTU_MK3CTRL_BUS_MUTE                     0x000102
-#define MOTU_MK3CTRL_OUTPUT_MONITOR               0x000c03
-#define MOTU_MK3CTRL_INPUT_CHANNEL_MODE           0x010001
-#define MOTU_MK3CTRL_REVERB_SPLIT_POINT           0x010004
-#define MOTU_MK3CTRL_MIX_CHANNEL_SOLO             0x010002 /*mm*/
-#define MOTU_MK3CTRL_LVLR_OUTPUT_CHANNEL_MODE     0x010a03
-#define MOTU_MK3CTRL_TALKBACK_OUTPUT_CHANNEL_TALK 0x010c03
-#define MOTU_MK3CTRL_TALKBACK_OUTPUT_CHANNEL_LSTN 0x020c03
-#define MOTU_MK3CTRL_INPUT_CHANNEL_SWAP           0x030001
-#define MOTU_MK3CTRL_INPUT_CHANNEL_STEREO_MODE    0x040001
-#define MOTU_MK3CTRL_INPUT_CHANNEL_VLIMIT         0x060001
-#define MOTU_MK3CTRL_INPUT_CHANNEL_COMP_MODE      0x060a01
-#define MOTU_MK3CTRL_INPUT_CHANNEL_LVLR_MODE      0x060b01
-#define MOTU_MK3CTRL_OUTPUT_CHANNEL_COMP_MODE     0x060903
-#define MOTU_MK3CTRL_INPUT_CHANNEL_VLIMIT_LOOKAH  0x070001
-#define MOTU_MK3CTRL_INPUT_CHANEL_SOFT_CLIP       0x080801
-#define MOTU_MK3CTRL_INPUT_CHANEL_COMP_MODE       0x0c0004
+#define MOTU_MK3CTRL_TRIM_MIC_MIN       0x00000000 //    0 dB
+#define MOTU_MK3CTRL_TRIM_MIC_MAX       0x42540000 //  +53 dB
+#define MOTU_MK3CTRL_TRIM_LINE_MIN      0xc2c00000 //  -96 dB
+#define MOTU_MK3CTRL_TRIM_LINE_MAX      0x41b00000 //  +22 dB
 
-#define MOTU_MK3CTRL_ON                           0x01
-#define MOTU_MK3CTRL_OFF                          0x00
+#define MOTU_MK3CTRL_BALANCE_MIN        0xbf800000 // -1
+#define MOTU_MK3CTRL_BALANCE_MAX        0x3f800000 // +1
 
-#define MOTU_MK3CTRL_CHANNEL                      0x02 /* 02->1c */
+#define MOTU_MK3CTRL_CH_WIDTH_MIN       0x00000000 // 0
+#define MOTU_MK3CTRL_CH_WIDTH_MAX       0x3f800000 // 1
+
+#define MOTU_MK3CTRL_PAN_LEFT           0xbf800000 // Pan 100% Left
+#define MOTU_MK3CTRL_PAN_RGHT           0x3f800000 // Pan 100% Right
+
+// Dynamics section limits
+#define MOTU_MK3CTRL_COMP_TRIM_MIN      0xc0c00000 //  -6 dB
+#define MOTU_MK3CTRL_COMP_TRIM_MAX      0x00000000 //   0 dB
+#define MOTU_MK3CTRL_COMP_RATIO_MIN     0x3f800000 //   1:1
+#define MOTU_MK3CTRL_COMP_RATIO_MAX     0x41200000 //  10:1
+#define MOTU_MK3CTRL_COMP_ATTACK_MIN    0x41200000 //  10 ms
+#define MOTU_MK3CTRL_COMP_ATTACK_MAX    0x42c80000 // 100 ms
+#define MOTU_MK3CTRL_COMP_RELEASE_MIN   0x41200000 //  10 ms
+#define MOTU_MK3CTRL_COMP_RELEASE_MAX   0x44fa1200 //   2 s
+#define MOTU_MK3CTRL_COMP_THRESHOLD_MIN 0xc2400000 // -48 dB
+#define MOTU_MK3CTRL_COMP_THRESHOLD_MAX 0x00000000 //   0 dB
+
+#define MOTU_MK3CTRL_LVLR_MAKEUP_MIN    0x00000000 //   ? db
+#define MOTU_MK3CTRL_LVLR_MAKEUP_MAX    0x42c80000 //   ? db
+#define MOTU_MK3CTRL_LVLR_REDUCTION_MIN 0x00000000 //   ? db
+#define MOTU_MK3CTRL_LVLR_REDUCTION_MAX 0x42c80000 //   ? db
+
+// EQ section limits
+#define MOTU_MK3CTRL_EQ_FREQ_MIN  0x41a00001 //   20 Hz
+#define MOTU_MK3CTRL_EQ_FREQ_MAX  0x469c4004 //   20 kHz
+#define MOTU_MK3CTRL_EQ_GAIN_MIN  0xc1a00000 //  -20 dB
+#define MOTU_MK3CTRL_EQ_GAIN_MAX  0x41a00000 //  +20 dB
+#define MOTU_MK3CTRL_EQ_Q_MIN     0x3c23d70a // 0.01
+#define MOTU_MK3CTRL_EQ_Q_MAX     0x40400000 // 3.00
+
+//Reverb section limits
+#define MOTU_MK3CTRL_REVERB_MIN                    0x00000000 // -inf dB
+#define MOTU_MK3CTRL_REVERB_MAX                    0x3f800000 //    0 dB
+#define MOTU_MK3CTRL_REVERB_PREDELAY_MIN           0x00000000 //    0 ms
+#define MOTU_MK3CTRL_REVERB_PREDELAY_MAX           0x42c80000 //  100 ms
+#define MOTU_MK3CTRL_REVERB_SHELF_FREQ_MIN         0x447a0000 //    1 kHz
+#define MOTU_MK3CTRL_REVERB_SHELF_FREQ_MAX         0x469c4000 //   20 kHz
+#define MOTU_MK3CTRL_REVERB_SHELF_CUT_MIN          0xc2200000 //  -40 dB
+#define MOTU_MK3CTRL_REVERB_SHELF_CUT_MAX          0x00000000 //    0 dB
+#define MOTU_MK3CTRL_REVERB_TIME_MIN               0x42c80000 //  100 ms
+#define MOTU_MK3CTRL_REVERB_TIME_MAX               0x476a6000 //   60 s
+#define MOTU_MK3CTRL_REVERB_DESIGN_TIME_MIN        0x00000000 //    0 %
+#define MOTU_MK3CTRL_REVERB_DESIGN_TIME_MAX        0x42c80000 //  100 %
+#define MOTU_MK3CTRL_REVERB_DESIGN_CROSS_LOW_MIN   0x42c80000 //  100 Hz
+#define MOTU_MK3CTRL_REVERB_DESIGN_CROSS_LOW_MAX   0x469c4004 //   20 kHz
+#define MOTU_MK3CTRL_REVERB_DESIGN_CROSS_HIGH_MIN  0x447a0000 //    1 kHz
+#define MOTU_MK3CTRL_REVERB_DESIGN_CROSS_HIGH_MAX  0x469c4004 //   20 kHz
+#define MOTU_MK3CTRL_REVERB_DESIGN_WIDTH_MIN       0x469c4004 // -100 %
+#define MOTU_MK3CTRL_REVERB_DESIGN_WIDTH_MAX       0x3f800000 // +100 %
+#define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_SIZE_MIN 0x42480000 //   50 %
+#define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_SIZE_MAX 0x43c64000 //  400 %
+#define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_LVL_MIN  0x00000000 // -inf dB
+#define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_LVL_MAX  0x3f800000 //    0 dB
+
+
+*/
 
 
 }
