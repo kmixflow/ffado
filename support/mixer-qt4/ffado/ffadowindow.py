@@ -192,6 +192,7 @@ def ffadomain(args):
     logging.getLogger('edirolfa101').setLevel(debug_level)
     logging.getLogger('edirolfa66').setLevel(debug_level)
     logging.getLogger('motu').setLevel(debug_level)
+    logging.getLogger('motu_mark3').setLevel(debug_level)
     logging.getLogger('rme').setLevel(debug_level)
     logging.getLogger('phase24').setLevel(debug_level)
     logging.getLogger('phase88').setLevel(debug_level)
