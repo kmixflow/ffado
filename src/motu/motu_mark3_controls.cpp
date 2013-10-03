@@ -38,25 +38,31 @@ MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int b
     setLabel(label);
     setDescription(descr);
     m_key = MOTU_MK3_KEY_NONE;
-    //TODO: Check if bus is valid
+    //FIXME: Check if bus is valid
     m_bus = bus;
 }
 
 bool
 MotuDiscreteCtrlMk3::setValue(int value)
 {
+	if(this->m_key == MOTU_MK3_KEY_NONE){
+		debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a discrete control with unintialized key\n");
+		return false;
+	}
 	//FIXME: This is a hack to avoid the "heartbeat" counting by resetting the serial number
 	m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET0);
 	m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET1);
 
 	quadlet_t data[2];
-	//First quadlet
+
+	//First quadlet:
 	data[0] = MOTU_MK3_DISCRETE_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | value;
-	//Second quadlet
+
+	//Second quadlet:
 	data[1] = this->m_bus | this->m_key;
 
 	if(m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2)){
-		debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to MK3 mixer register\n", data[0], data[1], MOTU_G3_REG_MIXER);
+		debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to Mark3 mixer register\n", data[0], data[1], MOTU_G3_REG_MIXER);
 		return false;
 	}
 	return true;
@@ -66,13 +72,23 @@ MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int bus,
 		std::string name, std::string label, std::string descr)
 : MotuDiscreteCtrlMk3(parent, bus, name, label, descr)
 {
-	this->m_key |= MOTU_MK3_MIX_DEST_ASSIGN_CTRL;
+	this->m_key = MOTU_MK3_MIX_DEST_ASSIGN_CTRL;
 }
 
 
 bool
 MixDestMk3::setValue(int value)
 {
+	//TODO: Implement this:
+	/*
+	 *
+	 * debugOutput(DEBUG_LEVEL_VERBOSE, "setValue for channel pan 0x%04x to %d\n", m_register, v);
+
+    if (m_register == MOTU_CTRL_NONE) {
+        debugOutput(DEBUG_LEVEL_WARNING, "use of MOTU_CTRL_NONE in non-matrix control\n");
+        return true;
+    }
+	 */
     unsigned int dest;
 	switch (value) {
 		case 0:
@@ -104,7 +120,7 @@ MixDestMk3::setValue(int value)
 			debugOutput(DEBUG_LEVEL_WARNING, "MixDestMk3 value %d not implemented\n", value);
 			break;
 	}
-	return MotuDiscreteCtrlMk3::setValue(value);
+	return MotuDiscreteCtrlMk3::setValue(dest);
 }
 
 int
