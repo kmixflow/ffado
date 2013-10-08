@@ -71,17 +71,61 @@ public:
     virtual int getValue();
 };
 
+class MotuContinuousCtrlMk3
+    : public Control::Continuous
+{
+public:
+    MotuContinuousCtrlMk3(MotuDevice &parent, unsigned long int bus,
+    		std::string name, std::string label, std::string descr);
 
+    virtual bool setValue(double value) = 0;
+    virtual int getValue() = 0;
+
+    // default implementations
+	virtual bool setValue(int idx, int v)
+		{return setValue(v);};
+	virtual int getValue(int idx)
+		{return getValue();};
+
+	virtual int getMinimum() {return 0;};
+	virtual int getMaximum() {return 0;};
+
+
+protected:
+    MotuDevice    &m_parent;
+    unsigned long int  m_key;
+    unsigned long int  m_bus;
+    unsigned long int  m_minimum;
+    unsigned long int  m_maximum;
+};
+
+class ChannelFaderMk3
+    : public MotuContinuousCtrlMk3
+{
+public:
+    ChannelFaderMk3(MotuDevice &parent, unsigned long int bus,
+          std::string name, std::string label, std::string descr);
+
+    virtual bool setValue(double v);
+    virtual int getValue();
+};
 
 /* A "register" value used to signify that a particular control in a matrix
  * mixer is not available on the current interface.
  */
 #define MOTU_MK3CTRL_NONE          0xffffffff
 
+/* Default key for all MK3 Controls. This should be set up properly by each
+ * control constructor
+ */
 #define MOTU_MK3_KEY_NONE          0x00000000
 
-/*The following quadlets needs to be sent to MOTU_G3_REG_MIXER to reset
-the packet serial number and begin interaction with the mixer*/
+// FIXME: What would be the best value for this?
+#define MOTU_MK3_VALUE_NONE        0x00000000
+
+/* The following quadlets needs to be sent to MOTU_G3_REG_MIXER to reset
+ * the packet serial number and begin interaction with the mixer
+ */
 #define MOTU_MK3CTRL_MIXER_RESET0  0x00000000
 #define MOTU_MK3CTRL_MIXER_RESET1  0x00010000
 
@@ -104,6 +148,7 @@ the packet serial number and begin interaction with the mixer*/
 /* Control key definitions */
 #define MOTU_MK3_MIX_DEST_ASSIGN_CTRL     0x00000002
 #define MOTU_MK3_DISCRETE_CTRL            0x02006900
+#define MOTU_MK3_CONTINUOUS_CTRL          0x02006600
 
 #define MOTU_MK3CTRL_MIX_DEST_DISABLED     0xff
 #define MOTU_MK3CTRL_MIX_DEST_MAIN_L_R     0x00
@@ -165,6 +210,12 @@ the packet serial number and begin interaction with the mixer*/
 #define MOTU_MK3CTRL_OFF                          0x00
 
 #define MOTU_MK3CTRL_CHANNEL                      0x02 // 02->1c
+
+/*
+ *
+ * CONTINUOUS CONTROLS KEYS
+ *
+ */
 
 
 #define MOTU_MK3CTRL_BUS_REVERB_SEND       0x000102
@@ -235,7 +286,6 @@ the packet serial number and begin interaction with the mixer*/
  *
  */
 
-/*
 // Channel section limits
 #define MOTU_MK3CTRL_FADER_MIN          0x00000000 // -inf dB
 #define MOTU_MK3CTRL_FADER_MAX          0x3f800000 //    0 dB
@@ -303,8 +353,6 @@ the packet serial number and begin interaction with the mixer*/
 #define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_LVL_MIN  0x00000000 // -inf dB
 #define MOTU_MK3CTRL_REVERB_EARLY_REFLECT_LVL_MAX  0x3f800000 //    0 dB
 
-
-*/
 
 
 }
