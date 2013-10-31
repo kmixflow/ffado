@@ -527,7 +527,7 @@ class Motu_Mark3(QWidget):
         sender = self.sender()
         vol = a0
         log.debug("setting %s mix fader to %d" % (self.Faders[sender][0], vol))
-        self.hw.setDiscrete(self.Faders[sender][0], vol)
+        self.hw.setContinuous(self.Faders[sender][0], vol)
 
     # public slot: selectors (eg: mix destination controls)
     def updateSelector(self, a0):
