@@ -61,31 +61,6 @@ const MatrixMixChannelMk3 MixerChannels_TravelerMk3[] = {
     {"ADAT 8", MOTU_CTRL_STD_CHANNEL, 0x004c, },
 };
 
-//case 0:
-//			dest = MOTU_MK3CTRL_MIX_DEST_DISABLED;
-//			break;
-//		case 1:
-//			dest = MOTU_MK3CTRL_MIX_DEST_PHONES;
-//			break;
-//		case 2:
-//			dest = MOTU_MK3CTRL_MIX_DEST_MAIN_L_R; //Traveler's Analog 1-2
-//			break;
-//		case 3:
-//			dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_1_2; //Traveler's Analog 3-4
-//			break;
-//		case 4:
-//			dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_3_4; //Traveler's Analog 5-6
-//			break;
-//		case 5:
-//			dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_5_6; //Traveler's Analog 7-8
-//			break;
-//		case 6:
-//			dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_7_8; //Traveler's AES 1-2
-//			break;
-//		case 7:
-//			dest = MOTU_MK3CTRL_MIX_DEST_SPDIF; //Traveler's AES 1-2
-//			break;
-
 const MixerCtrlMk3 MixerCtrls_TravelerMk3[] = {
     {"Mix1/Mix_", "Mix 1 ", "", MOTU_CTRL_STD_MIX, 0x00000000, },
     {"Mix2/Mix_", "Mix 2 ", "", MOTU_CTRL_STD_MIX, 0x01000000, },
@@ -116,7 +91,7 @@ const MixerCtrlMk3 MixerCtrls_TravelerMk3[] = {
     {"Control/OpticalOut_mode", "Optical output mode ", "", MOTU_CTRL_OPTICAL_MODE, MOTU_CTRL_DIR_OUT},
 };
 
-const MotuMark3Mixer Mixer_TravelerMk3 = MOTUMIXER(
+const MotuMixerMk3 Mixer_TravelerMk3 = MOTUMIXER(
     MixerCtrls_TravelerMk3, MixerBuses_TravelerMk3, MixerChannels_TravelerMk3);
 
 }

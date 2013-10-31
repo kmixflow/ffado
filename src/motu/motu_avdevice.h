@@ -364,14 +364,14 @@ struct MixerCtrlMk3 {
 };
 struct MatrixMixBusMk3 {
     const char *name;
-    unsigned int address;
+    unsigned int address; //TODO: Cambiar por el id del bus
 };
 struct MatrixMixChannelMk3 {
     const char *name;
     unsigned int flags;
-    unsigned int addr_ofs;
+    unsigned int addr_ofs; //TODO: Cambiar por el id del canal
 };
-struct MotuMark3Mixer {
+struct MotuMixerMk3 {
     const MixerCtrlMk3 *mixer_ctrl;
     unsigned int n_mixer_ctrls;
     const MatrixMixBusMk3 *mixer_buses;
@@ -388,7 +388,7 @@ struct DevicePropertyEntry {
     signed int MaxSampleRate;
     // A device will set at most one of the *mixer fields
     const struct MotuMixer *mixer;
-    const struct MotuMark3Mixer *mk3mixer;
+    const struct MotuMixerMk3 *mk3mixer;
     // Others features can be added here like MIDI port presence.
 };
 
