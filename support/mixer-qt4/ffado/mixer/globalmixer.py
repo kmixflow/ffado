@@ -70,6 +70,9 @@ class GlobalMixer(QWidget):
             return
         if self.samplerateselect.canChangeValue():
             self.samplerateselect.select( sr )
+            if 'onSamplerateChange' in dir(self):
+                self.onSamplerateChange()
+                log.debug("Mixer configuration updated")
         else:
             msg = QMessageBox()
             msg.question( msg, "Error", \
@@ -163,7 +166,16 @@ class GlobalMixer(QWidget):
             self.chkStreamOut.setChecked(True)
 
         if (ss!=self.streaming_status and ss_txt!='Idle'):
+            sr = self.samplerate.currentIndex()
             self.samplerate.setCurrentIndex( self.samplerateselect.selected() )
+            # Check (and update) if device configuration needs to be updated
+            if ( self.samplerateselect.devConfigChanged(sr) ):
+                log.debug("Samplerate modified by external client")
+                if 'onSamplerateChange' in dir(self):
+                    self.onSamplerateChange()
+                    log.debug("Mixer configuration updated ")
+                else:
+                    log.debug("Mixer configuration need to be updated but no means is provided")
         self.streaming_status = ss
 
         # Allow for devices whose sample rates can change dynamically (for

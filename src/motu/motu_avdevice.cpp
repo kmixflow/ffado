@@ -654,10 +654,19 @@ PortGroupEntry PortGroups_828mk3[] =
     // flagged as present if optical B was set to ADAT; this seems wrong on
     // reflection.
     //
+    // The purpose of the Toslink-{A,B}-extra-* ports is not yet known,
+    // beyond the observed fact that allowance must be made for them in the
+    // packet format whenever the corresponding optical port is set to
+    // Toslink mode.  They may be padding, but for now connect them with
+    // audio ports so users can experiment to see if they correspond to
+    // anything interesting.
+    //
     {"Toslink-A%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_TOSLINK|MOTU_PA_MK3_OPT_B_ANY, },
+    {"Toslink-A-extra-%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_TOSLINK|MOTU_PA_MK3_OPT_B_ANY, },
     {"ADAT-A%d", 8, MOTU_PA_INOUT | MOTU_PA_RATE_1x|MOTU_PA_MK3_OPT_A_ADAT|MOTU_PA_MK3_OPT_B_ANY, }, 
     {"ADAT-A%d", 4, MOTU_PA_INOUT | MOTU_PA_RATE_2x|MOTU_PA_MK3_OPT_A_ADAT|MOTU_PA_MK3_OPT_B_ANY, }, 
     {"Toslink-B%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_TOSLINK, },
+    {"Toslink-B-extra-%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_TOSLINK, },
     {"ADAT-B%d", 8, MOTU_PA_INOUT | MOTU_PA_RATE_1x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_ADAT, },
     {"ADAT-B%d", 4, MOTU_PA_INOUT | MOTU_PA_RATE_2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_ADAT, },
     {"UnknownB-%d", 2, MOTU_PA_IN | MOTU_PA_RATE_2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_ANY, },
@@ -701,12 +710,31 @@ PortGroupEntry PortGroups_TRAVELERmk3[] =
     {"Reverb%d", 2, MOTU_PA_IN | MOTU_PA_RATE_1x|MOTU_PA_MK3_OPT_ANY, },
     {"Unknown%d", 2, MOTU_PA_IN | MOTU_PA_RATE_1x|MOTU_PA_MK3_OPT_ANY, },
     //
-    // FIXME: optical port details to be filled in later.
+    // FIXME: optical port details still being determined.
     //
+    // The purpose of the Toslink-{A,B}-extra-* ports is not yet known,
+    // beyond the observed fact that allowance must be made for them in the
+    // packet format whenever the corresponding optical port is set to
+    // Toslink mode.  They may be padding, but for now connect them with
+    // audio ports so users can experiment to see if they correspond to
+    // anything interesting.
+    //
+    {"Toslink-A%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_TOSLINK|MOTU_PA_MK3_OPT_B_ANY, },
+    {"Toslink-A-extra-%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_TOSLINK|MOTU_PA_MK3_OPT_B_ANY, },
+    {"ADAT-A%d", 8, MOTU_PA_INOUT | MOTU_PA_RATE_1x|MOTU_PA_MK3_OPT_A_ADAT|MOTU_PA_MK3_OPT_B_ANY, }, 
+    {"ADAT-A%d", 4, MOTU_PA_INOUT | MOTU_PA_RATE_2x|MOTU_PA_MK3_OPT_A_ADAT|MOTU_PA_MK3_OPT_B_ANY, }, 
+    {"Toslink-B%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_TOSLINK, },
+    {"Toslink-B-extra-%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_TOSLINK, },
+    {"ADAT-B%d", 8, MOTU_PA_INOUT | MOTU_PA_RATE_1x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_ADAT, },
+    {"ADAT-B%d", 4, MOTU_PA_INOUT | MOTU_PA_RATE_2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_ADAT, },
+    {"UnknownB-%d", 2, MOTU_PA_IN | MOTU_PA_RATE_2x|MOTU_PA_MK3_OPT_A_TOSLINK|MOTU_PA_MK3_OPT_B_TOSLINK, },
 };
 
 /* FIXME: as of 8 Oct 2010 this is still under development.  Presently this
- * layout is nothing more than an educated guess.
+ * layout is nothing more than an educated guess.  The presence of the
+ * Toslink-{A,B}-extra-* ports is even more of a guess, and is based on
+ * the observation that they have so far proved necessary on the mk3
+ * devices which we have been able to explicitly verify.
  */
 PortGroupEntry PortGroups_896mk3[] =
 {
@@ -720,8 +748,10 @@ PortGroupEntry PortGroups_896mk3[] =
     {"UnknownOut-%d", 2, MOTU_PA_OUT | MOTU_PA_RATE_1x|MOTU_PA_MK3_OPT_ANY, },
     {"Toslink-A%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_TOSLINK|MOTU_PA_MK3_OPT_B_ANY, },
     {"ADAT-A%d", 8, MOTU_PA_INOUT | MOTU_PA_RATE_1x|MOTU_PA_MK3_OPT_A_ADAT|MOTU_PA_MK3_OPT_B_ANY, }, 
+    {"Toslink-A-extra-%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_TOSLINK|MOTU_PA_MK3_OPT_B_ANY, },
     {"ADAT-A%d", 4, MOTU_PA_INOUT | MOTU_PA_RATE_2x|MOTU_PA_MK3_OPT_A_ADAT|MOTU_PA_MK3_OPT_B_ANY, }, 
     {"Toslink-B%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_TOSLINK, },
+    {"Toslink-B-extra-%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_TOSLINK, },
     {"ADAT-B%d", 8, MOTU_PA_INOUT | MOTU_PA_RATE_1x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_ADAT, },
     {"ADAT-B%d", 4, MOTU_PA_INOUT | MOTU_PA_RATE_2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_ADAT, },
 };
@@ -1964,13 +1994,14 @@ unsigned int MotuDevice::getOpticalMode(unsigned int dir,
             return 0;
         }
         reg = ReadRegister(MOTU_G3_REG_OPTICAL_CTRL);
+        debugOutput(DEBUG_LEVEL_VERBOSE, "mark3 optical control register = 0x%08x\n", reg);
         if (port_a_mode != NULL) {
             enable = (dir==MOTU_DIR_IN)?MOTU_G3_OPT_A_IN_ENABLE:MOTU_G3_OPT_A_OUT_ENABLE;
             toslink = (dir==MOTU_DIR_IN)?MOTU_G3_OPT_A_IN_TOSLINK:MOTU_G3_OPT_A_OUT_TOSLINK;
             if ((reg & enable) == 0)
               *port_a_mode = MOTU_OPTICAL_MODE_OFF;
             else
-            if ((reg & toslink) == 0)
+            if ((reg & toslink) != 0)
               *port_a_mode = MOTU_OPTICAL_MODE_TOSLINK;
             else
               *port_a_mode = MOTU_OPTICAL_MODE_ADAT;
@@ -1981,7 +2012,7 @@ unsigned int MotuDevice::getOpticalMode(unsigned int dir,
             if ((reg & enable) == 0)
               *port_b_mode = MOTU_OPTICAL_MODE_OFF;
             else
-            if ((reg & toslink) == 0)
+            if ((reg & toslink) != 0)
               *port_b_mode = MOTU_OPTICAL_MODE_TOSLINK;
             else
               *port_b_mode = MOTU_OPTICAL_MODE_ADAT;

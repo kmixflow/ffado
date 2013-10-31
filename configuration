@@ -31,11 +31,19 @@ device_definitions = (
     driver      = "OXFORD";
     xmit_transfer_delay = 11776;
 },
-{ # IDs from Geoff Beasley.  Thought to be a BeBoB device: to be confirmed.
+{ # IDs from Geoff Beasley.
     vendorid    = 0x001564;
     modelid     = 0x00000006;
     vendorname  = "Behringer";
     modelname   = "X32";
+    driver      = "BEBOB";
+    xmit_max_cycles_early_transmit = 4;
+},
+{ # IDs from Tony Rocco.
+    vendorid    = 0x001564;
+    modelid     = 0x00001604;
+    vendorname  = "Behringer";
+    modelname   = "UFX-1604 mixer";
     driver      = "BEBOB";
     xmit_max_cycles_early_transmit = 4;
 },
@@ -111,7 +119,7 @@ device_definitions = (
     modelid     = 0x00000011;
     vendorname  = "PreSonus";
     modelname   = "Firestudio Mobile";
-    driver = "DICE";
+    driver      = "DICE";
 },
 { # Entry for StudioLive 2442, from Walt Baldwin
     vendorid    = 0x00000A92;
@@ -208,7 +216,7 @@ device_definitions = (
     vendorname  = "M-Audio";
     modelname   = "Ozonic";
     driver      = "BEBOB";
-    mixer       = "Ozonic";
+    mixer       = "MAudio_BeBoB";
     xmit_max_cycles_early_transmit = 4;
 },
 {
@@ -217,6 +225,7 @@ device_definitions = (
     vendorname  = "M-Audio";
     modelname   = "FW Solo";
     driver      = "BEBOB";
+    mixer       = "MAudio_BeBoB";
     xmit_max_cycles_early_transmit = 4;
 },
 {
@@ -225,6 +234,7 @@ device_definitions = (
     vendorname  = "M-Audio";
     modelname   = "NRV10";
     driver      = "BEBOB";
+    # no mixer
     xmit_max_cycles_early_transmit = 4;
 },
 {
@@ -233,6 +243,16 @@ device_definitions = (
     vendorname  = "M-Audio";
     modelname   = "FW Audiophile";
     driver      = "BEBOB";
+    mixer       = "MAudio_BeBoB";
+    xmit_max_cycles_early_transmit = 4;
+},
+{
+    vendorid    = 0x000d6c;
+    modelid     = 0x00010046;
+    vendorname  = "M-Audio";
+    modelname   = "FW 410";
+    driver      = "BEBOB";
+    mixer       = "MAudio_BeBoB";
     xmit_max_cycles_early_transmit = 4;
 },
 {
@@ -248,15 +268,15 @@ device_definitions = (
     modelid     = 0x00000010;
     vendorname  = "M-Audio";
     modelname   = "ProFire 2626";
-    driver = "DICE";
-    mixer       = "Generic_Dice_EAP";
+    driver      = "DICE";
+    mixer       = "Profire2626";
 },
 {
     vendorid    = 0x000d6c;
     modelid     = 0x00000011;
     vendorname  = "M-Audio";
     modelname   = "ProFire 610";
-    driver = "DICE";
+    driver      = "DICE";
     mixer       = "Generic_Dice_EAP";
 },
 {

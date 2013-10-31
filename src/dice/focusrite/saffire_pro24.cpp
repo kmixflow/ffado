@@ -211,30 +211,30 @@ SaffirePro24::SaffirePro24EAP::MonitorSection::MonitorSection(Dice::Focusrite::F
     // Global Mute control
     Control::Container* grp_globalmute = new Control::Container(m_eap, "GlobalMute");
     addElement(grp_globalmute);
-    FocusriteEAP::Switch* m_mute =
+    FocusriteEAP::Switch* mute =
         new FocusriteEAP::Switch(m_eap, "State",
                                  SAFFIRE_PRO24_REGISTER_APP_GLOBAL_MUTE_SWITCH,
                                  FOCUSRITE_EAP_GLOBAL_MUTE_SWITCH_VALUE,
                                  SAFFIRE_PRO24_REGISTER_APP_MESSAGE_SET,
                                  SAFFIRE_PRO24_MESSAGE_SET_GLOBAL_DIM_MUTE_SWITCH);
-    grp_globalmute->addElement(m_mute);
+    grp_globalmute->addElement(mute);
 
     // Global Dim control
     Control::Container* grp_globaldim = new Control::Container(m_eap, "GlobalDim");
     addElement(grp_globaldim);
-    FocusriteEAP::Switch* m_dim =
+    FocusriteEAP::Switch* dim =
         new FocusriteEAP::Switch(m_eap, "State",
                                  SAFFIRE_PRO24_REGISTER_APP_GLOBAL_DIM_SWITCH,
                                  FOCUSRITE_EAP_GLOBAL_DIM_SWITCH_VALUE, 
                                  SAFFIRE_PRO24_REGISTER_APP_MESSAGE_SET,
                                  SAFFIRE_PRO24_MESSAGE_SET_GLOBAL_DIM_MUTE_SWITCH);
-    grp_globaldim->addElement(m_dim);
-    FocusriteEAP::Poti* m_dimlevel =
+    grp_globaldim->addElement(dim);
+    FocusriteEAP::Poti* dimlevel =
         new FocusriteEAP::Poti(m_eap, "Level",
                                SAFFIRE_PRO24_REGISTER_APP_GLOBAL_DIM_VOLUME,
                                SAFFIRE_PRO24_REGISTER_APP_MESSAGE_SET,
                                SAFFIRE_PRO24_MESSAGE_SET_LINEOUT_MONITOR_VOLUME);
-    grp_globaldim->addElement(m_dimlevel);
+    grp_globaldim->addElement(dimlevel);
 
     FocusriteEAP::Switch* s;
     // Mono/stereo switch
@@ -373,36 +373,36 @@ SaffirePro24::SaffirePro24EAP::MonitorSection::MonitorSection(Dice::Focusrite::F
 
     Control::Container* grp_LineInstGain = new Control::Container(m_eap, "LineInstGain");
     addElement(grp_LineInstGain);
-    FocusriteEAP::Switch* m_lineinst =
+    FocusriteEAP::Switch* lineinst =
         new FocusriteEAP::Switch(m_eap, "LineInst1",
                                  SAFFIRE_PRO24_REGISTER_APP_LINEOUT_INST_SWITCH,
                                  SAFFIRE_PRO24_LINEOUT_SWITCH_INST_VALUE,
                                  SAFFIRE_PRO24_REGISTER_APP_MESSAGE_SET,
                                  SAFFIRE_PRO24_MESSAGE_SET_INSTLINE);
-    grp_LineInstGain->addElement(m_lineinst);
-    m_lineinst =
+    grp_LineInstGain->addElement(lineinst);
+    lineinst =
         new FocusriteEAP::Switch(m_eap, "LineInst2",
                                  SAFFIRE_PRO24_REGISTER_APP_LINEOUT_INST_SWITCH,
                                  SAFFIRE_PRO24_LINEOUT_SWITCH_INST_VALUE
                                     <<FOCUSRITE_EAP_LINEOUT_SWITCH_INST_SHIFT,
                                  SAFFIRE_PRO24_REGISTER_APP_MESSAGE_SET,
                                  SAFFIRE_PRO24_MESSAGE_SET_INSTLINE);
-    grp_LineInstGain->addElement(m_lineinst);
-    m_lineinst =
+    grp_LineInstGain->addElement(lineinst);
+    lineinst =
         new FocusriteEAP::Switch(m_eap, "LineGain3",
                                  SAFFIRE_PRO24_REGISTER_APP_LINEOUT_GAIN_SWITCH,
                                  SAFFIRE_PRO24_LINEOUT_SWITCH_GAIN_VALUE,
                                  SAFFIRE_PRO24_REGISTER_APP_MESSAGE_SET,
                                  SAFFIRE_PRO24_MESSAGE_SET_INSTLINE);
-    grp_LineInstGain->addElement(m_lineinst);
-    m_lineinst =
+    grp_LineInstGain->addElement(lineinst);
+    lineinst =
         new FocusriteEAP::Switch(m_eap, "LineGain4",
                                  SAFFIRE_PRO24_REGISTER_APP_LINEOUT_GAIN_SWITCH,
                                  SAFFIRE_PRO24_LINEOUT_SWITCH_GAIN_VALUE
                                     <<FOCUSRITE_EAP_LINEOUT_SWITCH_GAIN_SHIFT,
                                  SAFFIRE_PRO24_REGISTER_APP_MESSAGE_SET,
                                  SAFFIRE_PRO24_MESSAGE_SET_INSTLINE);
-    grp_LineInstGain->addElement(m_lineinst);
+    grp_LineInstGain->addElement(lineinst);
 }
 
 SaffirePro24::SaffirePro24( DeviceManager& d,
@@ -424,21 +424,31 @@ SaffirePro24::~SaffirePro24()
 
 bool SaffirePro24::discover() {
     if (Dice::Device::discover()) {
-        fb_quadlet_t* tmp = (fb_quadlet_t *)calloc(2, sizeof(fb_quadlet_t));
-        getEAP()->readRegBlock(Dice::EAP::eRT_Application, 0x00, tmp, 1*sizeof(fb_quadlet_t));
-        //hexDumpQuadlets(tmp, 2); // DEBUG
+        fb_quadlet_t* version = (fb_quadlet_t *)calloc(2, sizeof(fb_quadlet_t));
+        getEAP()->readRegBlock(Dice::EAP::eRT_Application, SAFFIRE_PRO24_REGISTER_APP_VERSION, version, 1*sizeof(fb_quadlet_t));
+        // On August 2013, Focusrite released a new firmware.
+        //  version numbering 2.0 (0x00020000) seems common to all Saffire Dice EAP devices
+        // FIXME: the following original comment is ambiguous: 0x00010004 and 0x00010008 stands 
+        //   for a firmware version not for a device identity
         // 0x00010004 is a pro24, 0x00010008 is the pro24dsp
-        if (tmp[0] != 0x00010004 && tmp[0] != 0x00010008) {
-            debugError("This is a Focusrite Saffire Pro24 but not the right firmware. Better stop here before something goes wrong.\n");
-            debugError("This device has firmware 0x%x while we only know about versions 0x%x and 0x%x.\n", tmp[0], 0x10004, 0x10008);
-            return false;
+        if (version[0] != 0x00010004 && version[0] != 0x00010008) {
+            if (version[0] != 0x00020000) {
+              debugError("This is a Focusrite Saffire Pro24 but not the right firmware. Better stop here before something goes wrong.\n");
+              debugError("This device has firmware 0x%x while we only know about versions 0x%x and 0x%x.\n", version[0], 0x10004, 0x10008);
+              return false;
+            }
+            // Warn about the new firmware
+            else {
+              debugWarning("This is a Focusrite Saffire Pro24 with new 2.0 firmware. Be aware it was not yet tested under FFADO\n");
+            }
         }
+        // FIXME: What is the purpose of the following commented lines at this point ?
         //getEAP()->readRegBlock(Dice::EAP::eRT_Command, 0x00, tmp, 2*sizeof(fb_quadlet_t)); // DEBUG
         //hexDumpQuadlets(tmp, 2); // DEBUG
 
         FocusriteEAP* eap = dynamic_cast<FocusriteEAP*>(getEAP());
-        m_monitor = new SaffirePro24EAP::MonitorSection(eap, "Monitoring");
-        getEAP()->addElement(m_monitor);
+        SaffirePro24EAP::MonitorSection* monitor = new SaffirePro24EAP::MonitorSection(eap, "Monitoring");
+        getEAP()->addElement(monitor);
         return true;
     }
     return false;
