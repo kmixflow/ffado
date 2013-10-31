@@ -26,6 +26,7 @@
 
 // This also includes motu_mark3_controls.h
 #include "motu_avdevice.h"
+#include "libutil/ByteSwap.h"
 
 namespace Motu {
 
@@ -131,35 +132,36 @@ MotuContinuousCtrlMk3::MotuContinuousCtrlMk3(MotuDevice &parent,
 }
 
 bool MotuContinuousCtrlMk3::setValue(double value) {
+    unsigned int val;
+    quadlet_t data[3];
+
+    val = (unsigned int)value;
+
     if (this->m_key == MOTU_MK3_KEY_NONE) {
-        debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with unintialized key\n");
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with unintialized control key\n");
         return true;
     }
-    debugOutput(DEBUG_LEVEL_WARNING, "Setting continuous control key 0x%08x to value 0x%08x", this->m_key, value);
-    if (value > this->m_maximum) {
-        value = m_maximum;
-    } else if (value < this->m_minimum) {
-        value = m_minimum;
+    if (val > this->m_maximum) {
+        val = m_maximum;
+    } else if (val < this->m_minimum) {
+        val = m_minimum;
     }
     //FIXME: This is a hack to avoid the "heartbeat" counting by resetting the serial number
     m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET0);
     m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET1);
 
-    quadlet_t data[3];
+    //Continuous values sent must be big-endian:
+    val=CondSwapFromBus32(val);
 
     //First quadlet:
-    data[0] = MOTU_MK3_CONTINUOUS_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER
-            | this->m_bus;
+    data[0] = MOTU_MK3_CONTINUOUS_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | this->m_bus;
 
     //Second quadlet:
-    //FIXME: last byte of this quadlet shoud contain first byte of value
-    data[1] = this->m_key | (long unsigned int)value;
+    data[1] = this->m_key | ((val >> 24) & 0xff);
 
     //Third quadlet:
-    //FIXME: first three byte of this quadlet should contain last three bytes of value
-    data[2] = value;
+    data[2] = (val << 8);
 
-    return true;
     if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 3)) {
         debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) data[2]=(0x%08x) to Mark3 mixer register\n", data[0], data[1], data[2], MOTU_G3_REG_MIXER);
         return false;
@@ -184,15 +186,26 @@ MixFaderMk3::MixFaderMk3(MotuDevice &parent, unsigned long int bus,
 }
 
 bool MixFaderMk3::setValue(double value) {
-    debugOutput(DEBUG_LEVEL_WARNING, "Setting mixFaderMk3");
+    //FIXME: It is necessary to do
     return MotuContinuousCtrlMk3::setValue(value);
-
 }
 
 double MixFaderMk3::getValue()
 {
     return 0;
 }
+
+/*
+ *
+ *
+ *
+ *
+ * MATRIX MIXER
+ *
+ *
+ *
+ *
+ */
 
 MotuMatrixMixerMk3::MotuMatrixMixerMk3(MotuDevice &parent)
 : Control::MatrixMixer(&parent, "MatrixMixerMk3")
