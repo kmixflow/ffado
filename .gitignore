@@ -9,3 +9,4 @@ version.h
 *.os
 *.so
 .*project
+build.sh
