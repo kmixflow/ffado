@@ -33,7 +33,7 @@
 
 namespace Motu {
 
-extern const MotuMark3Mixer Mixer_TravelerMk3;
+extern const MotuMixerMk3 Mixer_TravelerMk3;
 
 }
 

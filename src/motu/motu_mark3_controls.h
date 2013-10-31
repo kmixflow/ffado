@@ -65,7 +65,7 @@ class MixDestMk3
 {
 public:
     MixDestMk3(MotuDevice &parent, unsigned long int bus,
-    		std::string name, std::string label, std::string descr);
+            std::string name, std::string label, std::string descr);
 
     virtual bool setValue(int value);
     virtual int getValue();
@@ -76,20 +76,23 @@ class MotuContinuousCtrlMk3
 {
 public:
     MotuContinuousCtrlMk3(MotuDevice &parent, unsigned long int bus,
-    		std::string name, std::string label, std::string descr);
-
-    virtual bool setValue(double value) = 0;
-    virtual int getValue() = 0;
+            std::string name, std::string label, std::string descr);
 
     // default implementations
-	virtual bool setValue(int idx, int v)
-		{return setValue(v);};
-	virtual int getValue(int idx)
-		{return getValue();};
+    virtual bool setValue(double v) = 0;
+    virtual double getValue() = 0;
 
-	virtual int getMinimum() {return 0;};
-	virtual int getMaximum() {return 0;};
+    virtual bool setValue(int idx, double v) {
+        return setValue(v);
+    }
+    ;
+    virtual double getValue(int idx) {
+        return getValue();
+    }
+    ;
 
+    virtual double getMinimum();
+    virtual double getMaximum();
 
 protected:
     MotuDevice    &m_parent;
@@ -99,16 +102,89 @@ protected:
     unsigned long int  m_maximum;
 };
 
-class ChannelFaderMk3
+class MixFaderMk3
     : public MotuContinuousCtrlMk3
 {
 public:
-    ChannelFaderMk3(MotuDevice &parent, unsigned long int bus,
+    MixFaderMk3(MotuDevice &parent, unsigned long int bus,
           std::string name, std::string label, std::string descr);
 
     virtual bool setValue(double v);
-    virtual int getValue();
+    virtual double getValue();
 };
+
+class MotuMatrixMixerMk3 : public Control::MatrixMixer
+{
+public:
+    MotuMatrixMixerMk3(MotuDevice &parent);
+    MotuMatrixMixerMk3(MotuDevice &parent, std::string name);
+    virtual ~MotuMatrixMixerMk3() {};
+
+    void addRowInfo(std::string name, unsigned int flags, unsigned int address);
+    void addColInfo(std::string name, unsigned int flags, unsigned int address);
+    uint32_t getCellRegister(const unsigned int row, const unsigned int col);
+
+    virtual void show();
+
+    bool hasNames() const { return true; }
+    bool canConnect() const { return false; }
+
+    virtual std::string getRowName(const int row);
+    virtual std::string getColName(const int col);
+    virtual int canWrite( const int, const int ) { return true; }
+    virtual int getRowCount();
+    virtual int getColCount();
+
+    // full map updates are unsupported
+    virtual bool getCoefficientMap(int &) {return false;};
+    virtual bool storeCoefficientMap(int &) {return false;};
+
+protected:
+     struct sSignalInfo {
+         std::string name;
+         unsigned int flags;
+         unsigned int address;
+     };
+
+     std::vector<struct sSignalInfo> m_RowInfo;
+     std::vector<struct sSignalInfo> m_ColInfo;
+
+     MotuDevice& m_parent;
+};
+
+
+class ChannelFaderMatrixMixerMk3 : public MotuMatrixMixerMk3
+{
+public:
+    ChannelFaderMatrixMixerMk3(MotuDevice &parent);
+    ChannelFaderMatrixMixerMk3(MotuDevice &parent, std::string name);
+    virtual double setValue(const int row, const int col, const double val);
+    virtual double getValue(const int row, const int col);
+};
+
+class ChannelPanMatrixMixerMk3 : public MotuMatrixMixerMk3
+{
+public:
+    ChannelPanMatrixMixerMk3(MotuDevice &parent);
+    ChannelPanMatrixMixerMk3(MotuDevice &parent, std::string name);
+    virtual double setValue(const int row, const int col, const double val);
+    virtual double getValue(const int row, const int col);
+};
+
+class ChannelBinSwMatrixMixerMk3 : public MotuMatrixMixerMk3
+{
+public:
+    ChannelBinSwMatrixMixerMk3(MotuDevice &parent);
+    ChannelBinSwMatrixMixerMk3(MotuDevice &parent, std::string name,
+      unsigned int val_mask, unsigned int setenable_mask);
+    virtual double setValue(const int row, const int col, const double val);
+    virtual double getValue(const int row, const int col);
+
+protected:
+    unsigned int m_value_mask;
+    unsigned int m_setenable_mask;
+};
+
 
 /* A "register" value used to signify that a particular control in a matrix
  * mixer is not available on the current interface.
@@ -209,7 +285,7 @@ public:
 #define MOTU_MK3CTRL_ON                           0x01
 #define MOTU_MK3CTRL_OFF                          0x00
 
-#define MOTU_MK3CTRL_CHANNEL                      0x02 // 02->1c
+#define MOTU_MK3CTRL_CHANNEL                      0x02 // 02->1c*/
 
 /*
  *
