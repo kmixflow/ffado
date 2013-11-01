@@ -57,10 +57,10 @@ bool MotuDiscreteCtrlMk3::setValue(int value) {
     data[0] = MOTU_MK3_DISCRETE_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | value;
 
     //Second quadlet:
-    data[1] = this->m_bus | this->m_key;
+    data[1] = (this->m_bus << 24) | this->m_key;
 
     if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2)) {
-        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to Mark3 mixer register\n", data[0], data[1], MOTU_G3_REG_MIXER);
+        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to Mark3 mixer register\n", data[0], data[1]);
         return false;
     }
     return true;
@@ -157,13 +157,13 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
     data[0] = MOTU_MK3_CONTINUOUS_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | this->m_bus;
 
     //Second quadlet:
-    data[1] = this->m_key | ((val >> 24) & 0xff);
+    data[1] = this->m_key | (val >> 24);
 
     //Third quadlet:
     data[2] = (val << 8);
 
     if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 3)) {
-        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) data[2]=(0x%08x) to Mark3 mixer register\n", data[0], data[1], data[2], MOTU_G3_REG_MIXER);
+        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) data[2]=(0x%08x) to Mark3 mixer register\n", data[0], data[1], data[2]);
         return false;
     }
     return true;

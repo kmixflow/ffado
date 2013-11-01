@@ -62,16 +62,16 @@ const MatrixMixChannelMk3 MixerChannels_TravelerMk3[] = {
 };
 
 const MixerCtrlMk3 MixerCtrls_TravelerMk3[] = {
-    {"Mix1/Mix_", "Mix 1 ", "", MOTU_CTRL_STD_MIX, 0x00000000, },
-    {"Mix2/Mix_", "Mix 2 ", "", MOTU_CTRL_STD_MIX, 0x01000000, },
-    {"Mix3/Mix_", "Mix 3 ", "", MOTU_CTRL_STD_MIX, 0x02000000, },
-    {"Mix4/Mix_", "Mix 4 ", "", MOTU_CTRL_STD_MIX, 0x03000000, },
-    {"Mix5/Mix_", "Mix 5 ", "", MOTU_CTRL_STD_MIX, 0x04000000, },
-    {"Mix6/Mix_", "Mix 6 ", "", MOTU_CTRL_STD_MIX, 0x05000000, },
-    {"Mix7/Mix_", "Mix 7 ", "", MOTU_CTRL_STD_MIX, 0x06000000, },
-    {"Mix8/Mix_", "Mix 8 ", "", MOTU_CTRL_STD_MIX, 0x07000000, },
-    {"Mainout_",  "MainOut ", "", MOTU_CTRL_MIX_FADER, 0x0c0c, },
-    {"Phones_",   "Phones ",  "", MOTU_CTRL_MIX_FADER, 0x0c10, },
+    {"Mix1/Mix_", "Mix 1 ", "", MOTU_CTRL_STD_MIX, 0x00, },
+    {"Mix2/Mix_", "Mix 2 ", "", MOTU_CTRL_STD_MIX, 0x01, },
+    {"Mix3/Mix_", "Mix 3 ", "", MOTU_CTRL_STD_MIX, 0x02, },
+    {"Mix4/Mix_", "Mix 4 ", "", MOTU_CTRL_STD_MIX, 0x03, },
+    {"Mix5/Mix_", "Mix 5 ", "", MOTU_CTRL_STD_MIX, 0x04, },
+    {"Mix6/Mix_", "Mix 6 ", "", MOTU_CTRL_STD_MIX, 0x05, },
+    {"Mix7/Mix_", "Mix 7 ", "", MOTU_CTRL_STD_MIX, 0x06, },
+    {"Mix8/Mix_", "Mix 8 ", "", MOTU_CTRL_STD_MIX, 0x07, },
+    {"Mainout_",  "MainOut ", "", MOTU_CTRL_MIX_FADER, 0x0c0c, }, //FIXME: Work out channel number for this bus
+    {"Phones_",   "Phones ",  "", MOTU_CTRL_MIX_FADER, 0x0c10, }, //FIXME: Work out channel number for this bus
 
     /* For mic/line input controls, the "register" is the zero-based channel number */
     {"Control/Ana1_", "Analog 1 input ", "", MOTU_CTRL_TRAVELER_MIC_INPUT_CTRLS, 0},
