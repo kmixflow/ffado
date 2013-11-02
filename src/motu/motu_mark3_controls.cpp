@@ -78,39 +78,18 @@ MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int bus,
 }
 
 bool MixDestMk3::setValue(int value) {
-    //FIXME: Implement mixer parsing from motu_mark3_mixerdefs.cpp
-    unsigned int dest;
-    switch (value) {
-    case 0:
-        dest = MOTU_MK3CTRL_MIX_DEST_DISABLED;
-        break;
-    case 1:
-        dest = MOTU_MK3CTRL_MIX_DEST_PHONES;
-        break;
-    case 2:
-        dest = MOTU_MK3CTRL_MIX_DEST_MAIN_L_R; //Traveler's Analog 1-2
-        break;
-    case 3:
-        dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_1_2; //Traveler's Analog 3-4
-        break;
-    case 4:
-        dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_3_4; //Traveler's Analog 5-6
-        break;
-    case 5:
-        dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_5_6; //Traveler's Analog 7-8
-        break;
-    case 6:
-        dest = MOTU_MK3CTRL_MIX_DEST_ANALOG_7_8; //Traveler's AES 1-2
-        break;
-    case 7:
-        dest = MOTU_MK3CTRL_MIX_DEST_SPDIF; //Traveler's AES 1-2
-        break;
-    default:
-        dest = MOTU_MK3CTRL_MIX_DEST_DISABLED;
-        debugOutput(DEBUG_LEVEL_WARNING, "MixDestMk3 value %d not implemented\n", value);
-        break;
+    //Check if there is a mix destination description for this device (motu_mark3_mixerdefs.cpp):
+    if(DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->mix_destinations == NULL){
+        debugOutput(DEBUG_LEVEL_WARNING, "No mix destination are defined for this model\n");
+        return false;
     }
-    return MotuDiscreteCtrlMk3::setValue(dest);
+    //Check if there is a mix destination description for selected value:
+    if((0 > value) || (DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->n_mix_destinations < value))
+    {
+        debugOutput(DEBUG_LEVEL_WARNING, "Mix destination number %d is not defined for this model\n", value);
+        return false;
+    }
+    return MotuDiscreteCtrlMk3::setValue(DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->mix_destinations[value].key);
 }
 
 int MixDestMk3::getValue() {
@@ -151,7 +130,7 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
     m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET1);
 
     //Continuous values sent must be big-endian:
-    val=CondSwapFromBus32(val);
+    val=CondSwapToBus32(val);
 
     //First quadlet:
     data[0] = MOTU_MK3_CONTINUOUS_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | this->m_bus;

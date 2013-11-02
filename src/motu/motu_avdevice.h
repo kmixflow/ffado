@@ -359,18 +359,26 @@ struct MotuMixer {
 // Structures used for devices which use the "Mark3" mixer protocol
 struct MixerCtrlMk3 {
     const char *name, *label, *desc;
-    unsigned int type; //Is this useful?
+    unsigned int type;
     unsigned long int key;
 };
+
+struct MatrixMixDestMk3 {
+    const char *name;
+    unsigned long int key;
+};
+
 struct MatrixMixBusMk3 {
     const char *name;
     unsigned int address; //TODO: Cambiar por el id del bus
 };
+
 struct MatrixMixChannelMk3 {
     const char *name;
     unsigned int flags;
     unsigned int addr_ofs; //TODO: Cambiar por el id del canal
 };
+
 struct MotuMixerMk3 {
     const MixerCtrlMk3 *mixer_ctrl;
     unsigned int n_mixer_ctrls;
@@ -378,7 +386,10 @@ struct MotuMixerMk3 {
     unsigned int n_mixer_buses;
     const MatrixMixChannelMk3 *mixer_channels;
     unsigned int n_mixer_channels;
+    const MatrixMixDestMk3 *mix_destinations;
+    unsigned int n_mix_destinations;
 };
+
 
 struct DevicePropertyEntry {
     PortGroupEntry *portgroup_entry;
@@ -400,6 +411,9 @@ extern const DevicePropertyEntry DevicesProperty[];
 /* Macro to define a MotuMixer structure succintly */
 #define MOTUMIXER(_ctrls, _buses, _channels) \
     { _ctrls, N_ELEMENTS(_ctrls), _buses, N_ELEMENTS(_buses), _channels, N_ELEMENTS(_channels), }
+
+#define MOTUMIXERMK3(_ctrls, _buses, _channels, _destinations) \
+    { _ctrls, N_ELEMENTS(_ctrls), _buses, N_ELEMENTS(_buses), _channels, N_ELEMENTS(_channels), _destinations, N_ELEMENTS(_destinations)}
 
 class MotuDevice : public FFADODevice {
 public:
