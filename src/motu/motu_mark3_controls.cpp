@@ -78,19 +78,20 @@ MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int bus,
 }
 
 bool MixDestMk3::setValue(int value) {
+    unsigned int val = (unsigned int) value;
     //Check if there is a mix destination description for this device (motu_mark3_mixerdefs.cpp):
     if(DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->mix_destinations == NULL){
         debugOutput(DEBUG_LEVEL_WARNING, "No mix destinations are defined for this model\n"); //FIXME: Which model?
         return false;
     }
     //Check if there is a mix destination description for selected value:
-    if((0 > value) || (DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->n_mix_destinations <= value))
+    if((0 > value) || (DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->n_mix_destinations <= val))
     {
-        debugOutput(DEBUG_LEVEL_WARNING, "Mix destination number %d is not defined for this model\n", value); //FIXME: Which model?
+        debugOutput(DEBUG_LEVEL_WARNING, "Mix destination number %d is not defined for this model\n", val); //FIXME: Which model?
         return false;
     }
     //Ok, there is a destination description for selected value. Let's send corresponding key:
-    return MotuDiscreteCtrlMk3::setValue(DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->mix_destinations[value].key);
+    return MotuDiscreteCtrlMk3::setValue(DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->mix_destinations[val].key);
 }
 
 int MixDestMk3::getValue() {
@@ -123,8 +124,10 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
     }
     if (val > this->m_maximum) {
         val = m_maximum;
+        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, higher than control maximum=%lu\n", val, this->m_maximum);
     } else if (val < this->m_minimum) {
         val = m_minimum;
+        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lu\n", val, this->m_minimum);
     }
     //FIXME: This is a hack to avoid the "heartbeat" counting by resetting the serial number
     m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET0);
@@ -143,7 +146,7 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
     data[2] = (val << 8);
 
     if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 3)) {
-        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) data[2]=(0x%08x) to Mark3 mixer register\n", data[0], data[1], data[2]);
+        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) data[2]=(0x%08x) to mixer register\n", data[0], data[1], data[2]);
         return false;
     }
     return true;
@@ -166,7 +169,7 @@ MixFaderMk3::MixFaderMk3(MotuDevice &parent, unsigned long int bus,
 }
 
 bool MixFaderMk3::setValue(double value) {
-    //FIXME: It is necessary to do
+    //TODO: Transform dbus values to motu scale. 0(dbus)=0x0(motu) -> 128(dbus)=0x3f800000(motu)
     return MotuContinuousCtrlMk3::setValue(value);
 }
 
