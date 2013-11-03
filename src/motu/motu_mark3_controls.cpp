@@ -84,7 +84,7 @@ bool MixDestMk3::setValue(int value) {
         return false;
     }
     //Check if there is a mix destination description for selected value:
-    if((0 > value) || (DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->n_mix_destinations < value))
+    if((0 > value) || (DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->n_mix_destinations <= value))
     {
         debugOutput(DEBUG_LEVEL_WARNING, "Mix destination number %d is not defined for this model\n", value);
         return false;
