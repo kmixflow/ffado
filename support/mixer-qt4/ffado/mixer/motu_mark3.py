@@ -20,7 +20,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 from PyQt4.QtCore import SIGNAL, SLOT, QObject, Qt
 from PyQt4.QtGui import QWidget, QApplication
 from ffado.config import *
@@ -636,6 +635,8 @@ class Motu_Mark3(QWidget):
             self.optical_out_mode.setEnabled(False)
 
         # Some channels aren't available at higher sampling rates
+        # TODO: Disable mix destinations ADAT A-B depending on if ADAT is enabled
+        # and/or interface is on 1x or 2x mode.
         if (self.sample_rate > 96000):
             log.debug("Disabling controls not present above 96 kHz")
             self.mix1_tab.setTabEnabled(3, False)  # ADAT

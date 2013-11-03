@@ -169,8 +169,10 @@ MixFaderMk3::MixFaderMk3(MotuDevice &parent, unsigned long int bus,
 }
 
 bool MixFaderMk3::setValue(double value) {
-    //TODO: Transform dbus values to motu scale. 0(dbus)=0x0(motu) -> 128(dbus)=0x3f800000(motu)
-    return MotuContinuousCtrlMk3::setValue(value);
+    /* FIXME: Transform dbus values to motu scale in a nice way.
+     * Currently: 0(dbus)=0x0(motu) -> 128(dbus)=0x3f800000(motu),
+     */
+    return MotuContinuousCtrlMk3::setValue(value*MOTU_MK3CTRL_FADER_MAX/128);
 }
 
 double MixFaderMk3::getValue()
