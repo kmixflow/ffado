@@ -60,7 +60,7 @@ bool MotuDiscreteCtrlMk3::setValue(int value) {
     data[1] = (this->m_bus << 24) | this->m_key;
 
     if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2)) {
-        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to Mark3 mixer register\n", data[0], data[1]);
+        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to mixer register\n", data[0], data[1]);
         return false;
     }
     return true;
@@ -80,15 +80,16 @@ MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int bus,
 bool MixDestMk3::setValue(int value) {
     //Check if there is a mix destination description for this device (motu_mark3_mixerdefs.cpp):
     if(DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->mix_destinations == NULL){
-        debugOutput(DEBUG_LEVEL_WARNING, "No mix destination are defined for this model\n");
+        debugOutput(DEBUG_LEVEL_WARNING, "No mix destinations are defined for this model\n"); //FIXME: Which model?
         return false;
     }
     //Check if there is a mix destination description for selected value:
     if((0 > value) || (DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->n_mix_destinations <= value))
     {
-        debugOutput(DEBUG_LEVEL_WARNING, "Mix destination number %d is not defined for this model\n", value);
+        debugOutput(DEBUG_LEVEL_WARNING, "Mix destination number %d is not defined for this model\n", value); //FIXME: Which model?
         return false;
     }
+    //Ok, there is a destination description for selected value. Let's send corresponding key:
     return MotuDiscreteCtrlMk3::setValue(DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->mix_destinations[value].key);
 }
 
@@ -117,8 +118,8 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
     val = (unsigned int)value;
 
     if (this->m_key == MOTU_MK3_KEY_NONE) {
-        debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with unintialized control key\n");
-        return true;
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with uninitialized control key\n");
+        return false;
     }
     if (val > this->m_maximum) {
         val = m_maximum;
