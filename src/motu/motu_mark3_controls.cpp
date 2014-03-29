@@ -101,15 +101,41 @@ int MixDestMk3::getValue() {
 MixMuteMk3::MixMuteMk3(MotuDevice &parent, unsigned long int bus,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, bus, name, label, descr) {
-    this->m_key = MOTU_MK3_CTRL_BUS_MUTE;
+    this->m_key = MOTU_MK3_BUS_MUTE_CTRL;
 }
 
 bool MixMuteMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
+    if ((0 > val) || (1 > val))
+    {
+        debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for MixMute control\n", val);
+        return false;
+    }
     return MotuDiscreteCtrlMk3::setValue(val);
 }
 
 int MixMuteMk3::getValue() {
+    return MotuDiscreteCtrlMk3::getValue();
+}
+
+InputGainPadInvMk3::InputGainPadInvMk3(MotuDevice &parent, unsigned long int channel,
+        std::string name, std::string label, std::string descr) :
+        MotuDiscreteCtrlMk3(parent, channel, name, label, descr) {
+    //FIXME: Check if channel is valid
+    this->m_key = MOTU_MK3_INPUT_PAD_CTRL;
+}
+
+bool InputGainPadInvMk3::setValue(int value) {
+    unsigned int val = (unsigned int) value;
+    if ((0 > val) || (1 < val))
+    {
+        debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for InputGainPadInv control\n", val);
+        return false;
+    }
+    return MotuDiscreteCtrlMk3::setValue(val);
+}
+
+int InputGainPadInvMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 

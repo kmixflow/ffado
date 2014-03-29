@@ -490,6 +490,7 @@ Keys presently identified:
   04-00-01 = input channel stereo mode.  Value is 0x00 for normal stereo,
              0x01 for MS.  Relevant only if input channel is in stereo mode
              (and thus part of a stereo pair).
+  04-0a-01 = "Boost" selector (-10dB / +4dBu).
   06-00-01 = input channel Vlimit on (mic channels only).  Values are 0x00
              (off), 0x01 (on).
   06-0a-01 = input channel compressor mode (0x00=peak, 0x01=RMS)
@@ -499,5 +500,6 @@ Keys presently identified:
              0x00 (off), 0x01 (on).
   08-00-01 = input channel soft clip (mic channels only).  Values are 0x00 
              (off), 0x01 (on).
+  09-00-01 = input channel pad. Values are 0x00 (off), 0x01 (on).
   0c-00-04 = Reverb early reflections model.  Value is 0x00-0x04 for "Room
              A" through to "Room E".  bb is zero.

@@ -82,6 +82,17 @@ public:
     virtual int getValue();
 };
 
+class InputGainPadInvMk3
+    : public MotuDiscreteCtrlMk3
+{
+public:
+    InputGainPadInvMk3(MotuDevice &parent, unsigned long int channel,
+            std::string name, std::string label, std::string descr);
+
+    virtual bool setValue(int value);
+    virtual int getValue();
+};
+
 class MotuContinuousCtrlMk3
     : public Control::Continuous
 {
@@ -236,7 +247,8 @@ protected:
 #define MOTU_MK3_DISCRETE_CTRL            0x02006900
 
 #define MOTU_MK3_MIX_DEST_ASSIGN_CTRL     0x00000002
-#define MOTU_MK3_CTRL_BUS_MUTE            0x00010002
+#define MOTU_MK3_BUS_MUTE_CTRL            0x00010002
+#define MOTU_MK3_INPUT_PAD_CTRL           0x00090001
 
 
 #define MOTU_MK3_CONTINUOUS_CTRL          0x02006600
