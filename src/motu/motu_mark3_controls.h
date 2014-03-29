@@ -226,15 +226,7 @@ protected:
  */
 #define MOTU_MK3CTRL_MIXER_RESET0  0x00000000
 #define MOTU_MK3CTRL_MIXER_RESET1  0x00010000
-
-/*The following flags are sent for request device status???
- *  (aa = packet serial number)*/
-#define MOTU_MK3CTRL_MIXER_GET1    0x01aa0000
-#define MOTU_MK3CTRL_MIXER_GET2    0x02aa0000
-
-/*Mask for packet serial number */
-#define MOTU_MK3CTRL_SERIAL_NUMBER		   0x00020000
-#define MOTU_MK3CTRL_SERIAL_NUMBER_MASK	   0x00ff0000
+#define MOTU_MK3CTRL_SERIAL_NUMBER 0x00020000 // Mask for packet serial number
 
 
 /*
