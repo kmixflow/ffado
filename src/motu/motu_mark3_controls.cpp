@@ -98,6 +98,21 @@ int MixDestMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 
+MixMuteMk3::MixMuteMk3(MotuDevice &parent, unsigned long int bus,
+        std::string name, std::string label, std::string descr) :
+        MotuDiscreteCtrlMk3(parent, bus, name, label, descr) {
+    this->m_key = MOTU_MK3_CTRL_BUS_MUTE;
+}
+
+bool MixMuteMk3::setValue(int value) {
+    unsigned int val = (unsigned int) value;
+    return MotuDiscreteCtrlMk3::setValue(val);
+}
+
+int MixMuteMk3::getValue() {
+    return MotuDiscreteCtrlMk3::getValue();
+}
+
 MotuContinuousCtrlMk3::MotuContinuousCtrlMk3(MotuDevice &parent,
         unsigned long int bus, std::string name, std::string label,
         std::string descr) :
@@ -234,7 +249,7 @@ uint32_t MotuMatrixMixerMk3::getCellRegister(const unsigned int row, const unsig
 
 void MotuMatrixMixerMk3::show()
 {
-    debugOutput(DEBUG_LEVEL_NORMAL, "MOTU matrix mixer\n");
+    debugOutput(DEBUG_LEVEL_NORMAL, "MOTU mk3 matrix mixer\n");
 }
 
 std::string MotuMatrixMixerMk3::getRowName(const int row)

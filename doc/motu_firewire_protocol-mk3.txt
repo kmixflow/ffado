@@ -473,7 +473,7 @@ Keys presently identified:
              channel index of the talkback listen channel.
   00-mm-02 = mix channel mute.  mm is the channel index as for other keys. 
              Value is 0x00 (off) or 0x01 (on).
-  00-01-02 = bus mute.  Values are 0x00 (off), 0x01 (on).
+  01-00-02 = bus mute.  Values are 0x00 (off), 0x01 (on).
   00-0c-03 = output channel monitor enable (0x00=off, 0x01=on)
   01-00-01 = input channel mono/stereo mode.  Value is 0x00 (mono), 0x01
              (stereo).  bb (bus select byte) is always zero for this key

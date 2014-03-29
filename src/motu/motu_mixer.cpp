@@ -404,21 +404,22 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 	                new MixFaderMk3(*this, ctrl->key, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_MIX_FADER;
 	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_FADER on bus 0x%08llx\n", ctrl->key);
-	        }/*
+	        }
 	        if (type & MOTU_CTRL_MIX_MUTE) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "mute");
 	            snprintf(label,100, "%s%s", ctrl->label,"mute");
 	            result &= m_MixerContainer->addElement(
-	                new MixMute(*this, ctrl->key, name, label, ctrl->desc));
+	                new MixMuteMk3(*this, ctrl->key, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_MIX_MUTE;
 	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_MUTE on bus 0x%08llx\n", ctrl->key);
-	        }*/
+	        }
 	        if (type & MOTU_CTRL_MIX_DEST) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "dest");
 	            snprintf(label,100, "%s%s", ctrl->label,"dest");
 	            result &= m_MixerContainer->addElement(
 	                new MixDestMk3(*this, ctrl->key, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_MIX_DEST;
+	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_DEST on bus 0x%08llx\n", ctrl->key);
 	        }
 
 	        /*if (type & MOTU_CTRL_INPUT_UL_GAIN) {

@@ -71,6 +71,17 @@ public:
     virtual int getValue();
 };
 
+class MixMuteMk3
+    : public MotuDiscreteCtrlMk3
+{
+public:
+    MixMuteMk3(MotuDevice &parent, unsigned long int bus,
+            std::string name, std::string label, std::string descr);
+
+    virtual bool setValue(int value);
+    virtual int getValue();
+};
+
 class MotuContinuousCtrlMk3
     : public Control::Continuous
 {
@@ -222,8 +233,12 @@ protected:
  */
 
 /* Control key definitions */
-#define MOTU_MK3_MIX_DEST_ASSIGN_CTRL     0x00000002
 #define MOTU_MK3_DISCRETE_CTRL            0x02006900
+
+#define MOTU_MK3_MIX_DEST_ASSIGN_CTRL     0x00000002
+#define MOTU_MK3_CTRL_BUS_MUTE            0x00010002
+
+
 #define MOTU_MK3_CONTINUOUS_CTRL          0x02006600
 
 /*
@@ -238,7 +253,7 @@ protected:
 #define MOTU_MK3CTRL_TALKBACK_CHANNEL             0x000300
 #define MOTU_MK3CTRL_TALKBACK_LISTEN              0x000400
 #define MOTU_MK3CTRL_MIX_CHANNEL_MUTE             0x000002
-#define MOTU_MK3CTRL_BUS_MUTE                     0x000102
+
 #define MOTU_MK3CTRL_OUTPUT_MONITOR               0x000c03
 #define MOTU_MK3CTRL_INPUT_CHANNEL_MODE           0x010001
 #define MOTU_MK3CTRL_REVERB_SPLIT_POINT           0x010004
