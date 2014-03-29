@@ -82,11 +82,11 @@ public:
     virtual int getValue();
 };
 
-class InputGainPadInvMk3
+class InputGainPadMk3
     : public MotuDiscreteCtrlMk3
 {
 public:
-    InputGainPadInvMk3(MotuDevice &parent, unsigned long int channel,
+    InputGainPadMk3(MotuDevice &parent, unsigned long int channel,
             std::string name, std::string label, std::string descr);
 
     virtual bool setValue(int value);
@@ -210,23 +210,19 @@ protected:
 
 /* A "register" value used to signify that a particular control in a matrix
  * mixer is not available on the current interface.
- */
-#define MOTU_MK3CTRL_NONE          0xffffffff
-
-/* Default key for all MK3 Controls. This should be set up properly by each
+ * This is default key for all MK3 Controls, and should be set up properly by each
  * control constructor
  */
-#define MOTU_MK3_KEY_NONE          0x00000000
+#define MOTU_MK3CTRL_NONE           0x00000000
 
-// FIXME: What would be the best value for this?
-#define MOTU_MK3_VALUE_NONE        0x00000000
+#define MOTU_MK3VALUE_NONE          0x00000000
 
 /* The following quadlets needs to be sent to MOTU_G3_REG_MIXER to reset
  * the packet serial number and begin interaction with the mixer
  */
-#define MOTU_MK3CTRL_MIXER_RESET0  0x00000000
-#define MOTU_MK3CTRL_MIXER_RESET1  0x00010000
-#define MOTU_MK3CTRL_SERIAL_NUMBER 0x00020000 // Mask for packet serial number
+#define MOTU_MK3CTRL_MIXER_RESET0   0x00000000
+#define MOTU_MK3CTRL_MIXER_RESET1   0x00010000
+#define MOTU_MK3CTRL_SERIAL_NUMBER  0x00020000 // Mask for packet serial number
 
 
 /*
@@ -236,14 +232,14 @@ protected:
  */
 
 /* Control key definitions */
-#define MOTU_MK3_DISCRETE_CTRL            0x02006900
+#define MOTU_MK3CTRL_DISCRETE_CTRL          0x02006900
 
-#define MOTU_MK3_MIX_DEST_ASSIGN_CTRL     0x00000002
-#define MOTU_MK3_BUS_MUTE_CTRL            0x00010002
-#define MOTU_MK3_INPUT_PAD_CTRL           0x00090001
+#define MOTU_MK3CTRL_MIX_DEST_ASSIGN        0x00000002
+#define MOTU_MK3CTRL_BUS_MUTE               0x00010002
+#define MOTU_MK3CTRL_INPUT_PAD              0x00090001
 
 
-#define MOTU_MK3_CONTINUOUS_CTRL          0x02006600
+#define MOTU_MK3CTRL_CONTINUOUS_CTRL        0x02006600
 
 /*
  *

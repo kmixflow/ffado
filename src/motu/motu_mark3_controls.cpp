@@ -37,13 +37,13 @@ MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent,
     setName(name);
     setLabel(label);
     setDescription(descr);
-    m_key = MOTU_MK3_KEY_NONE;
+    m_key = MOTU_MK3CTRL_NONE;
     //FIXME: Check if bus is valid
     m_bus = bus;
 }
 
 bool MotuDiscreteCtrlMk3::setValue(int value) {
-    if (this->m_key == MOTU_MK3_KEY_NONE) {
+    if (this->m_key == MOTU_MK3CTRL_NONE) {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a discrete control with unintialized key\n");
         return true;
     }
@@ -54,7 +54,7 @@ bool MotuDiscreteCtrlMk3::setValue(int value) {
     quadlet_t data[2];
 
     //First quadlet:
-    data[0] = MOTU_MK3_DISCRETE_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | value;
+    data[0] = MOTU_MK3CTRL_DISCRETE_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | value;
 
     //Second quadlet:
     data[1] = (this->m_bus << 24) | this->m_key;
@@ -74,7 +74,7 @@ int MotuDiscreteCtrlMk3::getValue() {
 MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int bus,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, bus, name, label, descr) {
-    this->m_key = MOTU_MK3_MIX_DEST_ASSIGN_CTRL;
+    this->m_key = MOTU_MK3CTRL_MIX_DEST_ASSIGN;
 }
 
 bool MixDestMk3::setValue(int value) {
@@ -101,7 +101,7 @@ int MixDestMk3::getValue() {
 MixMuteMk3::MixMuteMk3(MotuDevice &parent, unsigned long int bus,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, bus, name, label, descr) {
-    this->m_key = MOTU_MK3_BUS_MUTE_CTRL;
+    this->m_key = MOTU_MK3CTRL_BUS_MUTE;
 }
 
 bool MixMuteMk3::setValue(int value) {
@@ -118,14 +118,19 @@ int MixMuteMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 
-InputGainPadInvMk3::InputGainPadInvMk3(MotuDevice &parent, unsigned long int channel,
+InputGainPadMk3::InputGainPadMk3(MotuDevice &parent, unsigned long int channel,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, channel, name, label, descr) {
-    //FIXME: Check if channel is valid
-    this->m_key = MOTU_MK3_INPUT_PAD_CTRL;
+    if((0 > channel) || (MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL < channel))
+    {
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Invalid channel %d: max supported is %d, assuming 0\n",
+                    channel, MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL);
+        this->m_key = MOTU_MK3CTRL_NONE;
+    }
+    this->m_key = MOTU_MK3CTRL_INPUT_PAD;
 }
 
-bool InputGainPadInvMk3::setValue(int value) {
+bool InputGainPadMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
     if ((0 > val) || (1 < val))
     {
@@ -135,7 +140,7 @@ bool InputGainPadInvMk3::setValue(int value) {
     return MotuDiscreteCtrlMk3::setValue(val);
 }
 
-int InputGainPadInvMk3::getValue() {
+int InputGainPadMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 
@@ -146,9 +151,9 @@ MotuContinuousCtrlMk3::MotuContinuousCtrlMk3(MotuDevice &parent,
     setName(name);
     setLabel(label);
     setDescription(descr);
-    m_key = MOTU_MK3_KEY_NONE;
-    m_minimum = MOTU_MK3_VALUE_NONE;
-    m_maximum = MOTU_MK3_VALUE_NONE;
+    m_key = MOTU_MK3CTRL_NONE;
+    m_minimum = MOTU_MK3VALUE_NONE;
+    m_maximum = MOTU_MK3VALUE_NONE;
     //FIXME: Check if bus is valid
     m_bus = bus;
 }
@@ -159,7 +164,7 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
 
     val = (unsigned int)value;
 
-    if (this->m_key == MOTU_MK3_KEY_NONE) {
+    if (this->m_key == MOTU_MK3CTRL_NONE) {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with uninitialized control key\n");
         return false;
     }
@@ -178,7 +183,7 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
     val=CondSwapToBus32(val);
 
     //First quadlet:
-    data[0] = MOTU_MK3_CONTINUOUS_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | this->m_bus;
+    data[0] = MOTU_MK3CTRL_CONTINUOUS_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | this->m_bus;
 
     //Second quadlet:
     data[1] = this->m_key | (val >> 24);

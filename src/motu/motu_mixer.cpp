@@ -450,7 +450,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "pad");
 	            snprintf(label,100, "%s%s", ctrl->label,"pad");
 	            result &= m_MixerContainer->addElement(
-	                new InputGainPadInvMk3(*this, ctrl->key, name, label, ctrl->desc));
+	                new InputGainPadMk3(*this, ctrl->key, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_INPUT_PAD;
 	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_PAD on bus 0x%08llx\n", ctrl->key);
 	        }
