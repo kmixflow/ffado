@@ -78,8 +78,16 @@ device_definitions = (
     vendorname  = "PreSonus";
     modelname   = "FIREBOX";
     driver      = "BEBOB";
-    mixer       = "Presonus_Experimental";
+    mixer       = "Presonus_Firebox";
     xmit_max_cycles_early_transmit = 4;
+},
+{
+    vendorid    = 0x000a92;
+    modelid     = 0x00010001;
+    vendorname  = "PreSonus";
+    modelname   = "Inspire1394";
+    driver      = "BEBOB";
+    mixer       = "Presonus_Inspire1394";
 },
 {
     vendorid    = 0x000a92;
@@ -87,7 +95,7 @@ device_definitions = (
     vendorname  = "PreSonus";
     modelname   = "FirePOD";
     driver      = "BEBOB";
-    mixer       = "Presonus_Experimental";
+    mixer       = "Presonus_FP10";
     xmit_max_cycles_early_transmit = 4;
 },
 { # Presonus Firestudio 26x26, Bob Hamil via jaimes on the forums
@@ -251,6 +259,26 @@ device_definitions = (
     modelid     = 0x00010046;
     vendorname  = "M-Audio";
     modelname   = "FW 410";
+    driver      = "BEBOB";
+    mixer       = "MAudio_BeBoB";
+    xmit_max_cycles_early_transmit = 4;
+},
+{
+    // experimental for mixer functionality
+    vendorid    = 0x000d6c;
+    modelid     = 0x00010071;
+    vendorname  = "M-Audio";
+    modelname   = "FW 1814";
+    driver      = "BEBOB";
+    mixer       = "MAudio_BeBoB";
+    xmit_max_cycles_early_transmit = 4;
+},
+{
+    // experimental for mixer functionality
+    vendorid    = 0x000d6c;
+    modelid     = 0x00010091;
+    vendorname  = "M-Audio";
+    modelname   = "ProjectMix I/O";
     driver      = "BEBOB";
     mixer       = "MAudio_BeBoB";
     xmit_max_cycles_early_transmit = 4;
@@ -682,5 +710,21 @@ device_definitions = (
     modelid     = 0x00000004;
     vendorname  = "Avid";
     modelname   = "Mbox 3 Pro";
+},
+{ # Allen and Heath Zed R16.  Information from Brendan Pike.
+    vendorid    = 0x000004C4;
+    modelid     = 0x00000000;
+    vendorname  = "Allen and Heath";
+    modelname   = "Zed R16";
+    driver      = "DICE";
+    mixer       = "Generic_Dice_EAP";
+},
+{ # Midas Venice F32.  Information from Jano Svitok.
+    vendorid    = 0x0010C73F;
+    modelid     = 0x00000001;
+    vendorname  = "Midas";
+    modelname   = "Venice F32";
+    driver      = "DICE";
+    mixer       = "Generic_Dice_EAP";
 }
 );

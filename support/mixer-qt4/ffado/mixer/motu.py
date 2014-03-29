@@ -806,7 +806,12 @@ class Motu(QWidget):
         self.sample_rate = self.hw.getDiscrete('/Mixer/Info/SampleRate')
         log.debug("device sample rate: %d" % (self.sample_rate))
 
-        if (self.model==MOTU_MODEL_828MkI):
+        # MOTU Mark 3 devices should be configured to use the "Motu_Mark3" 
+        # mixer.
+        if (self.model==MOTU_MODEL_828mk3 or self.model==MOTU_MODEL_ULTRALITEmk3 or self.model==MOTU_MODEL_ULTRALITEmk3_HYB or self.model==MOTU_MODEL_TRAVELERmk3 or self.model==MOTU_MODEL_896HDmk3):
+            log.debug("Generation-3 MOTU devices should be configured to use the Motu_Mark3 mixer")
+            return
+        elif (self.model==MOTU_MODEL_828MkI):
             self.initValues_g1()
         else:
             self.initValues_g2()

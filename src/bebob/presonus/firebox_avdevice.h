@@ -23,27 +23,20 @@
  *
  */
 
-#ifndef BEBOB_MAUDIO_NORMAL_DEVICE_H
-#define BEBOB_MAUDIO_NORMAL_DEVICE_H
+#ifndef BEBOB_PRESONUS_DEVICE_H
+#define BEBOB_PRESONUS_DEVICE_H
 
 #include "debugmodule/debugmodule.h"
 #include "bebob/bebob_avdevice.h"
 
 namespace BeBoB {
-namespace MAudio {
+namespace Presonus {
+namespace Firebox {
 
-enum MAudioNormalID {
-	FW_410,
-	FW_AUDIOPHILE,
-	FW_SOLO,
-	FW_OZONIC
-};
-
-class NormalDevice : public BeBoB::Device {
+class Device : public BeBoB::Device {
 public:
-    NormalDevice( DeviceManager& d, std::auto_ptr<ConfigRom>( configRom ),
-                  unsigned int modelId);
-    virtual ~NormalDevice();
+	Device( DeviceManager& d, std::auto_ptr<ConfigRom>( configRom ));
+    virtual ~Device();
 
     virtual void showDevice();
 
@@ -52,16 +45,14 @@ public:
     virtual ClockSource getActiveClockSource();
 
 private:
-    bool updateClkSrc();
-    int getClkSrc();
-    ClockSource m_internal_clksrc;
+    enum FFADODevice::eClockSourceType getClkSrc();
+    ClockSource m_intl_clksrc;
     ClockSource m_spdif_clksrc;
-    ClockSource m_adat_clksrc;
     ClockSource *m_active_clksrc;
-    enum MAudioNormalID m_id;
 };
 
-} // namespace MAudio
+} // namespace Firebox
+} // namespace Presonus
 } // namespace BeBoB
 
 #endif

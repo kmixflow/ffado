@@ -36,7 +36,10 @@
 #include "bebob/edirol/edirol_fa66.h"
 #include "bebob/esi/quatafire610.h"
 #include "bebob/yamaha/yamaha_avdevice.h"
-#include "bebob/maudio/maudio_normal_avdevice.h"
+#include "bebob/maudio/normal_avdevice.h"
+#include "bebob/maudio/special_avdevice.h"
+#include "bebob/presonus/firebox_avdevice.h"
+#include "bebob/presonus/inspire1394_avdevice.h"
 
 #include "libieee1394/configrom.h"
 #include "libieee1394/ieee1394service.h"
@@ -78,7 +81,15 @@ Device::~Device()
 bool
 Device::probe( Util::Configuration& c, ConfigRom& configRom, bool generic )
 {
+    unsigned int vendorId = configRom.getNodeVendorId();
+    unsigned int modelId = configRom.getModelId();
+
     if(generic) {
+        /* M-Audio Special Devices don't support followed commands */
+        if ((vendorId == FW_VENDORID_MAUDIO) &&
+            ((modelId == 0x00010071) || (modelId == 0x00010091)))
+            return true;
+
         // try a bebob-specific command to check for the firmware
         ExtendedPlugInfoCmd extPlugInfoCmd( configRom.get1394Service() );
         UnitPlugAddress unitPlugAddress( UnitPlugAddress::ePT_PCR,
@@ -113,9 +124,6 @@ Device::probe( Util::Configuration& c, ConfigRom& configRom, bool generic )
         return false;
     } else {
         // check if device is in supported devices list
-        unsigned int vendorId = configRom.getNodeVendorId();
-        unsigned int modelId = configRom.getModelId();
-
         Util::Configuration::VendorModelEntry vme = c.findDeviceVME( vendorId, modelId );
         return c.isValid(vme) && vme.driver == Util::Configuration::eD_BeBoB;
     }
@@ -177,9 +185,21 @@ Device::createDevice(DeviceManager& d, std::auto_ptr<ConfigRom>( configRom ))
         case 0x00010046: // fw410
         case 0x00010060: // Audiophile
         case 0x00010062: // Solo
-            return new MAudio::NormalDevice(d, configRom, modelId);
-         default:
-             return new Device(d, configRom);
+            return new MAudio::Normal::Device(d, configRom, modelId);
+        case 0x00010071: // Firewire 1814
+        case 0x00010091: // ProjectMix I/O
+            return new MAudio::Special::Device(d, configRom);
+        default:
+            return new Device(d, configRom);
+        }
+        case FW_VENDORID_PRESONUS:
+        switch (modelId) {
+        case 0x00010000:
+            return new Presonus::Firebox::Device(d, configRom);
+        case 0x00010001:
+            return new Presonus::Inspire1394::Device(d, configRom);
+        default:
+            return new Device(d, configRom);
         }
         default:
             return new Device(d, configRom);

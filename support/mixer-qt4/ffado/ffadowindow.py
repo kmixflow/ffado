@@ -66,6 +66,16 @@ class FFADOWindow(QMainWindow):
         self.connect(self.manager, SIGNAL("connectionLost"), self.connectToDBUS)
 
         filemenu = self.menuBar().addMenu("File")
+        self.openaction = QAction("Open", self)
+        self.openaction.setShortcut(self.tr("Ctrl+O"))
+        self.openaction.setEnabled(False)
+        self.connect(self.openaction, SIGNAL("triggered()"), self.manager.readSettings)
+        filemenu.addAction(self.openaction)
+        self.saveaction = QAction("Save as...", self)
+        self.saveaction.setShortcut(self.tr("Ctrl+S"))
+        self.saveaction.setEnabled(False)
+        self.connect(self.saveaction, SIGNAL("triggered()"), self.manager.saveSettings)
+        filemenu.addAction(self.saveaction)
         quitaction = QAction("Quit", self)
         quitaction.setShortcut(self.tr("Ctrl+q"))
         self.connect(quitaction, SIGNAL("triggered()"), self, SLOT("close()"))
@@ -138,13 +148,20 @@ class FFADOWindow(QMainWindow):
 
 <p>FFADO is the new approach to have firewire audio on linux.</p>
 
-<p>&copy; 2006-2008 by the FFADO developers<br />ffado is licensed under the GPLv3, for the full license text see <a href="http://www.gnu.org/licenses/">www.gnu.org/licenses</a> or the LICENSE.* files shipped with ffado.</p>
+<p>&copy; 2006-2014 by the FFADO developers<br />ffado is licensed under the GPLv3, for the full license text see <a href="http://www.gnu.org/licenses/">www.gnu.org/licenses</a> or the LICENSE.* files shipped with ffado.</p>
 
 <p>FFADO developers are:<ul>
 <li>Pieter Palmers
 <li>Daniel Wagner
 <li>Jonathan Woithe
 <li>Arnold Krille
+<li>Philippe Carriere
+<li>Takashi Sakamoto
+</ul>
+with contributions from:<ul>
+<li>Adrian Knoth
+<li>Stefan Richter
+<li>Jano Svitok
 </ul>
 """ )
 

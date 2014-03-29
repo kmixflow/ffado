@@ -90,6 +90,7 @@ static VendorModelEntry supportedDeviceList[] =
     {FW_VENDORID_MOTU, 0, 0x00000023, 0x000001f2, MOTU_MODEL_NONE, "MOTU", "V4HD subdevice 2"},
     {FW_VENDORID_MOTU, 0, 0x00000024, 0x000001f2, MOTU_MODEL_NONE, "MOTU", "V4HD subdevice 3"},
     {FW_VENDORID_MOTU, 0, 0x00000030, 0x000001f2, MOTU_MODEL_ULTRALITEmk3_HYB, "MOTU", "UltraLiteMk3-hybrid"},
+    {FW_VENDORID_MOTU, 0, 0x00000045, 0x000001f2, MOTU_MODEL_4PRE, "MOTU", "4pre"},
 };
 
 // Ports declarations
@@ -696,7 +697,7 @@ PortGroupEntry PortGroups_ULTRALITEmk3_hybrid[] =
     {"Main-%s", 2, MOTU_PA_OUT | MOTU_PA_RATE_ANY|MOTU_PA_OPTICAL_ANY, 0, },
     {"SPDIF%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_OPTICAL_ANY, 6, },
     {"Reverb%d", 2, MOTU_PA_IN | MOTU_PA_RATE_1x2x|MOTU_PA_OPTICAL_ANY, 7, },
-    {"Unknown%d", 4, MOTU_PA_IN | MOTU_PA_RATE_1x2x|MOTU_PA_OPTICAL_ANY, 8, },
+    {"Unknown%d", 4, MOTU_PA_IN | MOTU_PA_RATE_1x|MOTU_PA_OPTICAL_ANY, 8, },
 };
 
 /* FIXME: as of 5 Aug 2010 this is still under development */
@@ -756,6 +757,18 @@ PortGroupEntry PortGroups_896mk3[] =
     {"ADAT-B%d", 4, MOTU_PA_INOUT | MOTU_PA_RATE_2x|MOTU_PA_MK3_OPT_A_ANY|MOTU_PA_MK3_OPT_B_ADAT, },
 };
 
+/* Believed correct as of 24 Feb 2014.  Thanks to Tim Radvan for testing. */
+PortGroupEntry PortGroups_4PRE[] =
+{
+    {"Mix-%s", 2, MOTU_PA_IN | MOTU_PA_RATE_ANY|MOTU_PA_OPTICAL_ANY, 1, },
+    {"Phones-%s", 2, MOTU_PA_OUT | MOTU_PA_RATE_ANY|MOTU_PA_OPTICAL_ANY, 2, },
+    {"Mic/Line-%d", 2, MOTU_PA_IN | MOTU_PA_RATE_ANY|MOTU_PA_OPTICAL_ANY, 3, },
+    {"Mic/Guitar-%d", 2, MOTU_PA_IN | MOTU_PA_RATE_ANY|MOTU_PA_OPTICAL_ANY, 4, },
+    {"Analog%d", 2, MOTU_PA_OUT | MOTU_PA_RATE_ANY|MOTU_PA_OPTICAL_ANY, 5, },
+    {"Main-%s", 2, MOTU_PA_OUT | MOTU_PA_RATE_ANY|MOTU_PA_OPTICAL_ANY, 0, },
+    {"SPDIF%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_OPTICAL_ANY, 6, },
+    {"Extra-%d", 2, MOTU_PA_INOUT | MOTU_PA_RATE_1x2x|MOTU_PA_OPTICAL_ANY, 7, },
+};
 
 #define PORTGROUPS(__model) PortGroups_ ## __model, N_ELEMENTS(PortGroups_ ## __model)
 
@@ -787,6 +800,8 @@ const DevicePropertyEntry DevicesProperty[] = {
       Ports_TRAVELERmk3,  N_ELEMENTS( Ports_TRAVELERmk3 ),  192000, NULL, &Mixer_TravelerMk3, }, // Traveler mk3
     { PORTGROUPS(896mk3), 
       NULL, 0,  192000 },  // 896 Mk 3
+    { PORTGROUPS(4PRE),
+      NULL, 0,  96000, },
 };
 
 MotuDevice::MotuDevice( DeviceManager& d, std::auto_ptr<ConfigRom>( configRom ))
@@ -1767,7 +1782,6 @@ bool
 MotuDevice::startStreamByIndex(int i) {
 
 quadlet_t isoctrl = ReadRegister(MOTU_REG_ISOCTRL);
-quadlet_t config2_reg = ReadRegister(MOTU_G1_REG_CONFIG_2);
 
     if (m_motu_model == MOTU_MODEL_828MkI) {
         // The 828MkI device does this differently.  In particular it does
@@ -1776,6 +1790,9 @@ quadlet_t config2_reg = ReadRegister(MOTU_G1_REG_CONFIG_2);
         // enable both when the 0th index is requested and ignore any
         // request for index 1.  Also note that on the G1 devices,
         // MOTU_REG_ISOCTRL and MOTU_G1_REG_CONFIG are one and the same.
+
+        quadlet_t config2_reg = ReadRegister(MOTU_G1_REG_CONFIG_2);
+
         if (i == 1)
             return true;
         m_receiveProcessor->setChannel(m_iso_recv_channel);

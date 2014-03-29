@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2009-2010 by Arnold Krille
+#               2013 by Philippe Carriere
 #
 # This file is part of FFADO
 # FFADO = Free Firewire (pro-)audio drivers for linux
@@ -66,6 +67,65 @@ class Generic_Dice_EAP(QtGui.QWidget):
 
         self.mixer.updateRouting()
 
+    def saveSettings(self, indent):
+        saveString = []
+        idt = indent + "  "
+        saveString.append('%s<mixer>\n' % indent)
+        saveString.extend(self.mixer.saveSettings(idt))
+        # Do not forget to mention the adopted rule for matrix columns mixer
+        #  This might be useful for future import function
+        saveString.append("%s  <col_rule>\n" % indent)
+        saveString.append("%s    Columns_are_outputs\n" % indent)
+        saveString.append("%s  </col_rule>\n" % indent)
+        saveString.append('%s</mixer>\n' % indent)
+        saveString.append('%s<router>\n' % indent)
+        saveString.extend(self.router.saveSettings(idt))
+        saveString.append('%s</router>\n' % indent)
+        return saveString
+
+    def readSettings(self, readString):
+        try:
+            idxb = readString.index('<mixer>')
+            idxe = readString.index('</mixer>')
+        except Exception:
+            log.debug("No mixer settings found")
+            idxb = -1
+            idxe = -1
+        if idxb >= 0:
+            if idxe > idxb + 1:
+                stringMixer = []
+                for s in readString[idxb+1:idxe]:
+                    stringMixer.append(s)
+                # When trying to import from a different device, the rule for column interpretation is
+                # not necessarily the same
+                try:
+                    idx = stringMixer.index('<col_rule>')
+                except Exception:
+                    log.debug('Do not know how to handle column versus input/output')
+                    idx = -1
+                transpose_coeff = False
+                if idx >=0:
+                    if stringMixer[idx+1].find("Columns_are_outputs") == -1:
+                        log.debug('Transposing the matrix coefficient; you are importing, are not you ?')
+                        transpose_coeff = True
+                if self.mixer.readSettings(stringMixer, transpose_coeff):
+                    log.debug("Mixer settings modified")
+                del stringMixer
+        try:
+            idxb = readString.index('<router>')
+            idxe = readString.index('</router>')
+        except Exception:
+            log.debug("No router settings found")
+            idxb = -1
+            idxe = -1
+        if idxb >= 0:
+            if idxe > idxb + 1:
+                stringRouter = []
+                for s in readString[idxb+1:idxe]:
+                    stringRouter.append(s)
+                if self.router.readSettings(stringRouter):
+                    log.debug("Router settings modified")
+                del stringRouter
 
     #def getDisplayTitle(self):
     #    return "Saffire PRO40/PRO24 Mixer"
