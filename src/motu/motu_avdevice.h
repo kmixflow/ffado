@@ -475,7 +475,7 @@ public:
 
     bool resetMk3MixerSerial();
     unsigned int getMk3MixerSerial();
-    unsigned int getNextMk3MixerSerial();
+    void updateMk3MixerSerial();
 
 protected:
     struct VendorModelEntry * m_model;

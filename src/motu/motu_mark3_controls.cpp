@@ -47,13 +47,11 @@ bool MotuDiscreteCtrlMk3::setValue(int value) {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a discrete control with unintialized key\n");
         return true;
     }
-
-    unsigned int serial = m_parent.getNextMk3MixerSerial();
-
     quadlet_t data[2];
+    unsigned int serial = m_parent.getMk3MixerSerial();
 
     //First quadlet:
-    data[0] = MOTU_MK3CTRL_DISCRETE_CTRL | (serial<<16) | value;
+    data[0] = MOTU_MK3CTRL_DISCRETE_CTRL | (serial << 16) | value;
 
     //Second quadlet:
     data[1] = (this->m_bus << 24) | this->m_key;
@@ -62,6 +60,7 @@ bool MotuDiscreteCtrlMk3::setValue(int value) {
         debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to mixer register\n", data[0], data[1]);
         return false;
     }
+    m_parent.updateMk3MixerSerial();
     return true;
 }
 
@@ -205,15 +204,14 @@ MotuContinuousCtrlMk3::MotuContinuousCtrlMk3(MotuDevice &parent,
 }
 
 bool MotuContinuousCtrlMk3::setValue(double value) {
-    unsigned int val;
-    quadlet_t data[3];
-
-    val = (unsigned int)value;
-
     if (this->m_key == MOTU_MK3CTRL_NONE) {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with uninitialized control key\n");
         return false;
     }
+
+    unsigned int val, serial;
+    quadlet_t data[3];
+
     if (val > this->m_maximum) {
         val = m_maximum;
         debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, higher than control maximum=%lu\n", val, this->m_maximum);
@@ -221,15 +219,15 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
         val = m_minimum;
         debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lu\n", val, this->m_minimum);
     }
-    //FIXME: This is a hack to avoid the "heartbeat" counting by resetting the serial number
-    m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_SERIAL_RESET0);
-    m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_SERIAL_RESET1);
+
+    val = (unsigned int)value;
+    serial = m_parent.getMk3MixerSerial();
 
     //Continuous values sent must be big-endian:
     val=CondSwapToBus32(val);
 
     //First quadlet:
-    data[0] = MOTU_MK3CTRL_CONTINUOUS_CTRL | (MOTU_MK3CTRL_SERIAL_INIT<<4) | this->m_bus;
+    data[0] = MOTU_MK3CTRL_CONTINUOUS_CTRL | (serial << 16) | this->m_bus;
 
     //Second quadlet:
     data[1] = this->m_key | (val >> 24);
@@ -241,6 +239,7 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
         debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) data[2]=(0x%08x) to mixer register\n", data[0], data[1], data[2]);
         return false;
     }
+    m_parent.updateMk3MixerSerial();
     return true;
 }
 

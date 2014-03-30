@@ -2697,8 +2697,13 @@ bool MotuDevice::resetMk3MixerSerial(){
     return false;
 }
 
-unsigned int MotuDevice::getNextMk3MixerSerial(){
-    if(m_mk3_serial <=0xff)
+unsigned int MotuDevice::getMk3MixerSerial(){
+    return m_mk3_serial;
+}
+
+void MotuDevice::updateMk3MixerSerial()
+{
+    if(m_mk3_serial <0xff)
     {
         m_mk3_serial ++;
     }
@@ -2706,7 +2711,6 @@ unsigned int MotuDevice::getNextMk3MixerSerial(){
     {
         m_mk3_serial = 0x00;
     }
-    return m_mk3_serial;
 }
 
 }
