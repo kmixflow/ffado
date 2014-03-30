@@ -93,6 +93,17 @@ public:
     virtual int getValue();
 };
 
+class InputPhaseMk3
+    : public MotuDiscreteCtrlMk3
+{
+public:
+    InputPhaseMk3(MotuDevice &parent, unsigned long int channel,
+            std::string name, std::string label, std::string descr);
+
+    virtual bool setValue(int value);
+    virtual int getValue();
+};
+
 class MotuContinuousCtrlMk3
     : public Control::Continuous
 {
@@ -248,6 +259,7 @@ protected:
 #define MOTU_MK3CTRL_MIX_DEST_ASSIGN        0x00000002
 #define MOTU_MK3CTRL_BUS_MUTE               0x00010002
 #define MOTU_MK3CTRL_INPUT_PAD              0x00090001
+#define MOTU_MK3CTRL_INPUT_PHASE            0x00000001
 
 
 #define MOTU_MK3CTRL_CONTINUOUS_CTRL        0x02006600
@@ -257,13 +269,11 @@ protected:
  * DISCRETE CONTROLS KEYS
  *
  */
-/*
-#define MOTU_MK3CTRL_INPUT_CHANNEL_DYNAMICS       0x000001
-#define MOTU_MK3CTRL_BUS_OUTPUT_ASSIGN            0x000002
+
+
 #define MOTU_MK3CTRL_OUTPUT_CHANNEL_DYNAMICS      0x000003
 #define MOTU_MK3CTRL_TALKBACK_CHANNEL             0x000300
 #define MOTU_MK3CTRL_TALKBACK_LISTEN              0x000400
-#define MOTU_MK3CTRL_MIX_CHANNEL_MUTE             0x000002
 
 #define MOTU_MK3CTRL_OUTPUT_MONITOR               0x000c03
 #define MOTU_MK3CTRL_INPUT_CHANNEL_MODE           0x010001

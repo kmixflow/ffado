@@ -429,15 +429,14 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 	                new InputGainPadInv(*this, ctrl->key, MOTU_CTRL_MODE_UL_GAIN,
 	                    name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_INPUT_UL_GAIN;
-	        }
+	        }*/
 	        if (type & MOTU_CTRL_INPUT_PHASE_INV) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "invert");
 	            snprintf(label,100, "%s%s", ctrl->label,"invert");
 	            result &= m_MixerContainer->addElement(
-	                new InputGainPadInv(*this, ctrl->key, MOTU_CTRL_MODE_PHASE_INV,
-	                    name, label, ctrl->desc));
+	                new InputPhaseMk3(*this, ctrl->key, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_INPUT_PHASE_INV;
-	        }*/
+	        }
 	        if (type & MOTU_CTRL_INPUT_TRIMGAIN) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "trimgain");
 	            snprintf(label,100, "%s%s", ctrl->label,"trimgain");

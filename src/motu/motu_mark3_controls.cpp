@@ -123,7 +123,7 @@ InputGainPadMk3::InputGainPadMk3(MotuDevice &parent, unsigned long int channel,
         MotuDiscreteCtrlMk3(parent, channel, name, label, descr) {
     if((0 > channel) || (MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL < channel))
     {
-        debugOutput(DEBUG_LEVEL_VERBOSE, "Invalid channel %d: max supported is %d, assuming 0\n",
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Invalid channel %d: max supported is %d\n",
                     channel, MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL);
         this->m_key = MOTU_MK3CTRL_NONE;
     }
@@ -141,6 +141,32 @@ bool InputGainPadMk3::setValue(int value) {
 }
 
 int InputGainPadMk3::getValue() {
+    return MotuDiscreteCtrlMk3::getValue();
+}
+
+InputPhaseMk3::InputPhaseMk3(MotuDevice &parent, unsigned long int channel,
+        std::string name, std::string label, std::string descr) :
+        MotuDiscreteCtrlMk3(parent, channel, name, label, descr) {
+    if((0 > channel) || (MOTU_CTRL_GAINPHASEINV_MAX_CHANNEL < channel))
+    {
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Invalid channel %d: max supported is %d\n",
+                    channel, MOTU_CTRL_GAINPHASEINV_MAX_CHANNEL);
+        this->m_key = MOTU_MK3CTRL_NONE;
+    }
+    this->m_key = MOTU_MK3CTRL_INPUT_PHASE;
+}
+
+bool InputPhaseMk3::setValue(int value) {
+    unsigned int val = (unsigned int) value;
+    if ((0 != val) || (1 != val))
+    {
+        debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for InputPhaseInv control\n", val);
+        return false;
+    }
+    return MotuDiscreteCtrlMk3::setValue(val);
+}
+
+int InputPhaseMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 
@@ -250,9 +276,7 @@ InputTrimMk3::InputTrimMk3(MotuDevice &parent, unsigned long int channel, unsign
 }
 
 bool InputTrimMk3::setValue(double value) {
-    /* FIXME: Transform dbus values to motu scale in a nice way.
-     * Currently: 0(dbus)=0x0(motu) -> 128(dbus)=0x3f800000(motu),
-     */
+    // FIXME: Transform dbus values to motu scale in a nice way.
     return MotuContinuousCtrlMk3::setValue(value);
 }
 
