@@ -437,33 +437,31 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 	                new InputGainPadInv(*this, ctrl->key, MOTU_CTRL_MODE_PHASE_INV,
 	                    name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_INPUT_PHASE_INV;
-	        }
+	        }*/
 	        if (type & MOTU_CTRL_INPUT_TRIMGAIN) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "trimgain");
 	            snprintf(label,100, "%s%s", ctrl->label,"trimgain");
 	            result &= m_MixerContainer->addElement(
-	                new InputGainPadInv(*this, ctrl->key, MOTU_CTRL_MODE_TRIMGAIN,
-	                    name, label, ctrl->desc));
+	                new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_TRIMGAIN, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_INPUT_TRIMGAIN;
-	        }*/
+	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_TRIMGAIN on channel 0x%08llx\n", ctrl->key);
+	        }
 	        if (type & MOTU_CTRL_INPUT_PAD) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "pad");
 	            snprintf(label,100, "%s%s", ctrl->label,"pad");
 	            result &= m_MixerContainer->addElement(
 	                new InputGainPadMk3(*this, ctrl->key, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_INPUT_PAD;
-	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_PAD on bus 0x%08llx\n", ctrl->key);
+	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_PAD on channel 0x%08llx\n", ctrl->key);
 	        }
-	        /*
-
 	        if (type & MOTU_CTRL_INPUT_LEVEL) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "level");
 	            snprintf(label,100, "%s%s", ctrl->label,"level");
 	            result &= m_MixerContainer->addElement(
-	                new MotuBinarySwitch(*this, MOTU_REG_INPUT_LEVEL,
-	                    1<<ctrl->key, 0, name, label, ctrl->desc));
+                    new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_LEVEL, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_INPUT_LEVEL;
-	        }
+	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_LEVEL on channel 0x%08llx\n", ctrl->key);
+	        }/*
 	        if (type & MOTU_CTRL_INPUT_BOOST) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "boost");
 	            snprintf(label,100, "%s%s", ctrl->label,"boost");

@@ -135,6 +135,17 @@ public:
     virtual double getValue();
 };
 
+class InputTrimMk3
+    : public MotuContinuousCtrlMk3
+{
+public:
+    InputTrimMk3(MotuDevice &parent, unsigned long int channel, unsigned long int mode,
+          std::string name, std::string label, std::string descr);
+
+    virtual bool setValue(double v);
+    virtual double getValue();
+};
+
 class MotuMatrixMixerMk3 : public Control::MatrixMixer
 {
 public:
@@ -360,10 +371,10 @@ protected:
 #define MOTU_MK3CTRL_FADER_MIN          0x00000000 // -inf dB
 #define MOTU_MK3CTRL_FADER_MAX          0x3f800000 //    0 dB
 
-#define MOTU_MK3CTRL_TRIM_MIC_MIN       0x00000000 //    0 dB
-#define MOTU_MK3CTRL_TRIM_MIC_MAX       0x42540000 //  +53 dB
-#define MOTU_MK3CTRL_TRIM_LINE_MIN      0xc2c00000 //  -96 dB
-#define MOTU_MK3CTRL_TRIM_LINE_MAX      0x41b00000 //  +22 dB
+#define MOTU_MK3CTRL_INPUT_TRIM_MIC_MIN     0x00000000 //    0 dB
+#define MOTU_MK3CTRL_INPUT_TRIM_MIC_MAX     0x42540000 //  +53 dB
+#define MOTU_MK3CTRL_INPUT_TRIM_LINE_MIN    0xc2c00000 //  -96 dB
+#define MOTU_MK3CTRL_INPUT_TRIM_LINE_MAX    0x41b00000 //  +22 dB
 
 #define MOTU_MK3CTRL_BALANCE_MIN        0xbf800000 // -1
 #define MOTU_MK3CTRL_BALANCE_MAX        0x3f800000 // +1

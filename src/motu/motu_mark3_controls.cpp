@@ -226,6 +226,41 @@ double MixFaderMk3::getValue()
     return 0;
 }
 
+InputTrimMk3::InputTrimMk3(MotuDevice &parent, unsigned long int channel, unsigned long int mode,
+        std::string name, std::string label, std::string descr) :
+        MotuContinuousCtrlMk3(parent, channel, name, label, descr) {
+    this->m_key = MOTU_MK3CTRL_INPUT_TRIM;
+    if(mode == MOTU_CTRL_INPUT_TRIMGAIN)
+    {
+        this->m_minimum = MOTU_MK3CTRL_INPUT_TRIM_MIC_MIN;
+        this->m_maximum = MOTU_MK3CTRL_INPUT_TRIM_MIC_MAX;
+    }
+    else if(mode == MOTU_CTRL_INPUT_LEVEL)
+    {
+        this->m_minimum = MOTU_MK3CTRL_INPUT_TRIM_LINE_MIN;
+        this->m_maximum = MOTU_MK3CTRL_INPUT_TRIM_LINE_MAX;
+    }
+    else
+    {
+        this->m_key = MOTU_MK3CTRL_NONE;
+        this->m_minimum = MOTU_MK3VALUE_NONE;
+        this->m_maximum = MOTU_MK3VALUE_NONE;
+        debugOutput(DEBUG_LEVEL_WARNING, "Invalid mode %d for InputTrim control\n", mode);
+    }
+}
+
+bool InputTrimMk3::setValue(double value) {
+    /* FIXME: Transform dbus values to motu scale in a nice way.
+     * Currently: 0(dbus)=0x0(motu) -> 128(dbus)=0x3f800000(motu),
+     */
+    return MotuContinuousCtrlMk3::setValue(value);
+}
+
+double InputTrimMk3::getValue()
+{
+    return 0;
+}
+
 /*
  *
  *
