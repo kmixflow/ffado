@@ -457,7 +457,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "level");
 	            snprintf(label,100, "%s%s", ctrl->label,"level");
 	            result &= m_MixerContainer->addElement(
-                    new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_LEVEL, name, label, ctrl->desc));
+                   new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_LEVEL, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_INPUT_LEVEL;
 	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_LEVEL on channel 0x%08llx\n", ctrl->key);
 	        }/*
@@ -468,14 +468,14 @@ MotuDevice::buildMark3MixerAudioControls(void) {
 	                new MotuBinarySwitch(*this, MOTU_REG_INPUT_BOOST,
 	                    1<<ctrl->key, 0, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_INPUT_BOOST;
-	        }
+	        }*/
 	        if (type & MOTU_CTRL_PHONES_SRC) {
 	            snprintf(name, 100, "%s%s", ctrl->name, "src");
 	            snprintf(label,100, "%s%s", ctrl->label,"src");
 	            result &= m_MixerContainer->addElement(
 	                new PhonesSrc(*this, name, label, ctrl->desc));
 	            type &= ~MOTU_CTRL_PHONES_SRC;
-	        }
+	        }/*
 	        if (type & MOTU_CTRL_OPTICAL_MODE) {
 	            result &= m_MixerContainer->addElement(
 	                new OpticalMode(*this, ctrl->key,

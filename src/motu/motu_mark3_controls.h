@@ -104,6 +104,17 @@ public:
     virtual int getValue();
 };
 
+class InputLevelMk3
+    : public MotuDiscreteCtrlMk3
+{
+public:
+    InputLevelMk3(MotuDevice &parent, unsigned long int channel,
+            std::string name, std::string label, std::string descr);
+
+    virtual bool setValue(int value);
+    virtual int getValue();
+};
+
 class MotuContinuousCtrlMk3
     : public Control::Continuous
 {
@@ -260,6 +271,7 @@ protected:
 #define MOTU_MK3CTRL_BUS_MUTE               0x00010002
 #define MOTU_MK3CTRL_INPUT_PAD              0x00090001
 #define MOTU_MK3CTRL_INPUT_PHASE            0x00000001
+#define MOTU_MK3CTRL_INPUT_LEVEL            0x000a0001
 
 
 #define MOTU_MK3CTRL_CONTINUOUS_CTRL        0x02006600
