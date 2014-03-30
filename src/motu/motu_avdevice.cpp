@@ -2684,4 +2684,29 @@ MotuDevice::writeBlock(fb_nodeaddr_t reg, quadlet_t *data, signed int n_quads) {
     return ret;
 }
 
+bool MotuDevice::resetMk3MixerSerial(){
+    unsigned int error = 0;
+    error |= WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_SERIAL_RESET0);
+    error |= WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_SERIAL_RESET1);
+    if(!error)
+    {
+        m_mk3_serial = MOTU_MK3CTRL_SERIAL_INIT;
+        return true;
+    }
+    m_mk3_serial = MOTU_MK3VALUE_NONE;
+    return false;
+}
+
+unsigned int MotuDevice::getNextMk3MixerSerial(){
+    if(m_mk3_serial <=0xff)
+    {
+        m_mk3_serial ++;
+    }
+    else
+    {
+        m_mk3_serial = 0x00;
+    }
+    return m_mk3_serial;
+}
+
 }

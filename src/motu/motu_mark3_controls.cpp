@@ -38,7 +38,7 @@ MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent,
     setLabel(label);
     setDescription(descr);
     m_key = MOTU_MK3CTRL_NONE;
-    //FIXME: Check if bus is valid
+    //TODO: Check if bus is valid
     m_bus = bus;
 }
 
@@ -47,14 +47,13 @@ bool MotuDiscreteCtrlMk3::setValue(int value) {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a discrete control with unintialized key\n");
         return true;
     }
-    //FIXME: This is a hack to avoid the "heartbeat" counting by resetting the serial number
-    m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET0);
-    m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET1);
+
+    unsigned int serial = m_parent.getNextMk3MixerSerial();
 
     quadlet_t data[2];
 
     //First quadlet:
-    data[0] = MOTU_MK3CTRL_DISCRETE_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | value;
+    data[0] = MOTU_MK3CTRL_DISCRETE_CTRL | (serial<<16) | value;
 
     //Second quadlet:
     data[1] = (this->m_bus << 24) | this->m_key;
@@ -180,8 +179,8 @@ InputLevelMk3::InputLevelMk3(MotuDevice &parent, unsigned long int channel,
 bool InputLevelMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
     if ((0 != val) || (1 != val))
-    {
         debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for InputLevel control\n", val);
+    {
         return false;
     }
     return MotuDiscreteCtrlMk3::setValue(val);
@@ -223,14 +222,14 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
         debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lu\n", val, this->m_minimum);
     }
     //FIXME: This is a hack to avoid the "heartbeat" counting by resetting the serial number
-    m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET0);
-    m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_MIXER_RESET1);
+    m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_SERIAL_RESET0);
+    m_parent.WriteRegister(MOTU_G3_REG_MIXER, MOTU_MK3CTRL_SERIAL_RESET1);
 
     //Continuous values sent must be big-endian:
     val=CondSwapToBus32(val);
 
     //First quadlet:
-    data[0] = MOTU_MK3CTRL_CONTINUOUS_CTRL | MOTU_MK3CTRL_SERIAL_NUMBER | this->m_bus;
+    data[0] = MOTU_MK3CTRL_CONTINUOUS_CTRL | (MOTU_MK3CTRL_SERIAL_INIT<<4) | this->m_bus;
 
     //Second quadlet:
     data[1] = this->m_key | (val >> 24);

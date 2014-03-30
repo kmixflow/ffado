@@ -253,10 +253,9 @@ protected:
 /* The following quadlets needs to be sent to MOTU_G3_REG_MIXER to reset
  * the packet serial number and begin interaction with the mixer
  */
-#define MOTU_MK3CTRL_MIXER_RESET0   0x00000000
-#define MOTU_MK3CTRL_MIXER_RESET1   0x00010000
-#define MOTU_MK3CTRL_SERIAL_NUMBER  0x00020000 // Mask for packet serial number
-
+#define MOTU_MK3CTRL_SERIAL_RESET0      0x00000000
+#define MOTU_MK3CTRL_SERIAL_RESET1      0x00010000
+#define MOTU_MK3CTRL_SERIAL_INIT        0x01
 
 /*
  *

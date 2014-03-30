@@ -467,14 +467,23 @@ public:
         unsigned int port_a_mode, unsigned int port_b_mode);
 
     signed int getEventSize(unsigned int dir);
-
     signed int       m_motu_model;
+    unsigned int ReadRegister(fb_nodeaddr_t reg);
+    signed int readBlock(fb_nodeaddr_t reg, quadlet_t *buf, signed int n_quads);
+    signed int WriteRegister(fb_nodeaddr_t reg, quadlet_t data);
+    signed int writeBlock(fb_nodeaddr_t reg, quadlet_t *data, signed int n_quads);
+
+    bool resetMk3MixerSerial();
+    unsigned int getMk3MixerSerial();
+    unsigned int getNextMk3MixerSerial();
+
 protected:
     struct VendorModelEntry * m_model;
     signed int m_iso_recv_channel, m_iso_send_channel;
     signed int m_rx_bandwidth, m_tx_bandwidth;
 
     signed int m_rx_event_size, m_tx_event_size;
+    unsigned int m_mk3_serial;
 
     Streaming::MotuReceiveStreamProcessor *m_receiveProcessor;
     Streaming::MotuTransmitStreamProcessor *m_transmitProcessor;
@@ -496,13 +505,6 @@ private:
         enum Streaming::Port::E_Direction direction, unsigned int sample_rate, 
         unsigned int optical_a_mode, unsigned int optical_b_mode);
 
-public:
-    unsigned int ReadRegister(fb_nodeaddr_t reg);
-    signed int readBlock(fb_nodeaddr_t reg, quadlet_t *buf, signed int n_quads);
-    signed int WriteRegister(fb_nodeaddr_t reg, quadlet_t data);
-    signed int writeBlock(fb_nodeaddr_t reg, quadlet_t *data, signed int n_quads);
-
-private:
     Control::Container *m_MixerContainer;
     Control::Container *m_ControlContainer;
 };

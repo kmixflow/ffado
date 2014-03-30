@@ -278,247 +278,267 @@ MotuDevice::buildMixerAudioControls(void) {
 bool
 MotuDevice::buildMark3MixerAudioControls(void) {
 
+    bool result = true;
+    MotuMatrixMixerMk3 *fader_mmixer = NULL;
+    MotuMatrixMixerMk3 *pan_mmixer = NULL;
+    MotuMatrixMixerMk3 *solo_mmixer = NULL;
+    MotuMatrixMixerMk3 *mute_mmixer = NULL;
+    const struct MatrixMixBusMk3 *buses = NULL;
+    const struct MatrixMixChannelMk3 *channels = NULL;
+    unsigned int bus, ch, i;
 
-	bool result = true;
-	    MotuMatrixMixerMk3 *fader_mmixer = NULL;
-	    MotuMatrixMixerMk3 *pan_mmixer = NULL;
-	    MotuMatrixMixerMk3 *solo_mmixer = NULL;
-	    MotuMatrixMixerMk3 *mute_mmixer = NULL;
-	    const struct MatrixMixBusMk3 *buses = NULL;
-	    const struct MatrixMixChannelMk3 *channels = NULL;
-	    unsigned int bus, ch, i;
+    if (DevicesProperty[m_motu_model - 1].mk3mixer == NULL) {
+        debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer defined for model %d\n", m_motu_model);
+        return true;
+    } else {
+        buses = DevicesProperty[m_motu_model - 1].mk3mixer->mixer_buses;
+        result = false;
+        if (buses == NULL) {
+            debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer buses defined for model %d\n", m_motu_model);
+        } else
+            result = true;
+        channels = DevicesProperty[m_motu_model - 1].mk3mixer->mixer_channels;
+        if (channels == NULL) {
+            debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer channels defined for model %d\n", m_motu_model);
+        } else
+            result = true;
+        if (DevicesProperty[m_motu_model - 1].mk3mixer->mixer_ctrl == NULL) {
+            debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer device controls defined for model %d\n", m_motu_model);
+        } else
+            result = true;
+    }
+    if (result == false) {
+        return true;
+    }
 
-	    if (DevicesProperty[m_motu_model-1].mk3mixer == NULL) {
-	        debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer defined for model %d\n", m_motu_model);
-	        return true;
-	    } else {
-	        buses = DevicesProperty[m_motu_model-1].mk3mixer->mixer_buses;
-	        result = false;
-	        if (buses == NULL) {
-	            debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer buses defined for model %d\n", m_motu_model);
-	        } else
-	            result = true;
-	        channels = DevicesProperty[m_motu_model-1].mk3mixer->mixer_channels;
-	        if (channels == NULL) {
-	            debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer channels defined for model %d\n", m_motu_model);
-	        } else
-	            result = true;
-	        if (DevicesProperty[m_motu_model-1].mk3mixer->mixer_ctrl == NULL) {
-	            debugOutput(DEBUG_LEVEL_INFO, "No Mark3 mixer device controls defined for model %d\n", m_motu_model);
-	        } else
-	            result = true;
-	    }
-	    if (result == false) {
-	        return true;
-	    }
+    /* Create the top-level matrix mixers */
+    fader_mmixer = new ChannelFaderMatrixMixerMk3(*this, "fader");
+    result &= m_MixerContainer->addElement(fader_mmixer);
+    pan_mmixer = new ChannelPanMatrixMixerMk3(*this, "pan");
+    result &= m_MixerContainer->addElement(pan_mmixer);
+    solo_mmixer = new ChannelBinSwMatrixMixerMk3(*this, "solo",
+            MOTU_CTRL_MASK_SOLO_VALUE, MOTU_CTRL_MASK_SOLO_SETENABLE);
+    result &= m_MixerContainer->addElement(solo_mmixer);
+    mute_mmixer = new ChannelBinSwMatrixMixerMk3(*this, "mute",
+            MOTU_CTRL_MASK_MUTE_VALUE, MOTU_CTRL_MASK_MUTE_SETENABLE);
+    result &= m_MixerContainer->addElement(mute_mmixer);
 
-	    /* Create the top-level matrix mixers */
-	    fader_mmixer = new ChannelFaderMatrixMixerMk3(*this, "fader");
-	    result &= m_MixerContainer->addElement(fader_mmixer);
-	    pan_mmixer = new ChannelPanMatrixMixerMk3(*this, "pan");
-	    result &= m_MixerContainer->addElement(pan_mmixer);
-	    solo_mmixer = new ChannelBinSwMatrixMixerMk3(*this, "solo",
-	        MOTU_CTRL_MASK_SOLO_VALUE, MOTU_CTRL_MASK_SOLO_SETENABLE);
-	    result &= m_MixerContainer->addElement(solo_mmixer);
-	    mute_mmixer = new ChannelBinSwMatrixMixerMk3(*this, "mute",
-	        MOTU_CTRL_MASK_MUTE_VALUE, MOTU_CTRL_MASK_MUTE_SETENABLE);
-	    result &= m_MixerContainer->addElement(mute_mmixer);
+    for (bus = 0;
+            bus < DevicesProperty[m_motu_model - 1].mk3mixer->n_mixer_buses;
+            bus++) {
+        fader_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
+        pan_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
+        solo_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
+        mute_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
+    }
 
-	    for (bus=0; bus<DevicesProperty[m_motu_model-1].mk3mixer->n_mixer_buses; bus++) {
-	        fader_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
-	        pan_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
-	        solo_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
-	        mute_mmixer->addRowInfo(buses[bus].name, 0, buses[bus].address);
-	    }
+    for (ch = 0;
+            ch < DevicesProperty[m_motu_model - 1].mk3mixer->n_mixer_channels;
+            ch++) {
+        uint32_t flags = channels[ch].flags;
+        if (flags & MOTU_CTRL_CHANNEL_FADER)
+            fader_mmixer->addColInfo(channels[ch].name, 0,
+                    channels[ch].addr_ofs);
+        if (flags & MOTU_CTRL_CHANNEL_PAN)
+            pan_mmixer->addColInfo(channels[ch].name, 0, channels[ch].addr_ofs);
+        if (flags & MOTU_CTRL_CHANNEL_SOLO)
+            solo_mmixer->addColInfo(channels[ch].name, 0,
+                    channels[ch].addr_ofs);
+        if (flags & MOTU_CTRL_CHANNEL_MUTE)
+            mute_mmixer->addColInfo(channels[ch].name, 0,
+                    channels[ch].addr_ofs);
+        flags &= ~(MOTU_CTRL_CHANNEL_FADER | MOTU_CTRL_CHANNEL_PAN
+                | MOTU_CTRL_CHANNEL_SOLO | MOTU_CTRL_CHANNEL_MUTE);
+        if (flags) {
+            debugOutput(DEBUG_LEVEL_WARNING, "Control %s: unknown flag bits 0x%08x\n", channels[ch].name, flags);
+        }
+    }
 
-	    for (ch=0; ch<DevicesProperty[m_motu_model-1].mk3mixer->n_mixer_channels; ch++) {
-	        uint32_t flags = channels[ch].flags;
-	        if (flags & MOTU_CTRL_CHANNEL_FADER)
-	            fader_mmixer->addColInfo(channels[ch].name, 0, channels[ch].addr_ofs);
-	        if (flags & MOTU_CTRL_CHANNEL_PAN)
-	            pan_mmixer->addColInfo(channels[ch].name, 0, channels[ch].addr_ofs);
-	        if (flags & MOTU_CTRL_CHANNEL_SOLO)
-	            solo_mmixer->addColInfo(channels[ch].name, 0, channels[ch].addr_ofs);
-	        if (flags & MOTU_CTRL_CHANNEL_MUTE)
-	            mute_mmixer->addColInfo(channels[ch].name, 0, channels[ch].addr_ofs);
-	        flags &= ~(MOTU_CTRL_CHANNEL_FADER|MOTU_CTRL_CHANNEL_PAN|MOTU_CTRL_CHANNEL_SOLO|MOTU_CTRL_CHANNEL_MUTE);
-	        if (flags) {
-	            debugOutput(DEBUG_LEVEL_WARNING, "Control %s: unknown flag bits 0x%08x\n", channels[ch].name, flags);
-	        }
-	    }
+    // Since for each change on the mk3 control it's necessary to send a monotonically increasing serial number
+    // let's reset it here:
+    if(!resetMk3MixerSerial())
+    {
+        return true;
+    }
 
-	    // Single non-matrixed mixer controls get added here.  Channel controls are supported
-	    // here, but usually these will be a part of a matrix mixer.
-	    for (i=0; i<DevicesProperty[m_motu_model-1].mk3mixer->n_mixer_ctrls; i++) {
-	        const struct MixerCtrlMk3 *ctrl = &DevicesProperty[m_motu_model-1].mk3mixer->mixer_ctrl[i];
-	        unsigned int type;
-	        char name[100];
-	        char label[100];
+    // Single non-matrixed mixer controls get added here.  Channel controls are supported
+    // here, but usually these will be a part of a matrix mixer.
+    for (i = 0; i < DevicesProperty[m_motu_model - 1].mk3mixer->n_mixer_ctrls;
+            i++) {
+        const struct MixerCtrlMk3 *ctrl =
+                &DevicesProperty[m_motu_model - 1].mk3mixer->mixer_ctrl[i];
+        unsigned int type;
+        char name[100];
+        char label[100];
 
-	        if (ctrl == NULL) {
-	            debugOutput(DEBUG_LEVEL_WARNING, "NULL control at index %d for model %d\n", i, m_motu_model);
-	            continue;
-	        }
-	        type = ctrl->type;
-	        /*
-	        if (type & MOTU_CTRL_CHANNEL_FADER) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "fader");
-	            snprintf(label,100, "%s%s", ctrl->label,"fader");
-	            result &= m_MixerContainer->addElement(
-	                new ChannelFaderMk3(*this, ctrl->key, name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_CHANNEL_FADER;
-	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_CHANNEL_FADER on bus 0x%08llx\n", ctrl->key);
-	        }
-	        if (type & MOTU_CTRL_CHANNEL_PAN) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "pan");
-	            snprintf(label,100, "%s%s", ctrl->label,"pan");
-	            result &= m_MixerContainer->addElement(
-	                new ChannelPan(*this,
-	                    ctrl->key,
-	                    name, label,
-	                    ctrl->desc));
-	            type &= ~MOTU_CTRL_CHANNEL_PAN;
-	        }
-	        if (type & MOTU_CTRL_CHANNEL_MUTE) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "mute");
-	            snprintf(label,100, "%s%s", ctrl->label,"mute");
-	            result &= m_MixerContainer->addElement(
-	                new MotuBinarySwitch(*this, ctrl->key,
-	                    MOTU_CTRL_MASK_MUTE_VALUE, MOTU_CTRL_MASK_MUTE_SETENABLE,
-	                    name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_CHANNEL_MUTE;
-	        }
-	        if (type & MOTU_CTRL_CHANNEL_SOLO) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "solo");
-	            snprintf(label,100, "%s%s", ctrl->label,"solo");
-	            result &= m_MixerContainer->addElement(
-	                new MotuBinarySwitch(*this, ctrl->key,
-	                    MOTU_CTRL_MASK_SOLO_VALUE, MOTU_CTRL_MASK_SOLO_SETENABLE,
-	                    name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_CHANNEL_SOLO;
-	        }*/
-	        if (type & MOTU_CTRL_MIX_FADER) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "fader");
-	            snprintf(label,100, "%s%s", ctrl->label,"fader");
-	            result &= m_MixerContainer->addElement(
-	                new MixFaderMk3(*this, ctrl->key, name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_MIX_FADER;
-	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_FADER on bus 0x%08llx\n", ctrl->key);
-	        }
-	        if (type & MOTU_CTRL_MIX_MUTE) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "mute");
-	            snprintf(label,100, "%s%s", ctrl->label,"mute");
-	            result &= m_MixerContainer->addElement(
-	                new MixMuteMk3(*this, ctrl->key, name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_MIX_MUTE;
-	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_MUTE on bus 0x%08llx\n", ctrl->key);
-	        }
-	        if (type & MOTU_CTRL_MIX_DEST) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "dest");
-	            snprintf(label,100, "%s%s", ctrl->label,"dest");
-	            result &= m_MixerContainer->addElement(
-	                new MixDestMk3(*this, ctrl->key, name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_MIX_DEST;
-	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_DEST on bus 0x%08llx\n", ctrl->key);
-	        }
+        if (ctrl == NULL) {
+            debugOutput(DEBUG_LEVEL_WARNING, "NULL control at index %d for model %d\n", i, m_motu_model);
+            continue;
+        }
+        type = ctrl->type;
+        /*
+         if (type & MOTU_CTRL_CHANNEL_FADER) {
+         snprintf(name, 100, "%s%s", ctrl->name, "fader");
+         snprintf(label,100, "%s%s", ctrl->label,"fader");
+         result &= m_MixerContainer->addElement(
+         new ChannelFaderMk3(*this, ctrl->key, name, label, ctrl->desc));
+         type &= ~MOTU_CTRL_CHANNEL_FADER;
+         debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_CHANNEL_FADER on bus 0x%08llx\n", ctrl->key);
+         }
+         if (type & MOTU_CTRL_CHANNEL_PAN) {
+         snprintf(name, 100, "%s%s", ctrl->name, "pan");
+         snprintf(label,100, "%s%s", ctrl->label,"pan");
+         result &= m_MixerContainer->addElement(
+         new ChannelPan(*this,
+         ctrl->key,
+         name, label,
+         ctrl->desc));
+         type &= ~MOTU_CTRL_CHANNEL_PAN;
+         }
+         if (type & MOTU_CTRL_CHANNEL_MUTE) {
+         snprintf(name, 100, "%s%s", ctrl->name, "mute");
+         snprintf(label,100, "%s%s", ctrl->label,"mute");
+         result &= m_MixerContainer->addElement(
+         new MotuBinarySwitch(*this, ctrl->key,
+         MOTU_CTRL_MASK_MUTE_VALUE, MOTU_CTRL_MASK_MUTE_SETENABLE,
+         name, label, ctrl->desc));
+         type &= ~MOTU_CTRL_CHANNEL_MUTE;
+         }
+         if (type & MOTU_CTRL_CHANNEL_SOLO) {
+         snprintf(name, 100, "%s%s", ctrl->name, "solo");
+         snprintf(label,100, "%s%s", ctrl->label,"solo");
+         result &= m_MixerContainer->addElement(
+         new MotuBinarySwitch(*this, ctrl->key,
+         MOTU_CTRL_MASK_SOLO_VALUE, MOTU_CTRL_MASK_SOLO_SETENABLE,
+         name, label, ctrl->desc));
+         type &= ~MOTU_CTRL_CHANNEL_SOLO;
+         }*/
+        if (type & MOTU_CTRL_MIX_FADER) {
+            snprintf(name, 100, "%s%s", ctrl->name, "fader");
+            snprintf(label, 100, "%s%s", ctrl->label, "fader");
+            result &= m_MixerContainer->addElement(
+                    new MixFaderMk3(*this, ctrl->key, name, label, ctrl->desc));
+            type &= ~MOTU_CTRL_MIX_FADER;
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_FADER on bus 0x%08llx\n", ctrl->key);
+        }
+        if (type & MOTU_CTRL_MIX_MUTE) {
+            snprintf(name, 100, "%s%s", ctrl->name, "mute");
+            snprintf(label, 100, "%s%s", ctrl->label, "mute");
+            result &= m_MixerContainer->addElement(
+                    new MixMuteMk3(*this, ctrl->key, name, label, ctrl->desc));
+            type &= ~MOTU_CTRL_MIX_MUTE;
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_MUTE on bus 0x%08llx\n", ctrl->key);
+        }
+        if (type & MOTU_CTRL_MIX_DEST) {
+            snprintf(name, 100, "%s%s", ctrl->name, "dest");
+            snprintf(label, 100, "%s%s", ctrl->label, "dest");
+            result &= m_MixerContainer->addElement(
+                    new MixDestMk3(*this, ctrl->key, name, label, ctrl->desc));
+            type &= ~MOTU_CTRL_MIX_DEST;
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_DEST on bus 0x%08llx\n", ctrl->key);
+        }
 
-	        /*if (type & MOTU_CTRL_INPUT_UL_GAIN) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "trimgain");
-	            snprintf(label,100, "%s%s", ctrl->label,"trimgain");
-	            result &= m_MixerContainer->addElement(
-	                new InputGainPadInv(*this, ctrl->key, MOTU_CTRL_MODE_UL_GAIN,
-	                    name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_INPUT_UL_GAIN;
-	        }*/
-	        if (type & MOTU_CTRL_INPUT_PHASE_INV) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "invert");
-	            snprintf(label,100, "%s%s", ctrl->label,"invert");
-	            result &= m_MixerContainer->addElement(
-	                new InputPhaseMk3(*this, ctrl->key, name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_INPUT_PHASE_INV;
-	        }
-	        if (type & MOTU_CTRL_INPUT_TRIMGAIN) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "trimgain");
-	            snprintf(label,100, "%s%s", ctrl->label,"trimgain");
-	            result &= m_MixerContainer->addElement(
-	                new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_TRIMGAIN, name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_INPUT_TRIMGAIN;
-	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_TRIMGAIN on channel 0x%08llx\n", ctrl->key);
-	        }
-	        if (type & MOTU_CTRL_INPUT_PAD) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "pad");
-	            snprintf(label,100, "%s%s", ctrl->label,"pad");
-	            result &= m_MixerContainer->addElement(
-	                new InputGainPadMk3(*this, ctrl->key, name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_INPUT_PAD;
-	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_PAD on channel 0x%08llx\n", ctrl->key);
-	        }
-	        if (type & MOTU_CTRL_INPUT_LEVEL) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "level");
-	            snprintf(label,100, "%s%s", ctrl->label,"level");
-	            result &= m_MixerContainer->addElement(
-                   new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_LEVEL, name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_INPUT_LEVEL;
-	            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_LEVEL on channel 0x%08llx\n", ctrl->key);
-	        }/*
-	        if (type & MOTU_CTRL_INPUT_BOOST) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "boost");
-	            snprintf(label,100, "%s%s", ctrl->label,"boost");
-	            result &= m_MixerContainer->addElement(
-	                new MotuBinarySwitch(*this, MOTU_REG_INPUT_BOOST,
-	                    1<<ctrl->key, 0, name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_INPUT_BOOST;
-	        }*/
-	        if (type & MOTU_CTRL_PHONES_SRC) {
-	            snprintf(name, 100, "%s%s", ctrl->name, "src");
-	            snprintf(label,100, "%s%s", ctrl->label,"src");
-	            result &= m_MixerContainer->addElement(
-	                new PhonesSrc(*this, name, label, ctrl->desc));
-	            type &= ~MOTU_CTRL_PHONES_SRC;
-	        }/*
-	        if (type & MOTU_CTRL_OPTICAL_MODE) {
-	            result &= m_MixerContainer->addElement(
-	                new OpticalMode(*this, ctrl->key,
-	                    ctrl->name, ctrl->label, ctrl->desc));
-	            type &= ~MOTU_CTRL_OPTICAL_MODE;
-	        }
-	        if (type & MOTU_CTRL_METER) {
-	            if (ctrl->key & MOTU_CTRL_METER_PEAKHOLD) {
-	                snprintf(name, 100, "%s%s", ctrl->name, "peakhold_time");
-	                snprintf(label,100, "%s%s", ctrl->label,"peakhold time");
-	                result &= m_MixerContainer->addElement(
-	                    new MeterControl(*this, MOTU_METER_PEAKHOLD_MASK,
-	                        MOTU_METER_PEAKHOLD_SHIFT, name, label, ctrl->desc));
-	            }
-	            if (ctrl->key & MOTU_CTRL_METER_CLIPHOLD) {
-	                snprintf(name, 100, "%s%s", ctrl->name, "cliphold_time");
-	                snprintf(label,100, "%s%s", ctrl->label,"cliphold time");
-	                result &= m_MixerContainer->addElement(
-	                    new MeterControl(*this, MOTU_METER_CLIPHOLD_MASK,
-	                        MOTU_METER_CLIPHOLD_SHIFT, name, label, ctrl->desc));
-	            }
-	            if (ctrl->key & MOTU_CTRL_METER_AESEBU_SRC) {
-	                snprintf(name, 100, "%s%s", ctrl->name, "aesebu_src");
-	                snprintf(label,100, "%s%s", ctrl->label,"AESEBU source");
-	                result &= m_MixerContainer->addElement(
-	                    new MeterControl(*this, MOTU_METER_AESEBU_SRC_MASK,
-	                        MOTU_METER_AESEBU_SRC_SHIFT, name, label, ctrl->desc));
-	            }
-	            if (ctrl->key & MOTU_CTRL_METER_PROG_SRC) {
-	                snprintf(name, 100, "%s%s", ctrl->name, "src");
-	                snprintf(label,100, "%s%s", ctrl->label,"source");
-	                result &= m_MixerContainer->addElement(
-	                    new MeterControl(*this, MOTU_METER_PROG_SRC_MASK,
-	                        MOTU_METER_PROG_SRC_SHIFT, name, label, ctrl->desc));
-	            }
-	            type &= ~MOTU_CTRL_METER;
-	        }*/
+        /*if (type & MOTU_CTRL_INPUT_UL_GAIN) {
+         snprintf(name, 100, "%s%s", ctrl->name, "trimgain");
+         snprintf(label,100, "%s%s", ctrl->label,"trimgain");
+         result &= m_MixerContainer->addElement(
+         new InputGainPadInv(*this, ctrl->key, MOTU_CTRL_MODE_UL_GAIN,
+         name, label, ctrl->desc));
+         type &= ~MOTU_CTRL_INPUT_UL_GAIN;
+         }*/
+        if (type & MOTU_CTRL_INPUT_PHASE_INV) {
+            snprintf(name, 100, "%s%s", ctrl->name, "invert");
+            snprintf(label, 100, "%s%s", ctrl->label, "invert");
+            result &= m_MixerContainer->addElement(
+                    new InputPhaseMk3(*this, ctrl->key, name, label,
+                            ctrl->desc));
+            type &= ~MOTU_CTRL_INPUT_PHASE_INV;
+        }
+        if (type & MOTU_CTRL_INPUT_TRIMGAIN) {
+            snprintf(name, 100, "%s%s", ctrl->name, "trimgain");
+            snprintf(label, 100, "%s%s", ctrl->label, "trimgain");
+            result &= m_MixerContainer->addElement(
+                    new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_TRIMGAIN,
+                            name, label, ctrl->desc));
+            type &= ~MOTU_CTRL_INPUT_TRIMGAIN;
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_TRIMGAIN on channel 0x%08llx\n", ctrl->key);
+        }
+        if (type & MOTU_CTRL_INPUT_PAD) {
+            snprintf(name, 100, "%s%s", ctrl->name, "pad");
+            snprintf(label, 100, "%s%s", ctrl->label, "pad");
+            result &= m_MixerContainer->addElement(
+                    new InputGainPadMk3(*this, ctrl->key, name, label,
+                            ctrl->desc));
+            type &= ~MOTU_CTRL_INPUT_PAD;
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_PAD on channel 0x%08llx\n", ctrl->key);
+        }
+        if (type & MOTU_CTRL_INPUT_LEVEL) {
+            snprintf(name, 100, "%s%s", ctrl->name, "level");
+            snprintf(label, 100, "%s%s", ctrl->label, "level");
+            result &= m_MixerContainer->addElement(
+                    new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_LEVEL,
+                            name, label, ctrl->desc));
+            type &= ~MOTU_CTRL_INPUT_LEVEL;
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_LEVEL on channel 0x%08llx\n", ctrl->key);
+        }/*
+         if (type & MOTU_CTRL_INPUT_BOOST) {
+         snprintf(name, 100, "%s%s", ctrl->name, "boost");
+         snprintf(label,100, "%s%s", ctrl->label,"boost");
+         result &= m_MixerContainer->addElement(
+         new MotuBinarySwitch(*this, MOTU_REG_INPUT_BOOST,
+         1<<ctrl->key, 0, name, label, ctrl->desc));
+         type &= ~MOTU_CTRL_INPUT_BOOST;
+         }*/
+        if (type & MOTU_CTRL_PHONES_SRC) {
+            snprintf(name, 100, "%s%s", ctrl->name, "src");
+            snprintf(label, 100, "%s%s", ctrl->label, "src");
+            result &= m_MixerContainer->addElement(
+                    new PhonesSrc(*this, name, label, ctrl->desc));
+            type &= ~MOTU_CTRL_PHONES_SRC;
+        }/*
+         if (type & MOTU_CTRL_OPTICAL_MODE) {
+         result &= m_MixerContainer->addElement(
+         new OpticalMode(*this, ctrl->key,
+         ctrl->name, ctrl->label, ctrl->desc));
+         type &= ~MOTU_CTRL_OPTICAL_MODE;
+         }
+         if (type & MOTU_CTRL_METER) {
+         if (ctrl->key & MOTU_CTRL_METER_PEAKHOLD) {
+         snprintf(name, 100, "%s%s", ctrl->name, "peakhold_time");
+         snprintf(label,100, "%s%s", ctrl->label,"peakhold time");
+         result &= m_MixerContainer->addElement(
+         new MeterControl(*this, MOTU_METER_PEAKHOLD_MASK,
+         MOTU_METER_PEAKHOLD_SHIFT, name, label, ctrl->desc));
+         }
+         if (ctrl->key & MOTU_CTRL_METER_CLIPHOLD) {
+         snprintf(name, 100, "%s%s", ctrl->name, "cliphold_time");
+         snprintf(label,100, "%s%s", ctrl->label,"cliphold time");
+         result &= m_MixerContainer->addElement(
+         new MeterControl(*this, MOTU_METER_CLIPHOLD_MASK,
+         MOTU_METER_CLIPHOLD_SHIFT, name, label, ctrl->desc));
+         }
+         if (ctrl->key & MOTU_CTRL_METER_AESEBU_SRC) {
+         snprintf(name, 100, "%s%s", ctrl->name, "aesebu_src");
+         snprintf(label,100, "%s%s", ctrl->label,"AESEBU source");
+         result &= m_MixerContainer->addElement(
+         new MeterControl(*this, MOTU_METER_AESEBU_SRC_MASK,
+         MOTU_METER_AESEBU_SRC_SHIFT, name, label, ctrl->desc));
+         }
+         if (ctrl->key & MOTU_CTRL_METER_PROG_SRC) {
+         snprintf(name, 100, "%s%s", ctrl->name, "src");
+         snprintf(label,100, "%s%s", ctrl->label,"source");
+         result &= m_MixerContainer->addElement(
+         new MeterControl(*this, MOTU_METER_PROG_SRC_MASK,
+         MOTU_METER_PROG_SRC_SHIFT, name, label, ctrl->desc));
+         }
+         type &= ~MOTU_CTRL_METER;
+         }*/
 
-	        if (type) {
-	            debugOutput(DEBUG_LEVEL_WARNING, "Unknown mixer control type flag bits 0x%08x\n", ctrl->type);
-	        }
-	    }
-	    return result;
+        if (type) {
+            debugOutput(DEBUG_LEVEL_WARNING, "Unknown mixer control type flag bits 0x%08x\n", ctrl->type);
+        }
+    }
+    return result;
 }
 
 bool
