@@ -212,6 +212,9 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
     unsigned int val, serial;
     quadlet_t data[3];
 
+    val = (unsigned int)value;
+    serial = m_parent.getMk3MixerSerial();
+
     if (val > this->m_maximum) {
         val = m_maximum;
         debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, higher than control maximum=%lu\n", val, this->m_maximum);
@@ -219,9 +222,6 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
         val = m_minimum;
         debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lu\n", val, this->m_minimum);
     }
-
-    val = (unsigned int)value;
-    serial = m_parent.getMk3MixerSerial();
 
     //Continuous values sent must be big-endian:
     val=CondSwapToBus32(val);
