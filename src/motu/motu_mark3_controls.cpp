@@ -170,6 +170,27 @@ int InputPhaseMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 
+InputLevelMk3::InputLevelMk3(MotuDevice &parent, unsigned long int channel,
+        std::string name, std::string label, std::string descr) :
+        MotuDiscreteCtrlMk3(parent, channel, name, label, descr) {
+    //FIXME: Check if channel is valid
+    this->m_key = MOTU_MK3CTRL_INPUT_LEVEL;
+}
+
+bool InputLevelMk3::setValue(int value) {
+    unsigned int val = (unsigned int) value;
+    if ((0 != val) || (1 != val))
+    {
+        debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for InputLevel control\n", val);
+        return false;
+    }
+    return MotuDiscreteCtrlMk3::setValue(val);
+}
+
+int InputLevelMk3::getValue() {
+    return MotuDiscreteCtrlMk3::getValue();
+}
+
 MotuContinuousCtrlMk3::MotuContinuousCtrlMk3(MotuDevice &parent,
         unsigned long int bus, std::string name, std::string label,
         std::string descr) :
