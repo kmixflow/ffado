@@ -23,6 +23,7 @@
  */
 
 /* DBus controls associated with Mark3 mixer controls */
+/* Mk3 protocol description at ../../doc/motu_firewire_protocol-mk3.txt */
 
 // This also includes motu_mark3_controls.h
 #include "motu_avdevice.h"
@@ -50,16 +51,16 @@ bool MotuDiscreteCtrlMk3::setValue(int value) {
     quadlet_t data[2];
     unsigned int serial = m_parent.getMk3MixerSerial();
 
-    //First quadlet:
+    //Prepare data:
     data[0] = MOTU_MK3CTRL_DISCRETE_CTRL | (serial << 16) | value;
-
-    //Second quadlet:
     data[1] = (this->m_bus << 24) | this->m_key;
 
+    //Write data:
     if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2)) {
         debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to mixer register\n", data[0], data[1]);
         return false;
     }
+    //Everything is OK, let's update serial number for next communication
     m_parent.updateMk3MixerSerial();
     return true;
 }
@@ -223,22 +224,20 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
         debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lu\n", val, this->m_minimum);
     }
 
-    //Continuous values sent must be big-endian:
+    //Values sent to MOTU must be big-endian:
     val=CondSwapToBus32(val);
 
-    //First quadlet:
+    //Prepare data:
     data[0] = MOTU_MK3CTRL_CONTINUOUS_CTRL | (serial << 16) | this->m_bus;
-
-    //Second quadlet:
     data[1] = this->m_key | (val >> 24);
-
-    //Third quadlet:
     data[2] = (val << 8);
 
+    //Write data:
     if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 3)) {
         debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) data[2]=(0x%08x) to mixer register\n", data[0], data[1], data[2]);
         return false;
     }
+    //Everything is OK, let's update serial number for next communication
     m_parent.updateMk3MixerSerial();
     return true;
 }
