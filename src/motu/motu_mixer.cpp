@@ -468,7 +468,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             snprintf(label, 100, "%s%s", ctrl->label, "level");
             result &= m_MixerContainer->addElement(
                     new InputLevelMk3(*this, ctrl->key, name, label, ctrl->desc));
-            type &= ~MOTU_CTRL_INPUT_TRIMGAIN;
+            type &= ~MOTU_CTRL_INPUT_LEVEL;
             debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_LEVEL on channel 0x%08llx\n", ctrl->key);
         }
         if (type & MOTU_CTRL_INPUT_PAD) {
@@ -486,7 +486,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             result &= m_MixerContainer->addElement(
                     new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_BOOST,
                             name, label, ctrl->desc));
-            type &= ~MOTU_CTRL_INPUT_LEVEL;
+            type &= ~MOTU_CTRL_INPUT_BOOST;
             debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_BOOST on channel 0x%08llx\n", ctrl->key);
         }
         if (type & MOTU_CTRL_PHONES_SRC) {
