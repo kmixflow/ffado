@@ -178,8 +178,8 @@ InputLevelMk3::InputLevelMk3(MotuDevice &parent, unsigned long int channel,
 bool InputLevelMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
     if ((0 > val) || (1 < val))
-        debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for InputLevel control\n", val);
     {
+        debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for InputLevel control\n", val);
         return false;
     }
     return MotuDiscreteCtrlMk3::setValue(val);
