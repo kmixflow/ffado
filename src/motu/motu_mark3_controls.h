@@ -82,11 +82,11 @@ public:
     virtual int getValue();
 };
 
-class InputGainPadMk3
+class InputPadMk3
     : public MotuDiscreteCtrlMk3
 {
 public:
-    InputGainPadMk3(MotuDevice &parent, unsigned long int channel,
+    InputPadMk3(MotuDevice &parent, unsigned long int channel,
             std::string name, std::string label, std::string descr);
 
     virtual bool setValue(int value);

@@ -503,7 +503,7 @@ class Motu_Mark3(QWidget):
         sender = self.sender()
         val = a0
         log.debug("setting %s control to %d" % (self.Controls[sender][0], val))
-        self.hw.setDiscrete(self.Controls[sender][0], val)
+        self.hw.setContignuous(self.Controls[sender][0], val)
 
     # public slot: a binary switch within a matrix mixer
     def updateChannelBinarySwitch(self, a0):

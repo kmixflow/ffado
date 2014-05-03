@@ -463,32 +463,32 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             type &= ~MOTU_CTRL_INPUT_TRIMGAIN;
             debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_TRIMGAIN on channel 0x%08llx\n", ctrl->key);
         }
+        if (type & MOTU_CTRL_INPUT_LEVEL) {
+            snprintf(name, 100, "%s%s", ctrl->name, "trimgain");
+            snprintf(label, 100, "%s%s", ctrl->label, "trimgain");
+            result &= m_MixerContainer->addElement(
+                    new InputLevelMk3(*this, ctrl->key, name, label, ctrl->desc));
+            type &= ~MOTU_CTRL_INPUT_TRIMGAIN;
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_LEVEL on channel 0x%08llx\n", ctrl->key);
+        }
         if (type & MOTU_CTRL_INPUT_PAD) {
             snprintf(name, 100, "%s%s", ctrl->name, "pad");
             snprintf(label, 100, "%s%s", ctrl->label, "pad");
             result &= m_MixerContainer->addElement(
-                    new InputGainPadMk3(*this, ctrl->key, name, label,
+                    new InputPadMk3(*this, ctrl->key, name, label,
                             ctrl->desc));
             type &= ~MOTU_CTRL_INPUT_PAD;
             debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_PAD on channel 0x%08llx\n", ctrl->key);
         }
-        if (type & MOTU_CTRL_INPUT_LEVEL) {
+        if (type & MOTU_CTRL_INPUT_BOOST) {
             snprintf(name, 100, "%s%s", ctrl->name, "level");
             snprintf(label, 100, "%s%s", ctrl->label, "level");
             result &= m_MixerContainer->addElement(
-                    new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_LEVEL,
+                    new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_BOOST,
                             name, label, ctrl->desc));
             type &= ~MOTU_CTRL_INPUT_LEVEL;
-            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_LEVEL on channel 0x%08llx\n", ctrl->key);
-        }/*
-         if (type & MOTU_CTRL_INPUT_BOOST) {
-         snprintf(name, 100, "%s%s", ctrl->name, "boost");
-         snprintf(label,100, "%s%s", ctrl->label,"boost");
-         result &= m_MixerContainer->addElement(
-         new MotuBinarySwitch(*this, MOTU_REG_INPUT_BOOST,
-         1<<ctrl->key, 0, name, label, ctrl->desc));
-         type &= ~MOTU_CTRL_INPUT_BOOST;
-         }*/
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_BOOST on channel 0x%08llx\n", ctrl->key);
+        }
         if (type & MOTU_CTRL_PHONES_SRC) {
             snprintf(name, 100, "%s%s", ctrl->name, "src");
             snprintf(label, 100, "%s%s", ctrl->label, "src");

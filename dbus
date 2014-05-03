@@ -1,0 +1,2100 @@
+signal sender=org.freedesktop.DBus -> dest=:1.355 serial=2 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=NameAcquired
+   string ":1.355"
+method call sender=:1.355 -> dest=org.freedesktop.DBus serial=3 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=AddMatch
+   string "type='method_call'"
+method call sender=:1.355 -> dest=org.freedesktop.DBus serial=4 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=AddMatch
+   string "type='method_return'"
+method call sender=:1.355 -> dest=org.freedesktop.DBus serial=5 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=AddMatch
+   string "type='error'"
+method call sender=:1.353 -> dest=:1.348 serial=5174 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5174
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5175 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5175
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5176 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5176
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5177 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5177
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5178 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5178
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5179 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5179
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5180 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5180
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5181 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5181
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5182 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5182
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5183 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5183
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5184 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5184
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5185 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5185
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5186 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5186
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5187 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5187
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5188 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5188
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5189 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5189
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5190 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5190
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5191 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5191
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5192 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5192
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5193 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5193
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5194 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5194
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5195 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5195
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5196 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5196
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5197 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5197
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5198 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5198
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5199 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5199
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5200 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5200
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5201 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5201
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5202 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5202
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5203 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5203
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5204 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5204
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5205 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5205
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5206 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5206
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5207 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5207
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5208 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5208
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5209 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5209
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5210 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5210
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5211 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5211
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5212 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5212
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5213 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5213
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5214 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5214
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5215 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5215
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5216 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5216
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5217 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5217
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5218 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5218
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5219 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5219
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5220 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5220
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5221 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5221
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5222 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5222
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5223 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5223
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5224 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5224
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5225 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5225
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5226 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5226
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5227 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5227
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5228 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5228
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5229 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5229
+   string "44100"
+method call sender=:1.54 -> dest=org.freedesktop.DBus serial=9229 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=AddMatch
+   string "type='signal',interface='ca.desrt.dconf.Writer',path='/ca/desrt/dconf/Writer/user',arg0path='/com/canonical/indicator/datetime/'"
+method call sender=:1.54 -> dest=org.freedesktop.DBus serial=9230 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=RemoveMatch
+   string "type='signal',interface='ca.desrt.dconf.Writer',path='/ca/desrt/dconf/Writer/user',arg0path='/com/canonical/indicator/datetime/'"
+method call sender=:1.54 -> dest=org.freedesktop.DBus serial=9231 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=AddMatch
+   string "type='signal',interface='ca.desrt.dconf.Writer',path='/ca/desrt/dconf/Writer/user',arg0path='/com/canonical/indicator/datetime/'"
+method call sender=:1.54 -> dest=org.freedesktop.DBus serial=9232 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=RemoveMatch
+   string "type='signal',interface='ca.desrt.dconf.Writer',path='/ca/desrt/dconf/Writer/user',arg0path='/com/canonical/indicator/datetime/'"
+method call sender=:1.353 -> dest=:1.348 serial=5230 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5230
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5231 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5231
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5232 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5232
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5233 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5233
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5234 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5234
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5235 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5235
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5236 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5236
+   string "44100"
+signal sender=:1.54 -> dest=com.canonical.Unity.Panel.Service serial=9233 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=ReSync
+   string "libdatetime.so"
+method call sender=:1.39 -> dest=:1.54 serial=3939 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=SyncOne
+   string "libdatetime.so"
+method call sender=:1.39 -> dest=:1.54 serial=3940 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=SyncOne
+   string "libdatetime.so"
+method return sender=:1.54 -> dest=:1.39 reply_serial=3939
+   array [
+      struct {
+         string "libdatetime.so"
+         string "0x2880298"
+         string "indicator-datetime"
+         string "03:37"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 550
+      }
+   ]
+method return sender=:1.54 -> dest=:1.39 reply_serial=3940
+   array [
+      struct {
+         string "libdatetime.so"
+         string "0x2880298"
+         string "indicator-datetime"
+         string "03:37"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 550
+      }
+   ]
+method call sender=:1.353 -> dest=:1.348 serial=5237 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5237
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5238 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5238
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5239 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5239
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5240 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5240
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5241 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5241
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5242 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5242
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5243 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5243
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5244 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5244
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5245 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5245
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5246 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5246
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5247 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5247
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5248 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5248
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5249 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5249
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5250 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5250
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5251 path=/org/ffado/Control/DeviceManager; interface=org.ffado.Control.Element.Container; member=getNbElements
+method return sender=:1.348 -> dest=:1.353 reply_serial=5251
+   int32 1
+method call sender=:1.353 -> dest=:1.348 serial=5252 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5252
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5253 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5253
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5254 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5254
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5255 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5255
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5256 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5256
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5257 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5257
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5258 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5258
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5259 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5259
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5260 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5260
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5261 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5261
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5262 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5262
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5263 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5263
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5264 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5264
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5265 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5265
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5266 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5266
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5267 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5267
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5268 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5268
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5269 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5269
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5270 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5270
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5271 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5271
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5272 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5272
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5273 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5273
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5274 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5274
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5275 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5275
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5276 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5276
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5277 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5277
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5278 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5278
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5279 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5279
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5280 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5280
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5281 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5281
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5282 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5282
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5283 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5283
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5284 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5284
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5285 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5285
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5286 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5286
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5287 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5287
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5288 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5288
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5289 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5289
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5290 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5290
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5291 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5291
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5292 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5292
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5293 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5293
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5294 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5294
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5295 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5295
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5296 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5296
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5297 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5297
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5298 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5298
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5299 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5299
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5300 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5300
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5301 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5301
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5302 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5302
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5303 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5303
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5304 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5304
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5305 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5305
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5306 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5306
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5307 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5307
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5308 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5308
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5309 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5309
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5310 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5310
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5311 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5311
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5312 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5312
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5313 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5313
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5314 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5314
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5315 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5315
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5316 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5316
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5317 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5317
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5318 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5318
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5319 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5319
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5320 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5320
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5321 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5321
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5322 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5322
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5323 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5323
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5324 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5324
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5325 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5325
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5326 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5326
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5327 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5327
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5328 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5328
+   string "44100"
+signal sender=:1.46 -> dest=(null destination) serial=17304 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=StackingOrderChanged
+signal sender=:1.46 -> dest=(null destination) serial=17305 path=/org/ayatana/bamf/window56633266; interface=org.ayatana.bamf.view; member=ActiveChanged
+   boolean false
+signal sender=:1.46 -> dest=(null destination) serial=17306 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ActiveWindowChanged
+   string "/org/ayatana/bamf/window56633266"
+   string ""
+signal sender=:1.46 -> dest=(null destination) serial=17307 path=/org/ayatana/bamf/application311805604; interface=org.ayatana.bamf.view; member=ActiveChanged
+   boolean false
+signal sender=:1.46 -> dest=(null destination) serial=17308 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ActiveApplicationChanged
+   string "/org/ayatana/bamf/application311805604"
+   string ""
+signal sender=:1.46 -> dest=(null destination) serial=17309 path=/org/ayatana/bamf/window75497475; interface=org.ayatana.bamf.view; member=ActiveChanged
+   boolean true
+signal sender=:1.46 -> dest=(null destination) serial=17310 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ActiveWindowChanged
+   string ""
+   string "/org/ayatana/bamf/window75497475"
+signal sender=:1.46 -> dest=(null destination) serial=17311 path=/org/ayatana/bamf/application1564530881; interface=org.ayatana.bamf.view; member=ActiveChanged
+   boolean true
+signal sender=:1.46 -> dest=(null destination) serial=17312 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ActiveApplicationChanged
+   string ""
+   string "/org/ayatana/bamf/application1564530881"
+method call sender=:1.60 -> dest=org.ayatana.bamf serial=2425 path=/org/ayatana/bamf/window75497475; interface=org.ayatana.bamf.window; member=WindowType
+method call sender=:1.58 -> dest=org.ayatana.bamf serial=2556 path=/org/ayatana/bamf/window75497475; interface=org.ayatana.bamf.view; member=Name
+signal sender=:1.46 -> dest=(null destination) serial=17313 path=/org/ayatana/bamf/window56633266; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+   string "org.ayatana.bamf.view"
+   array [
+      dict entry(
+         string "Active"
+         variant             boolean false
+      )
+   ]
+   array [
+   ]
+signal sender=:1.46 -> dest=(null destination) serial=17314 path=/org/ayatana/bamf/application311805604; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+   string "org.ayatana.bamf.view"
+   array [
+      dict entry(
+         string "Active"
+         variant             boolean false
+      )
+   ]
+   array [
+   ]
+signal sender=:1.46 -> dest=(null destination) serial=17315 path=/org/ayatana/bamf/window75497475; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+   string "org.ayatana.bamf.view"
+   array [
+      dict entry(
+         string "Active"
+         variant             boolean true
+      )
+   ]
+   array [
+   ]
+signal sender=:1.46 -> dest=(null destination) serial=17316 path=/org/ayatana/bamf/application1564530881; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+   string "org.ayatana.bamf.view"
+   array [
+      dict entry(
+         string "Active"
+         variant             boolean true
+      )
+   ]
+   array [
+   ]
+method return sender=:1.46 -> dest=:1.60 reply_serial=2425
+   uint32 0
+method return sender=:1.46 -> dest=:1.58 reply_serial=2556
+   string "ffado-mixer"
+method call sender=:1.58 -> dest=org.ayatana.bamf serial=2557 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ApplicationForXid
+   uint32 75497475
+method return sender=:1.46 -> dest=:1.58 reply_serial=2557
+   string "/org/ayatana/bamf/application1564530881"
+method call sender=:1.58 -> dest=org.ayatana.bamf serial=2558 path=/org/ayatana/bamf/application1564530881; interface=org.ayatana.bamf.view; member=Icon
+method return sender=:1.46 -> dest=:1.58 reply_serial=2558
+   string "ffado"
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6060 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ActiveWindow
+method return sender=:1.46 -> dest=:1.40 reply_serial=6060
+   string "/org/ayatana/bamf/window75497475"
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6061 path=/org/ayatana/bamf/window75497475; interface=org.ayatana.bamf.window; member=WindowType
+method return sender=:1.46 -> dest=:1.40 reply_serial=6061
+   uint32 0
+method call sender=:1.353 -> dest=org.freedesktop.DBus serial=5329 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=GetNameOwner
+   string "org.ffado.Control"
+method call sender=:1.353 -> dest=:1.348 serial=5330 path=/org/ffado/Control/DeviceManager/0001f20000095783/Mixer/Control/Ana5_level; interface=org.freedesktop.DBus.Introspectable; member=Introspect
+method return sender=:1.348 -> dest=:1.353 reply_serial=5330
+   string "<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node name="/org/ffado/Control/DeviceManager/0001f20000095783/Mixer/Control/Ana5_level">
+	<interface name="org.ffado.Control.Element.Continuous">
+		<method name="setValue">
+			<arg direction="in" type="d" name="value"/>
+			<arg direction="out" type="d" name="value"/>
+		</method>
+		<method name="getValue">
+			<arg direction="out" type="d" name="value"/>
+		</method>
+		<method name="getMinimum">
+			<arg direction="out" type="d" name="value"/>
+		</method>
+		<method name="getMaximum">
+			<arg direction="out" type="d" name="value"/>
+		</method>
+		<method name="setValueIdx">
+			<arg direction="in" type="i" name="idx"/>
+			<arg direction="in" type="d" name="value"/>
+			<arg direction="out" type="d" name="value"/>
+		</method>
+		<method name="getValueIdx">
+			<arg direction="in" type="i" name="idx"/>
+			<arg direction="out" type="d" name="value"/>
+		</method>
+	</interface>
+	<interface name="org.ffado.Control.Element.Element">
+		<method name="getId">
+			<arg direction="out" type="t" name="id"/>
+		</method>
+		<method name="getName">
+			<arg direction="out" type="s" name="name"/>
+		</method>
+		<method name="getLabel">
+			<arg direction="out" type="s" name="label"/>
+		</method>
+		<method name="getDescription">
+			<arg direction="out" type="s" name="description"/>
+		</method>
+		<method name="canChangeValue">
+			<arg direction="out" type="b" name="can_change"/>
+		</method>
+		<method name="getVerboseLevel">
+			<arg direction="out" type="i" name="level"/>
+		</method>
+		<method name="setVerboseLevel">
+			<arg direction="in" type="i" name="level"/>
+		</method>
+	</interface>
+	<interface name="org.freedesktop.DBus.Introspectable">
+		<method name="Introspect">
+			<arg direction="out" type="s" name="data"/>
+		</method>
+	</interface>
+</node>"
+method call sender=:1.353 -> dest=:1.348 serial=5331 path=/org/ffado/Control/DeviceManager/0001f20000095783/Mixer/Control/Ana5_level; interface=org.ffado.Control.Element.Discrete; member=setValue
+   boolean true
+error sender=:1.348 -> dest=:1.353 error_name=org.freedesktop.DBus.Error.UnknownMethod reply_serial=5331
+   string "Method "setValue" with signature "b" on interface "org.ffado.Control.Element.Discrete" doesn't exist
+"
+method call sender=:1.353 -> dest=:1.348 serial=5332 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5332
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5333 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5333
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5334 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5334
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5335 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5335
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5336 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5336
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5337 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5337
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5338 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5338
+   string "44100"
+signal sender=:1.54 -> dest=com.canonical.Unity.Panel.Service serial=9236 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=ReSync
+   string "libappmenu.so"
+method call sender=:1.39 -> dest=:1.54 serial=3941 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=SyncOne
+   string "libappmenu.so"
+method return sender=:1.54 -> dest=:1.39 reply_serial=3941
+   array [
+      struct {
+         string "libappmenu.so"
+         string "0x3c83dc0"
+         string ""
+         string "File"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 0
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x3c63a20"
+         string ""
+         string "Edit"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 1
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x3c72970"
+         string ""
+         string "Help"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 2
+      }
+   ]
+method call sender=:1.39 -> dest=:1.54 serial=3942 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=SyncOne
+   string "libappmenu.so"
+method return sender=:1.54 -> dest=:1.39 reply_serial=3942
+   array [
+      struct {
+         string "libappmenu.so"
+         string "0x3c83dc0"
+         string ""
+         string "File"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 0
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x3c63a20"
+         string ""
+         string "Edit"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 1
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x3c72970"
+         string ""
+         string "Help"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 2
+      }
+   ]
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6062 path=/org/ayatana/bamf/window75497475; interface=org.ayatana.bamf.window; member=WindowType
+method return sender=:1.46 -> dest=:1.40 reply_serial=6062
+   uint32 0
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6063 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ActiveWindow
+method return sender=:1.46 -> dest=:1.40 reply_serial=6063
+   string "/org/ayatana/bamf/window75497475"
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6064 path=/org/ayatana/bamf/window75497475; interface=org.ayatana.bamf.window; member=WindowType
+method return sender=:1.46 -> dest=:1.40 reply_serial=6064
+   uint32 0
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6065 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ApplicationForXid
+   uint32 75497475
+method return sender=:1.46 -> dest=:1.40 reply_serial=6065
+   string "/org/ayatana/bamf/application1564530881"
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6066 path=/org/ayatana/bamf/application1564530881; interface=org.ayatana.bamf.view; member=Name
+method return sender=:1.46 -> dest=:1.40 reply_serial=6066
+   string "FFADO Mixer"
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6067 path=/org/ayatana/bamf/window75497475; interface=org.ayatana.bamf.window; member=WindowType
+method return sender=:1.46 -> dest=:1.40 reply_serial=6067
+   uint32 0
+method call sender=:1.353 -> dest=:1.348 serial=5339 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5339
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5340 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5340
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5341 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5341
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5342 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5342
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5343 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5343
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5344 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5344
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5345 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5345
+   string "44100"
+method call sender=:1.39 -> dest=:1.54 serial=3943 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=SyncGeometries
+   array [
+      struct {
+         string "UnityPanel1"
+         string "0x29e6000"
+         int32 0
+         int32 0
+         int32 -1
+         int32 -1
+      }
+      struct {
+         string "UnityPanel1"
+         string "0x29ecb20"
+         int32 0
+         int32 0
+         int32 -1
+         int32 -1
+      }
+      struct {
+         string "UnityPanel1"
+         string "0x2fa2c30"
+         int32 0
+         int32 0
+         int32 -1
+         int32 -1
+      }
+      struct {
+         string "UnityPanel1"
+         string "0x2fb3dd0"
+         int32 0
+         int32 0
+         int32 -1
+         int32 -1
+      }
+      struct {
+         string "UnityPanel1"
+         string "0x31101d0"
+         int32 0
+         int32 0
+         int32 -1
+         int32 -1
+      }
+      struct {
+         string "UnityPanel1"
+         string "0x3191270"
+         int32 0
+         int32 0
+         int32 -1
+         int32 -1
+      }
+   ]
+method return sender=:1.54 -> dest=:1.39 reply_serial=3943
+method call sender=:1.39 -> dest=:1.54 serial=3944 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=SyncGeometries
+   array [
+      struct {
+         string "UnityPanel0"
+         string "0x3c63a20"
+         int32 93
+         int32 0
+         int32 34
+         int32 24
+      }
+      struct {
+         string "UnityPanel0"
+         string "0x3c72970"
+         int32 127
+         int32 0
+         int32 37
+         int32 24
+      }
+      struct {
+         string "UnityPanel0"
+         string "0x3c83dc0"
+         int32 62
+         int32 0
+         int32 31
+         int32 24
+      }
+   ]
+method return sender=:1.54 -> dest=:1.39 reply_serial=3944
+method call sender=:1.353 -> dest=:1.348 serial=5346 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5346
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5347 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5347
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5348 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5348
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5349 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5349
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5350 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5350
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5351 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5351
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5352 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5352
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5353 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5353
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5354 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5354
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5355 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5355
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5356 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5356
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5357 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5357
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5358 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5358
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5359 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5359
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5360 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5360
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5361 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5361
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5362 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5362
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5363 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5363
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5364 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5364
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5365 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5365
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5366 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5366
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5367 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5367
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5368 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5368
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5369 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5369
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5370 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5370
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5371 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5371
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5372 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5372
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5373 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5373
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5374 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5374
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5375 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5375
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5376 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5376
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5377 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5377
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5378 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5378
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5379 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5379
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5380 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5380
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5381 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5381
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5382 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5382
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5383 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5383
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5384 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5384
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5385 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5385
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5386 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5386
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5387 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5387
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5388 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5388
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5389 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5389
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5390 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5390
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5391 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5391
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5392 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5392
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5393 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5393
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5394 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5394
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5395 path=/org/ffado/Control/DeviceManager; interface=org.ffado.Control.Element.Container; member=getNbElements
+method return sender=:1.348 -> dest=:1.353 reply_serial=5395
+   int32 1
+method call sender=:1.353 -> dest=:1.348 serial=5396 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5396
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5397 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5397
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5398 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5398
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5399 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5399
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5400 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5400
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5401 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5401
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5402 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5402
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5403 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5403
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5404 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5404
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5405 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5405
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5406 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5406
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5407 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5407
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5408 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5408
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5409 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5409
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5410 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5410
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5411 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5411
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5412 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5412
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5413 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5413
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5414 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5414
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5415 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5415
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5416 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5416
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5417 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5417
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5418 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5418
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5419 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5419
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5420 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5420
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5421 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5421
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5422 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5422
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5423 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5423
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5424 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5424
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5425 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5425
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5426 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5426
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5427 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5427
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5428 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5428
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5429 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5429
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5430 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5430
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5431 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5431
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5432 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5432
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5433 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5433
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5434 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5434
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5435 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5435
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5436 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5436
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5437 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5437
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5438 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5438
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5439 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5439
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5440 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5440
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5441 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5441
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5442 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5442
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5443 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5443
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5444 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5444
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5445 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5445
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5446 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5446
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5447 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5447
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5448 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5448
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5449 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5449
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5450 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5450
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5451 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5451
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5452 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5452
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5453 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5453
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5454 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5454
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5455 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5455
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5456 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5456
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5457 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5457
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5458 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5458
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5459 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5459
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5460 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5460
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5461 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5461
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5462 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5462
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5463 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5463
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5464 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5464
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5465 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5465
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5466 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5466
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5467 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5467
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5468 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5468
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5469 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5469
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5470 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5470
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5471 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5471
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5472 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5472
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5473 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5473
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5474 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5474
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5475 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5475
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5476 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5476
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5477 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5477
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5478 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5478
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5479 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5479
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5480 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5480
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5481 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5481
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5482 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5482
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5483 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5483
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5484 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5484
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5485 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5485
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5486 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5486
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5487 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5487
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5488 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5488
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5489 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5489
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5490 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5490
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5491 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5491
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5492 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5492
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5493 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5493
+   string "44100"
+method call sender=:1.353 -> dest=org.freedesktop.DBus serial=5494 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=GetNameOwner
+   string "org.ffado.Control"
+method call sender=:1.353 -> dest=:1.348 serial=5495 path=/org/ffado/Control/DeviceManager/0001f20000095783/Mixer/Control/Ana5_boost; interface=org.freedesktop.DBus.Introspectable; member=Introspect
+method return sender=:1.348 -> dest=:1.353 reply_serial=5495
+   string "<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+</node>
+"
+method call sender=:1.353 -> dest=:1.348 serial=5496 path=/org/ffado/Control/DeviceManager/0001f20000095783/Mixer/Control/Ana5_boost; interface=org.ffado.Control.Element.Discrete; member=setValue
+   boolean true
+error sender=:1.348 -> dest=:1.353 error_name=org.freedesktop.DBus.Error.UnknownMethod reply_serial=5496
+   string "Method "setValue" with signature "b" on interface "org.ffado.Control.Element.Discrete" doesn't exist
+"
+method call sender=:1.353 -> dest=:1.348 serial=5497 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5497
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5498 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5498
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5499 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5499
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5500 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5500
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5501 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5501
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5502 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5502
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5503 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5503
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5504 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5504
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5505 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5505
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5506 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5506
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5507 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5507
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5508 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5508
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5509 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5509
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5510 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5510
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5511 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5511
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5512 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5512
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5513 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5513
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5514 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5514
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5515 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5515
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5516 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5516
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5517 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5517
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5518 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5518
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5519 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5519
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5520 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5520
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5521 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5521
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5522 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5522
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5523 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5523
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5524 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5524
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5525 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5525
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5526 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5526
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5527 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5527
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5528 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5528
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5529 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5529
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5530 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5530
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5531 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5531
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5532 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5532
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5533 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5533
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5534 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5534
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5535 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5535
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5536 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5536
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5537 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5537
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5538 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5538
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5539 path=/org/ffado/Control/DeviceManager; interface=org.ffado.Control.Element.Container; member=getNbElements
+method return sender=:1.348 -> dest=:1.353 reply_serial=5539
+   int32 1
+method call sender=:1.353 -> dest=:1.348 serial=5540 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5540
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5541 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5541
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5542 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5542
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5543 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5543
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5544 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5544
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5545 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5545
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5546 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5546
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5547 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5547
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5548 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5548
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5549 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5549
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5550 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5550
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5551 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5551
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5552 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5552
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5553 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5553
+   string "44100"
+method call sender=:1.353 -> dest=:1.348 serial=5554 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5554
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5555 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5555
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5556 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5556
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5557 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5557
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5558 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5558
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5559 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5559
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5560 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5560
+   string "44100"
+signal sender=:1.46 -> dest=(null destination) serial=17329 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=StackingOrderChanged
+signal sender=:1.46 -> dest=(null destination) serial=17330 path=/org/ayatana/bamf/window56633266; interface=org.ayatana.bamf.view; member=ActiveChanged
+   boolean true
+signal sender=:1.46 -> dest=(null destination) serial=17331 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ActiveWindowChanged
+   string "/org/ayatana/bamf/window75497475"
+   string "/org/ayatana/bamf/window56633266"
+signal sender=:1.46 -> dest=(null destination) serial=17332 path=/org/ayatana/bamf/application311805604; interface=org.ayatana.bamf.view; member=ActiveChanged
+   boolean true
+signal sender=:1.46 -> dest=(null destination) serial=17333 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ActiveApplicationChanged
+   string "/org/ayatana/bamf/application1564530881"
+   string "/org/ayatana/bamf/application311805604"
+signal sender=:1.46 -> dest=(null destination) serial=17334 path=/org/ayatana/bamf/window75497475; interface=org.ayatana.bamf.view; member=ActiveChanged
+   boolean false
+signal sender=:1.46 -> dest=(null destination) serial=17335 path=/org/ayatana/bamf/application1564530881; interface=org.ayatana.bamf.view; member=ActiveChanged
+   boolean false
+method call sender=:1.58 -> dest=org.ayatana.bamf serial=2559 path=/org/ayatana/bamf/window56633266; interface=org.ayatana.bamf.view; member=Name
+method call sender=:1.60 -> dest=org.ayatana.bamf serial=2426 path=/org/ayatana/bamf/window56633266; interface=org.ayatana.bamf.window; member=WindowType
+signal sender=:1.46 -> dest=(null destination) serial=17336 path=/org/ayatana/bamf/window56633266; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+   string "org.ayatana.bamf.view"
+   array [
+      dict entry(
+         string "Active"
+         variant             boolean true
+      )
+   ]
+   array [
+   ]
+signal sender=:1.46 -> dest=(null destination) serial=17337 path=/org/ayatana/bamf/application311805604; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+   string "org.ayatana.bamf.view"
+   array [
+      dict entry(
+         string "Active"
+         variant             boolean true
+      )
+   ]
+   array [
+   ]
+signal sender=:1.46 -> dest=(null destination) serial=17338 path=/org/ayatana/bamf/window75497475; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+   string "org.ayatana.bamf.view"
+   array [
+      dict entry(
+         string "Active"
+         variant             boolean false
+      )
+   ]
+   array [
+   ]
+signal sender=:1.46 -> dest=(null destination) serial=17339 path=/org/ayatana/bamf/application1564530881; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+   string "org.ayatana.bamf.view"
+   array [
+      dict entry(
+         string "Active"
+         variant             boolean false
+      )
+   ]
+   array [
+   ]
+method return sender=:1.46 -> dest=:1.58 reply_serial=2559
+   string "camilo@ntbk-hp: ~/Escritorio/Repos/libffado"
+method return sender=:1.46 -> dest=:1.60 reply_serial=2426
+   uint32 0
+method call sender=:1.58 -> dest=org.ayatana.bamf serial=2560 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ApplicationForXid
+   uint32 56633266
+method return sender=:1.46 -> dest=:1.58 reply_serial=2560
+   string "/org/ayatana/bamf/application311805604"
+method call sender=:1.58 -> dest=org.ayatana.bamf serial=2561 path=/org/ayatana/bamf/application311805604; interface=org.ayatana.bamf.view; member=Icon
+method return sender=:1.46 -> dest=:1.58 reply_serial=2561
+   string "utilities-terminal"
+signal sender=:1.54 -> dest=com.canonical.Unity.Panel.Service serial=9241 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=EntryShowNowChanged
+   string "0x29ecb20"
+   boolean true
+signal sender=:1.54 -> dest=com.canonical.Unity.Panel.Service serial=9242 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=EntryShowNowChanged
+   string "0x2fb3dd0"
+   boolean true
+signal sender=:1.54 -> dest=com.canonical.Unity.Panel.Service serial=9243 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=EntryShowNowChanged
+   string "0x2fa2c30"
+   boolean true
+signal sender=:1.54 -> dest=com.canonical.Unity.Panel.Service serial=9244 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=EntryShowNowChanged
+   string "0x29e6000"
+   boolean true
+signal sender=:1.54 -> dest=com.canonical.Unity.Panel.Service serial=9245 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=EntryShowNowChanged
+   string "0x3191270"
+   boolean true
+signal sender=:1.54 -> dest=com.canonical.Unity.Panel.Service serial=9246 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=EntryShowNowChanged
+   string "0x313e2f0"
+   boolean true
+signal sender=:1.54 -> dest=com.canonical.Unity.Panel.Service serial=9247 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=EntryShowNowChanged
+   string "0x31101d0"
+   boolean true
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6068 path=/org/ayatana/bamf/window56633266; interface=org.ayatana.bamf.window; member=WindowType
+method return sender=:1.46 -> dest=:1.40 reply_serial=6068
+   uint32 0
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6069 path=/org/ayatana/bamf/window56633266; interface=org.ayatana.bamf.window; member=WindowType
+method return sender=:1.46 -> dest=:1.40 reply_serial=6069
+   uint32 0
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6070 path=/org/ayatana/bamf/matcher; interface=org.ayatana.bamf.matcher; member=ActiveWindow
+method return sender=:1.46 -> dest=:1.40 reply_serial=6070
+   string "/org/ayatana/bamf/window56633266"
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6071 path=/org/ayatana/bamf/window56633266; interface=org.ayatana.bamf.window; member=WindowType
+method return sender=:1.46 -> dest=:1.40 reply_serial=6071
+   uint32 0
+method call sender=:1.40 -> dest=org.ayatana.bamf serial=6072 path=/org/ayatana/bamf/window56633266; interface=org.ayatana.bamf.view; member=Name
+method return sender=:1.46 -> dest=:1.40 reply_serial=6072
+   string "camilo@ntbk-hp: ~/Escritorio/Repos/libffado"
+method call sender=:1.353 -> dest=:1.348 serial=5561 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5561
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5562 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5562
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5563 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5563
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5564 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5564
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5565 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5565
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5566 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5566
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5567 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5567
+   string "44100"
+signal sender=:1.54 -> dest=com.canonical.Unity.Panel.Service serial=9248 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=ReSync
+   string "libappmenu.so"
+method call sender=:1.353 -> dest=:1.348 serial=5568 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5568
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5569 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5569
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5570 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5570
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5571 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5571
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5572 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5572
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5573 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5573
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5574 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5574
+   string "44100"
+method call sender=:1.39 -> dest=:1.54 serial=3945 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=SyncOne
+   string "libappmenu.so"
+method call sender=:1.39 -> dest=:1.54 serial=3946 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=SyncOne
+   string "libappmenu.so"
+method return sender=:1.54 -> dest=:1.39 reply_serial=3945
+   array [
+      struct {
+         string "libappmenu.so"
+         string "0x29ecb20"
+         string ""
+         string "_Archivo"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 0
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x2fb3dd0"
+         string ""
+         string "_Editar"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 1
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x2fa2c30"
+         string ""
+         string "_Ver"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 2
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x29e6000"
+         string ""
+         string "_Buscar"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 3
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x3191270"
+         string ""
+         string "_Terminal"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 4
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x313e2f0"
+         string ""
+         string "Pe_stañas"
+         boolean true
+         boolean false
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 5
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x31101d0"
+         string ""
+         string "Ay_uda"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 6
+      }
+   ]
+method return sender=:1.54 -> dest=:1.39 reply_serial=3946
+   array [
+      struct {
+         string "libappmenu.so"
+         string "0x29ecb20"
+         string ""
+         string "_Archivo"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 0
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x2fb3dd0"
+         string ""
+         string "_Editar"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 1
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x2fa2c30"
+         string ""
+         string "_Ver"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 2
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x29e6000"
+         string ""
+         string "_Buscar"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 3
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x3191270"
+         string ""
+         string "_Terminal"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 4
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x313e2f0"
+         string ""
+         string "Pe_stañas"
+         boolean true
+         boolean false
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 5
+      }
+      struct {
+         string "libappmenu.so"
+         string "0x31101d0"
+         string ""
+         string "Ay_uda"
+         boolean true
+         boolean true
+         uint32 0
+         string ""
+         boolean false
+         boolean false
+         int32 6
+      }
+   ]
+method call sender=:1.39 -> dest=:1.54 serial=3947 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=SyncGeometries
+   array [
+      struct {
+         string "UnityPanel1"
+         string "0x29e6000"
+         int32 366
+         int32 900
+         int32 48
+         int32 24
+      }
+      struct {
+         string "UnityPanel1"
+         string "0x29ecb20"
+         int32 237
+         int32 900
+         int32 53
+         int32 24
+      }
+      struct {
+         string "UnityPanel1"
+         string "0x2fa2c30"
+         int32 335
+         int32 900
+         int32 31
+         int32 24
+      }
+      struct {
+         string "UnityPanel1"
+         string "0x2fb3dd0"
+         int32 290
+         int32 900
+         int32 45
+         int32 24
+      }
+      struct {
+         string "UnityPanel1"
+         string "0x31101d0"
+         int32 473
+         int32 900
+         int32 46
+         int32 24
+      }
+      struct {
+         string "UnityPanel1"
+         string "0x3191270"
+         int32 414
+         int32 900
+         int32 59
+         int32 24
+      }
+   ]
+method return sender=:1.54 -> dest=:1.39 reply_serial=3947
+method call sender=:1.39 -> dest=:1.54 serial=3948 path=/com/canonical/Unity/Panel/Service; interface=com.canonical.Unity.Panel.Service; member=SyncGeometries
+   array [
+      struct {
+         string "UnityPanel0"
+         string "0x3c63a20"
+         int32 0
+         int32 0
+         int32 -1
+         int32 -1
+      }
+      struct {
+         string "UnityPanel0"
+         string "0x3c72970"
+         int32 0
+         int32 0
+         int32 -1
+         int32 -1
+      }
+      struct {
+         string "UnityPanel0"
+         string "0x3c83dc0"
+         int32 0
+         int32 0
+         int32 -1
+         int32 -1
+      }
+   ]
+method return sender=:1.54 -> dest=:1.39 reply_serial=3948
+method call sender=:1.353 -> dest=:1.348 serial=5575 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5575
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5576 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/ClockSelect; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5576
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5577 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/Nickname; interface=org.ffado.Control.Element.Element; member=canChangeValue
+method return sender=:1.348 -> dest=:1.353 reply_serial=5577
+   boolean false
+method call sender=:1.353 -> dest=:1.348 serial=5578 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=selected
+method return sender=:1.348 -> dest=:1.353 reply_serial=5578
+   int32 3
+method call sender=:1.353 -> dest=:1.348 serial=5579 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/StreamingStatus; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 3
+method return sender=:1.348 -> dest=:1.353 reply_serial=5579
+   string "Both"
+method call sender=:1.353 -> dest=:1.348 serial=5580 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=count
+method return sender=:1.348 -> dest=:1.353 reply_serial=5580
+   int32 6
+method call sender=:1.353 -> dest=:1.348 serial=5581 path=/org/ffado/Control/DeviceManager/0001f20000095783/Generic/SamplerateSelect; interface=org.ffado.Control.Element.Enum; member=getEnumLabel
+   int32 0
+method return sender=:1.348 -> dest=:1.353 reply_serial=5581
+   string "44100"

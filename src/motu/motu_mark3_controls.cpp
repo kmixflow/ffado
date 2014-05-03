@@ -104,7 +104,7 @@ MixMuteMk3::MixMuteMk3(MotuDevice &parent, unsigned long int bus,
 
 bool MixMuteMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
-    if ((0 > val) || (1 > val))
+    if ((0 > val) || (1 < val))
     {
         debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for MixMute control\n", val);
         return false;
@@ -116,7 +116,7 @@ int MixMuteMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 
-InputGainPadMk3::InputGainPadMk3(MotuDevice &parent, unsigned long int channel,
+InputPadMk3::InputPadMk3(MotuDevice &parent, unsigned long int channel,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, channel, name, label, descr) {
     if((0 > channel) || (MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL < channel))
@@ -128,7 +128,7 @@ InputGainPadMk3::InputGainPadMk3(MotuDevice &parent, unsigned long int channel,
     this->m_key = MOTU_MK3CTRL_INPUT_PAD;
 }
 
-bool InputGainPadMk3::setValue(int value) {
+bool InputPadMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
     if ((0 > val) || (1 < val))
     {
@@ -138,7 +138,7 @@ bool InputGainPadMk3::setValue(int value) {
     return MotuDiscreteCtrlMk3::setValue(val);
 }
 
-int InputGainPadMk3::getValue() {
+int InputPadMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 
@@ -156,7 +156,7 @@ InputPhaseMk3::InputPhaseMk3(MotuDevice &parent, unsigned long int channel,
 
 bool InputPhaseMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
-    if ((0 != val) || (1 != val))
+    if ((0 > val) || (1 < val))
     {
         debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for InputPhaseInv control\n", val);
         return false;
@@ -177,7 +177,7 @@ InputLevelMk3::InputLevelMk3(MotuDevice &parent, unsigned long int channel,
 
 bool InputLevelMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
-    if ((0 != val) || (1 != val))
+    if ((0 > val) || (1 < val))
         debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for InputLevel control\n", val);
     {
         return false;
@@ -280,7 +280,7 @@ InputTrimMk3::InputTrimMk3(MotuDevice &parent, unsigned long int channel, unsign
         this->m_minimum = MOTU_MK3CTRL_INPUT_TRIM_MIC_MIN;
         this->m_maximum = MOTU_MK3CTRL_INPUT_TRIM_MIC_MAX;
     }
-    else if(mode == MOTU_CTRL_INPUT_LEVEL)
+    else if(mode == MOTU_CTRL_INPUT_BOOST)
     {
         this->m_minimum = MOTU_MK3CTRL_INPUT_TRIM_LINE_MIN;
         this->m_maximum = MOTU_MK3CTRL_INPUT_TRIM_LINE_MAX;
@@ -296,7 +296,7 @@ InputTrimMk3::InputTrimMk3(MotuDevice &parent, unsigned long int channel, unsign
 
 bool InputTrimMk3::setValue(double value) {
     // FIXME: Transform dbus values to motu scale in a nice way.
-    return MotuContinuousCtrlMk3::setValue(value);
+    return MotuContinuousCtrlMk3::setValue(value*this->m_maximum/53);
 }
 
 double InputTrimMk3::getValue()
