@@ -120,7 +120,7 @@ int MixMuteMk3::getValue() {
 InputPadMk3::InputPadMk3(MotuDevice &parent, unsigned long int channel,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, channel, name, label, descr) {
-    if((0 > channel) || (MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL < channel))
+    if((0 > channel) )//|| (MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL < channel))
     {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Invalid channel %d: max supported is %d\n",
                     channel, MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL);

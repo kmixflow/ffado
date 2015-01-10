@@ -413,6 +413,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
          name, label, ctrl->desc));
          type &= ~MOTU_CTRL_CHANNEL_SOLO;
          }*/
+
         if (type & MOTU_CTRL_MIX_FADER) {
             snprintf(name, 100, "%s%s", ctrl->name, "fader");
             snprintf(label, 100, "%s%s", ctrl->label, "fader");
@@ -437,7 +438,6 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             type &= ~MOTU_CTRL_MIX_DEST;
             debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_DEST on bus 0x%08llx\n", ctrl->key);
         }
-
         /*if (type & MOTU_CTRL_INPUT_UL_GAIN) {
          snprintf(name, 100, "%s%s", ctrl->name, "trimgain");
          snprintf(label,100, "%s%s", ctrl->label,"trimgain");
@@ -475,8 +475,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             snprintf(name, 100, "%s%s", ctrl->name, "pad");
             snprintf(label, 100, "%s%s", ctrl->label, "pad");
             result &= m_MixerContainer->addElement(
-                    new InputPadMk3(*this, ctrl->key, name, label,
-                            ctrl->desc));
+                    new InputPadMk3(*this, ctrl->key, name, label, ctrl->desc));
             type &= ~MOTU_CTRL_INPUT_PAD;
             debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_PAD on channel 0x%08llx\n", ctrl->key);
         }
@@ -484,24 +483,24 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             snprintf(name, 100, "%s%s", ctrl->name, "boost");
             snprintf(label, 100, "%s%s", ctrl->label, "boost");
             result &= m_MixerContainer->addElement(
-                    new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_BOOST,
-                            name, label, ctrl->desc));
+                    new InputPadMk3(*this, ctrl->key, name, label, ctrl->desc));
             type &= ~MOTU_CTRL_INPUT_BOOST;
             debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_BOOST on channel 0x%08llx\n", ctrl->key);
         }
+        //TODO: Make a specific destination list for each device
         if (type & MOTU_CTRL_PHONES_SRC) {
             snprintf(name, 100, "%s%s", ctrl->name, "src");
             snprintf(label, 100, "%s%s", ctrl->label, "src");
             result &= m_MixerContainer->addElement(
                     new PhonesSrc(*this, name, label, ctrl->desc));
             type &= ~MOTU_CTRL_PHONES_SRC;
-        }/*
+        }
          if (type & MOTU_CTRL_OPTICAL_MODE) {
          result &= m_MixerContainer->addElement(
          new OpticalMode(*this, ctrl->key,
          ctrl->name, ctrl->label, ctrl->desc));
          type &= ~MOTU_CTRL_OPTICAL_MODE;
-         }
+         }/*
          if (type & MOTU_CTRL_METER) {
          if (ctrl->key & MOTU_CTRL_METER_PEAKHOLD) {
          snprintf(name, 100, "%s%s", ctrl->name, "peakhold_time");
