@@ -135,6 +135,90 @@ class Motu_Mark3(QWidget):
             self.mix4adat6_fader: ['/Mixer/fader', 3, 17, self.mix4adat5_fader],
             self.mix4adat7_fader: ['/Mixer/fader', 3, 18, self.mix4adat8_fader],
             self.mix4adat8_fader: ['/Mixer/fader', 3, 19, self.mix4adat7_fader],
+            
+            self.mix5ana1_fader: ['/Mixer/fader', 3, 0, self.mix5ana2_fader],
+            self.mix5ana2_fader: ['/Mixer/fader', 3, 1, self.mix5ana1_fader],
+            self.mix5ana3_fader: ['/Mixer/fader', 3, 2, self.mix5ana4_fader],
+            self.mix5ana4_fader: ['/Mixer/fader', 3, 3, self.mix5ana3_fader],
+            self.mix5ana5_fader: ['/Mixer/fader', 3, 4, self.mix5ana6_fader],
+            self.mix5ana6_fader: ['/Mixer/fader', 3, 5, self.mix5ana5_fader],
+            self.mix5ana7_fader: ['/Mixer/fader', 3, 6, self.mix5ana8_fader],
+            self.mix5ana8_fader: ['/Mixer/fader', 3, 7, self.mix5ana7_fader],
+            self.mix5aes1_fader: ['/Mixer/fader', 3, 8, self.mix5aes2_fader],
+            self.mix5aes2_fader: ['/Mixer/fader', 3, 9, self.mix5aes1_fader],
+            self.mix5spdif1_fader: ['/Mixer/fader', 3, 10, self.mix5spdif2_fader],
+            self.mix5spdif2_fader: ['/Mixer/fader', 3, 11, self.mix5spdif1_fader],
+            self.mix5adat1_fader: ['/Mixer/fader', 3, 12, self.mix5adat2_fader],
+            self.mix5adat2_fader: ['/Mixer/fader', 3, 13, self.mix5adat1_fader],
+            self.mix5adat3_fader: ['/Mixer/fader', 3, 14, self.mix5adat4_fader],
+            self.mix5adat4_fader: ['/Mixer/fader', 3, 15, self.mix5adat3_fader],
+            self.mix5adat5_fader: ['/Mixer/fader', 3, 16, self.mix5adat6_fader],
+            self.mix5adat6_fader: ['/Mixer/fader', 3, 17, self.mix5adat5_fader],
+            self.mix5adat7_fader: ['/Mixer/fader', 3, 18, self.mix5adat8_fader],
+            self.mix5adat8_fader: ['/Mixer/fader', 3, 19, self.mix5adat7_fader],
+            
+            self.mix6ana1_fader: ['/Mixer/fader', 3, 0, self.mix6ana2_fader],
+            self.mix6ana2_fader: ['/Mixer/fader', 3, 1, self.mix6ana1_fader],
+            self.mix6ana3_fader: ['/Mixer/fader', 3, 2, self.mix6ana4_fader],
+            self.mix6ana4_fader: ['/Mixer/fader', 3, 3, self.mix6ana3_fader],
+            self.mix6ana5_fader: ['/Mixer/fader', 3, 4, self.mix6ana6_fader],
+            self.mix6ana6_fader: ['/Mixer/fader', 3, 5, self.mix6ana5_fader],
+            self.mix6ana7_fader: ['/Mixer/fader', 3, 6, self.mix6ana8_fader],
+            self.mix6ana8_fader: ['/Mixer/fader', 3, 7, self.mix6ana7_fader],
+            self.mix6aes1_fader: ['/Mixer/fader', 3, 8, self.mix6aes2_fader],
+            self.mix6aes2_fader: ['/Mixer/fader', 3, 9, self.mix6aes1_fader],
+            self.mix6spdif1_fader: ['/Mixer/fader', 3, 10, self.mix6spdif2_fader],
+            self.mix6spdif2_fader: ['/Mixer/fader', 3, 11, self.mix6spdif1_fader],
+            self.mix6adat1_fader: ['/Mixer/fader', 3, 12, self.mix6adat2_fader],
+            self.mix6adat2_fader: ['/Mixer/fader', 3, 13, self.mix6adat1_fader],
+            self.mix6adat3_fader: ['/Mixer/fader', 3, 14, self.mix6adat4_fader],
+            self.mix6adat4_fader: ['/Mixer/fader', 3, 15, self.mix6adat3_fader],
+            self.mix6adat5_fader: ['/Mixer/fader', 3, 16, self.mix6adat6_fader],
+            self.mix6adat6_fader: ['/Mixer/fader', 3, 17, self.mix6adat5_fader],
+            self.mix6adat7_fader: ['/Mixer/fader', 3, 18, self.mix6adat8_fader],
+            self.mix6adat8_fader: ['/Mixer/fader', 3, 19, self.mix6adat7_fader],
+            
+            self.mix7ana1_fader: ['/Mixer/fader', 3, 0, self.mix7ana2_fader],
+            self.mix7ana2_fader: ['/Mixer/fader', 3, 1, self.mix7ana1_fader],
+            self.mix7ana3_fader: ['/Mixer/fader', 3, 2, self.mix7ana4_fader],
+            self.mix7ana4_fader: ['/Mixer/fader', 3, 3, self.mix7ana3_fader],
+            self.mix7ana5_fader: ['/Mixer/fader', 3, 4, self.mix7ana6_fader],
+            self.mix7ana6_fader: ['/Mixer/fader', 3, 5, self.mix7ana5_fader],
+            self.mix7ana7_fader: ['/Mixer/fader', 3, 6, self.mix7ana8_fader],
+            self.mix7ana8_fader: ['/Mixer/fader', 3, 7, self.mix7ana7_fader],
+            self.mix7aes1_fader: ['/Mixer/fader', 3, 8, self.mix7aes2_fader],
+            self.mix7aes2_fader: ['/Mixer/fader', 3, 9, self.mix7aes1_fader],
+            self.mix7spdif1_fader: ['/Mixer/fader', 3, 10, self.mix7spdif2_fader],
+            self.mix7spdif2_fader: ['/Mixer/fader', 3, 11, self.mix7spdif1_fader],
+            self.mix7adat1_fader: ['/Mixer/fader', 3, 12, self.mix7adat2_fader],
+            self.mix7adat2_fader: ['/Mixer/fader', 3, 13, self.mix7adat1_fader],
+            self.mix7adat3_fader: ['/Mixer/fader', 3, 14, self.mix7adat4_fader],
+            self.mix7adat4_fader: ['/Mixer/fader', 3, 15, self.mix7adat3_fader],
+            self.mix7adat5_fader: ['/Mixer/fader', 3, 16, self.mix7adat6_fader],
+            self.mix7adat6_fader: ['/Mixer/fader', 3, 17, self.mix7adat5_fader],
+            self.mix7adat7_fader: ['/Mixer/fader', 3, 18, self.mix7adat8_fader],
+            self.mix7adat8_fader: ['/Mixer/fader', 3, 19, self.mix7adat7_fader],
+            
+            self.mix8ana1_fader: ['/Mixer/fader', 3, 0, self.mix8ana2_fader],
+            self.mix8ana2_fader: ['/Mixer/fader', 3, 1, self.mix8ana1_fader],
+            self.mix8ana3_fader: ['/Mixer/fader', 3, 2, self.mix8ana4_fader],
+            self.mix8ana4_fader: ['/Mixer/fader', 3, 3, self.mix8ana3_fader],
+            self.mix8ana5_fader: ['/Mixer/fader', 3, 4, self.mix8ana6_fader],
+            self.mix8ana6_fader: ['/Mixer/fader', 3, 5, self.mix8ana5_fader],
+            self.mix8ana7_fader: ['/Mixer/fader', 3, 6, self.mix8ana8_fader],
+            self.mix8ana8_fader: ['/Mixer/fader', 3, 7, self.mix8ana7_fader],
+            self.mix8aes1_fader: ['/Mixer/fader', 3, 8, self.mix8aes2_fader],
+            self.mix8aes2_fader: ['/Mixer/fader', 3, 9, self.mix8aes1_fader],
+            self.mix8spdif1_fader: ['/Mixer/fader', 3, 10, self.mix8spdif2_fader],
+            self.mix8spdif2_fader: ['/Mixer/fader', 3, 11, self.mix8spdif1_fader],
+            self.mix8adat1_fader: ['/Mixer/fader', 3, 12, self.mix8adat2_fader],
+            self.mix8adat2_fader: ['/Mixer/fader', 3, 13, self.mix8adat1_fader],
+            self.mix8adat3_fader: ['/Mixer/fader', 3, 14, self.mix8adat4_fader],
+            self.mix8adat4_fader: ['/Mixer/fader', 3, 15, self.mix8adat3_fader],
+            self.mix8adat5_fader: ['/Mixer/fader', 3, 16, self.mix8adat6_fader],
+            self.mix8adat6_fader: ['/Mixer/fader', 3, 17, self.mix8adat5_fader],
+            self.mix8adat7_fader: ['/Mixer/fader', 3, 18, self.mix8adat8_fader],
+            self.mix8adat8_fader: ['/Mixer/fader', 3, 19, self.mix8adat7_fader],
         }
 
         self.Faders={
@@ -142,6 +226,10 @@ class Motu_Mark3(QWidget):
             self.mix2_fader: ['/Mixer/Mix2/Mix_fader'],
             self.mix3_fader: ['/Mixer/Mix3/Mix_fader'],
             self.mix4_fader: ['/Mixer/Mix4/Mix_fader'],
+            self.mix5_fader: ['/Mixer/mix5/Mix_fader'],
+            self.mix6_fader: ['/Mixer/mix6/Mix_fader'],
+            self.mix7_fader: ['/Mixer/Mix7/Mix_fader'],
+            self.mix8_fader: ['/Mixer/Mix8/Mix_fader'],
             self.mainout_fader: ['/Mixer/Mainout_fader'],
             self.phones_fader:  ['/Mixer/Phones_fader'],
         }
@@ -230,6 +318,90 @@ class Motu_Mark3(QWidget):
             self.mix4adat6_pan:  ['/Mixer/pan', 3, 17],
             self.mix4adat7_pan:  ['/Mixer/pan', 3, 18],
             self.mix4adat8_pan:  ['/Mixer/pan', 3, 19],
+            
+            self.mix5ana1_pan:   ['/Mixer/pan', 3, 0],
+            self.mix5ana2_pan:   ['/Mixer/pan', 3, 1],
+            self.mix5ana3_pan:   ['/Mixer/pan', 3, 2],
+            self.mix5ana4_pan:   ['/Mixer/pan', 3, 3],
+            self.mix5ana5_pan:   ['/Mixer/pan', 3, 4],
+            self.mix5ana6_pan:   ['/Mixer/pan', 3, 5],
+            self.mix5ana7_pan:   ['/Mixer/pan', 3, 6],
+            self.mix5ana8_pan:   ['/Mixer/pan', 3, 7],
+            self.mix5aes1_pan:   ['/Mixer/pan', 3, 8],
+            self.mix5aes2_pan:   ['/Mixer/pan', 3, 9],
+            self.mix5spdif1_pan: ['/Mixer/pan', 3, 10],
+            self.mix5spdif2_pan: ['/Mixer/pan', 3, 11],
+            self.mix5adat1_pan:  ['/Mixer/pan', 3, 12],
+            self.mix5adat2_pan:  ['/Mixer/pan', 3, 13],
+            self.mix5adat3_pan:  ['/Mixer/pan', 3, 14],
+            self.mix5adat4_pan:  ['/Mixer/pan', 3, 15],
+            self.mix5adat5_pan:  ['/Mixer/pan', 3, 16],
+            self.mix5adat6_pan:  ['/Mixer/pan', 3, 17],
+            self.mix5adat7_pan:  ['/Mixer/pan', 3, 18],
+            self.mix5adat8_pan:  ['/Mixer/pan', 3, 19],
+            
+            self.mix6ana1_pan:   ['/Mixer/pan', 3, 0],
+            self.mix6ana2_pan:   ['/Mixer/pan', 3, 1],
+            self.mix6ana3_pan:   ['/Mixer/pan', 3, 2],
+            self.mix6ana4_pan:   ['/Mixer/pan', 3, 3],
+            self.mix6ana5_pan:   ['/Mixer/pan', 3, 4],
+            self.mix6ana6_pan:   ['/Mixer/pan', 3, 5],
+            self.mix6ana7_pan:   ['/Mixer/pan', 3, 6],
+            self.mix6ana8_pan:   ['/Mixer/pan', 3, 7],
+            self.mix6aes1_pan:   ['/Mixer/pan', 3, 8],
+            self.mix6aes2_pan:   ['/Mixer/pan', 3, 9],
+            self.mix6spdif1_pan: ['/Mixer/pan', 3, 10],
+            self.mix6spdif2_pan: ['/Mixer/pan', 3, 11],
+            self.mix6adat1_pan:  ['/Mixer/pan', 3, 12],
+            self.mix6adat2_pan:  ['/Mixer/pan', 3, 13],
+            self.mix6adat3_pan:  ['/Mixer/pan', 3, 14],
+            self.mix6adat4_pan:  ['/Mixer/pan', 3, 15],
+            self.mix6adat5_pan:  ['/Mixer/pan', 3, 16],
+            self.mix6adat6_pan:  ['/Mixer/pan', 3, 17],
+            self.mix6adat7_pan:  ['/Mixer/pan', 3, 18],
+            self.mix6adat8_pan:  ['/Mixer/pan', 3, 19],
+            
+            self.mix7ana1_pan:   ['/Mixer/pan', 3, 0],
+            self.mix7ana2_pan:   ['/Mixer/pan', 3, 1],
+            self.mix7ana3_pan:   ['/Mixer/pan', 3, 2],
+            self.mix7ana4_pan:   ['/Mixer/pan', 3, 3],
+            self.mix7ana5_pan:   ['/Mixer/pan', 3, 4],
+            self.mix7ana6_pan:   ['/Mixer/pan', 3, 5],
+            self.mix7ana7_pan:   ['/Mixer/pan', 3, 6],
+            self.mix7ana8_pan:   ['/Mixer/pan', 3, 7],
+            self.mix7aes1_pan:   ['/Mixer/pan', 3, 8],
+            self.mix7aes2_pan:   ['/Mixer/pan', 3, 9],
+            self.mix7spdif1_pan: ['/Mixer/pan', 3, 10],
+            self.mix7spdif2_pan: ['/Mixer/pan', 3, 11],
+            self.mix7adat1_pan:  ['/Mixer/pan', 3, 12],
+            self.mix7adat2_pan:  ['/Mixer/pan', 3, 13],
+            self.mix7adat3_pan:  ['/Mixer/pan', 3, 14],
+            self.mix7adat4_pan:  ['/Mixer/pan', 3, 15],
+            self.mix7adat5_pan:  ['/Mixer/pan', 3, 16],
+            self.mix7adat6_pan:  ['/Mixer/pan', 3, 17],
+            self.mix7adat7_pan:  ['/Mixer/pan', 3, 18],
+            self.mix7adat8_pan:  ['/Mixer/pan', 3, 19],
+            
+            self.mix8ana1_pan:   ['/Mixer/pan', 3, 0],
+            self.mix8ana2_pan:   ['/Mixer/pan', 3, 1],
+            self.mix8ana3_pan:   ['/Mixer/pan', 3, 2],
+            self.mix8ana4_pan:   ['/Mixer/pan', 3, 3],
+            self.mix8ana5_pan:   ['/Mixer/pan', 3, 4],
+            self.mix8ana6_pan:   ['/Mixer/pan', 3, 5],
+            self.mix8ana7_pan:   ['/Mixer/pan', 3, 6],
+            self.mix8ana8_pan:   ['/Mixer/pan', 3, 7],
+            self.mix8aes1_pan:   ['/Mixer/pan', 3, 8],
+            self.mix8aes2_pan:   ['/Mixer/pan', 3, 9],
+            self.mix8spdif1_pan: ['/Mixer/pan', 3, 10],
+            self.mix8spdif2_pan: ['/Mixer/pan', 3, 11],
+            self.mix8adat1_pan:  ['/Mixer/pan', 3, 12],
+            self.mix8adat2_pan:  ['/Mixer/pan', 3, 13],
+            self.mix8adat3_pan:  ['/Mixer/pan', 3, 14],
+            self.mix8adat4_pan:  ['/Mixer/pan', 3, 15],
+            self.mix8adat5_pan:  ['/Mixer/pan', 3, 16],
+            self.mix8adat6_pan:  ['/Mixer/pan', 3, 17],
+            self.mix8adat7_pan:  ['/Mixer/pan', 3, 18],
+            self.mix8adat8_pan:  ['/Mixer/pan', 3, 19],
         }
 
         self.Controls={
@@ -409,6 +581,170 @@ class Motu_Mark3(QWidget):
             self.mix4adat6_solo: ['/Mixer/solo', 3, 17],
             self.mix4adat7_solo: ['/Mixer/solo', 3, 18],
             self.mix4adat8_solo: ['/Mixer/solo', 3, 19],
+            
+            self.mix5ana1_mute:  ['/Mixer/mute', 3, 0],
+            self.mix5ana2_mute:  ['/Mixer/mute', 3, 1],
+            self.mix5ana3_mute:  ['/Mixer/mute', 3, 2],
+            self.mix5ana4_mute:  ['/Mixer/mute', 3, 3],
+            self.mix5ana5_mute:  ['/Mixer/mute', 3, 4],
+            self.mix5ana6_mute:  ['/Mixer/mute', 3, 5],
+            self.mix5ana7_mute:  ['/Mixer/mute', 3, 6],
+            self.mix5ana8_mute:  ['/Mixer/mute', 3, 7],
+            self.mix5aes1_mute:  ['/Mixer/mute', 3, 8],
+            self.mix5aes2_mute:  ['/Mixer/mute', 3, 9],
+            self.mix5spdif1_mute: ['/Mixer/mute', 3, 10],
+            self.mix5spdif2_mute: ['/Mixer/mute', 3, 11],
+            self.mix5adat1_mute: ['/Mixer/mute', 3, 12],
+            self.mix5adat2_mute: ['/Mixer/mute', 3, 13],
+            self.mix5adat3_mute: ['/Mixer/mute', 3, 14],
+            self.mix5adat4_mute: ['/Mixer/mute', 3, 15],
+            self.mix5adat5_mute: ['/Mixer/mute', 3, 16],
+            self.mix5adat6_mute: ['/Mixer/mute', 3, 17],
+            self.mix5adat7_mute: ['/Mixer/mute', 3, 18],
+            self.mix5adat8_mute: ['/Mixer/mute', 3, 19],
+            self.mix5ana1_solo:  ['/Mixer/solo', 3, 0],
+            self.mix5ana2_solo:  ['/Mixer/solo', 3, 1],
+            self.mix5ana3_solo:  ['/Mixer/solo', 3, 2],
+            self.mix5ana4_solo:  ['/Mixer/solo', 3, 3],
+            self.mix5ana5_solo:  ['/Mixer/solo', 3, 4],
+            self.mix5ana6_solo:  ['/Mixer/solo', 3, 5],
+            self.mix5ana7_solo:  ['/Mixer/solo', 3, 6],
+            self.mix5ana8_solo:  ['/Mixer/solo', 3, 7],
+            self.mix5aes1_solo:  ['/Mixer/solo', 3, 8],
+            self.mix5aes2_solo:  ['/Mixer/solo', 3, 9],
+            self.mix5spdif1_solo: ['/Mixer/solo', 3, 10],
+            self.mix5spdif2_solo: ['/Mixer/solo', 3, 11],
+            self.mix5adat1_solo: ['/Mixer/solo', 3, 12],
+            self.mix5adat2_solo: ['/Mixer/solo', 3, 13],
+            self.mix5adat3_solo: ['/Mixer/solo', 3, 14],
+            self.mix5adat4_solo: ['/Mixer/solo', 3, 15],
+            self.mix5adat5_solo: ['/Mixer/solo', 3, 16],
+            self.mix5adat6_solo: ['/Mixer/solo', 3, 17],
+            self.mix5adat7_solo: ['/Mixer/solo', 3, 18],
+            self.mix5adat8_solo: ['/Mixer/solo', 3, 19],
+            
+            self.mix6ana1_mute:  ['/Mixer/mute', 3, 0],
+            self.mix6ana2_mute:  ['/Mixer/mute', 3, 1],
+            self.mix6ana3_mute:  ['/Mixer/mute', 3, 2],
+            self.mix6ana4_mute:  ['/Mixer/mute', 3, 3],
+            self.mix6ana5_mute:  ['/Mixer/mute', 3, 4],
+            self.mix6ana6_mute:  ['/Mixer/mute', 3, 5],
+            self.mix6ana7_mute:  ['/Mixer/mute', 3, 6],
+            self.mix6ana8_mute:  ['/Mixer/mute', 3, 7],
+            self.mix6aes1_mute:  ['/Mixer/mute', 3, 8],
+            self.mix6aes2_mute:  ['/Mixer/mute', 3, 9],
+            self.mix6spdif1_mute: ['/Mixer/mute', 3, 10],
+            self.mix6spdif2_mute: ['/Mixer/mute', 3, 11],
+            self.mix6adat1_mute: ['/Mixer/mute', 3, 12],
+            self.mix6adat2_mute: ['/Mixer/mute', 3, 13],
+            self.mix6adat3_mute: ['/Mixer/mute', 3, 14],
+            self.mix6adat4_mute: ['/Mixer/mute', 3, 15],
+            self.mix6adat5_mute: ['/Mixer/mute', 3, 16],
+            self.mix6adat6_mute: ['/Mixer/mute', 3, 17],
+            self.mix6adat7_mute: ['/Mixer/mute', 3, 18],
+            self.mix6adat8_mute: ['/Mixer/mute', 3, 19],
+            self.mix6ana1_solo:  ['/Mixer/solo', 3, 0],
+            self.mix6ana2_solo:  ['/Mixer/solo', 3, 1],
+            self.mix6ana3_solo:  ['/Mixer/solo', 3, 2],
+            self.mix6ana4_solo:  ['/Mixer/solo', 3, 3],
+            self.mix6ana5_solo:  ['/Mixer/solo', 3, 4],
+            self.mix6ana6_solo:  ['/Mixer/solo', 3, 5],
+            self.mix6ana7_solo:  ['/Mixer/solo', 3, 6],
+            self.mix6ana8_solo:  ['/Mixer/solo', 3, 7],
+            self.mix6aes1_solo:  ['/Mixer/solo', 3, 8],
+            self.mix6aes2_solo:  ['/Mixer/solo', 3, 9],
+            self.mix6spdif1_solo: ['/Mixer/solo', 3, 10],
+            self.mix6spdif2_solo: ['/Mixer/solo', 3, 11],
+            self.mix6adat1_solo: ['/Mixer/solo', 3, 12],
+            self.mix6adat2_solo: ['/Mixer/solo', 3, 13],
+            self.mix6adat3_solo: ['/Mixer/solo', 3, 14],
+            self.mix6adat4_solo: ['/Mixer/solo', 3, 15],
+            self.mix6adat5_solo: ['/Mixer/solo', 3, 16],
+            self.mix6adat6_solo: ['/Mixer/solo', 3, 17],
+            self.mix6adat7_solo: ['/Mixer/solo', 3, 18],
+            self.mix6adat8_solo: ['/Mixer/solo', 3, 19],
+            
+            self.mix7ana1_mute:  ['/Mixer/mute', 3, 0],
+            self.mix7ana2_mute:  ['/Mixer/mute', 3, 1],
+            self.mix7ana3_mute:  ['/Mixer/mute', 3, 2],
+            self.mix7ana4_mute:  ['/Mixer/mute', 3, 3],
+            self.mix7ana5_mute:  ['/Mixer/mute', 3, 4],
+            self.mix7ana6_mute:  ['/Mixer/mute', 3, 5],
+            self.mix7ana7_mute:  ['/Mixer/mute', 3, 6],
+            self.mix7ana8_mute:  ['/Mixer/mute', 3, 7],
+            self.mix7aes1_mute:  ['/Mixer/mute', 3, 8],
+            self.mix7aes2_mute:  ['/Mixer/mute', 3, 9],
+            self.mix7spdif1_mute: ['/Mixer/mute', 3, 10],
+            self.mix7spdif2_mute: ['/Mixer/mute', 3, 11],
+            self.mix7adat1_mute: ['/Mixer/mute', 3, 12],
+            self.mix7adat2_mute: ['/Mixer/mute', 3, 13],
+            self.mix7adat3_mute: ['/Mixer/mute', 3, 14],
+            self.mix7adat4_mute: ['/Mixer/mute', 3, 15],
+            self.mix7adat5_mute: ['/Mixer/mute', 3, 16],
+            self.mix7adat6_mute: ['/Mixer/mute', 3, 17],
+            self.mix7adat7_mute: ['/Mixer/mute', 3, 18],
+            self.mix7adat8_mute: ['/Mixer/mute', 3, 19],
+            self.mix7ana1_solo:  ['/Mixer/solo', 3, 0],
+            self.mix7ana2_solo:  ['/Mixer/solo', 3, 1],
+            self.mix7ana3_solo:  ['/Mixer/solo', 3, 2],
+            self.mix7ana4_solo:  ['/Mixer/solo', 3, 3],
+            self.mix7ana5_solo:  ['/Mixer/solo', 3, 4],
+            self.mix7ana6_solo:  ['/Mixer/solo', 3, 5],
+            self.mix7ana7_solo:  ['/Mixer/solo', 3, 6],
+            self.mix7ana8_solo:  ['/Mixer/solo', 3, 7],
+            self.mix7aes1_solo:  ['/Mixer/solo', 3, 8],
+            self.mix7aes2_solo:  ['/Mixer/solo', 3, 9],
+            self.mix7spdif1_solo: ['/Mixer/solo', 3, 10],
+            self.mix7spdif2_solo: ['/Mixer/solo', 3, 11],
+            self.mix7adat1_solo: ['/Mixer/solo', 3, 12],
+            self.mix7adat2_solo: ['/Mixer/solo', 3, 13],
+            self.mix7adat3_solo: ['/Mixer/solo', 3, 14],
+            self.mix7adat4_solo: ['/Mixer/solo', 3, 15],
+            self.mix7adat5_solo: ['/Mixer/solo', 3, 16],
+            self.mix7adat6_solo: ['/Mixer/solo', 3, 17],
+            self.mix7adat7_solo: ['/Mixer/solo', 3, 18],
+            self.mix7adat8_solo: ['/Mixer/solo', 3, 19],
+            
+            self.mix8ana1_mute:  ['/Mixer/mute', 3, 0],
+            self.mix8ana2_mute:  ['/Mixer/mute', 3, 1],
+            self.mix8ana3_mute:  ['/Mixer/mute', 3, 2],
+            self.mix8ana4_mute:  ['/Mixer/mute', 3, 3],
+            self.mix8ana5_mute:  ['/Mixer/mute', 3, 4],
+            self.mix8ana6_mute:  ['/Mixer/mute', 3, 5],
+            self.mix8ana7_mute:  ['/Mixer/mute', 3, 6],
+            self.mix8ana8_mute:  ['/Mixer/mute', 3, 7],
+            self.mix8aes1_mute:  ['/Mixer/mute', 3, 8],
+            self.mix8aes2_mute:  ['/Mixer/mute', 3, 9],
+            self.mix8spdif1_mute: ['/Mixer/mute', 3, 10],
+            self.mix8spdif2_mute: ['/Mixer/mute', 3, 11],
+            self.mix8adat1_mute: ['/Mixer/mute', 3, 12],
+            self.mix8adat2_mute: ['/Mixer/mute', 3, 13],
+            self.mix8adat3_mute: ['/Mixer/mute', 3, 14],
+            self.mix8adat4_mute: ['/Mixer/mute', 3, 15],
+            self.mix8adat5_mute: ['/Mixer/mute', 3, 16],
+            self.mix8adat6_mute: ['/Mixer/mute', 3, 17],
+            self.mix8adat7_mute: ['/Mixer/mute', 3, 18],
+            self.mix8adat8_mute: ['/Mixer/mute', 3, 19],
+            self.mix8ana1_solo:  ['/Mixer/solo', 3, 0],
+            self.mix8ana2_solo:  ['/Mixer/solo', 3, 1],
+            self.mix8ana3_solo:  ['/Mixer/solo', 3, 2],
+            self.mix8ana4_solo:  ['/Mixer/solo', 3, 3],
+            self.mix8ana5_solo:  ['/Mixer/solo', 3, 4],
+            self.mix8ana6_solo:  ['/Mixer/solo', 3, 5],
+            self.mix8ana7_solo:  ['/Mixer/solo', 3, 6],
+            self.mix8ana8_solo:  ['/Mixer/solo', 3, 7],
+            self.mix8aes1_solo:  ['/Mixer/solo', 3, 8],
+            self.mix8aes2_solo:  ['/Mixer/solo', 3, 9],
+            self.mix8spdif1_solo: ['/Mixer/solo', 3, 10],
+            self.mix8spdif2_solo: ['/Mixer/solo', 3, 11],
+            self.mix8adat1_solo: ['/Mixer/solo', 3, 12],
+            self.mix8adat2_solo: ['/Mixer/solo', 3, 13],
+            self.mix8adat3_solo: ['/Mixer/solo', 3, 14],
+            self.mix8adat4_solo: ['/Mixer/solo', 3, 15],
+            self.mix8adat5_solo: ['/Mixer/solo', 3, 16],
+            self.mix8adat6_solo: ['/Mixer/solo', 3, 17],
+            self.mix8adat7_solo: ['/Mixer/solo', 3, 18],
+            self.mix8adat8_solo: ['/Mixer/solo', 3, 19],
         }
 
         self.BinarySwitches={
@@ -416,6 +752,10 @@ class Motu_Mark3(QWidget):
             self.mix2_mute:      ['/Mixer/Mix2/Mix_mute'],
             self.mix3_mute:      ['/Mixer/Mix3/Mix_mute'],
             self.mix4_mute:      ['/Mixer/Mix4/Mix_mute'],
+            self.mix5_mute:      ['/Mixer/Mix5/Mix_mute'],
+            self.mix6_mute:      ['/Mixer/Mix6/Mix_mute'],
+            self.mix7_mute:      ['/Mixer/Mix7/Mix_mute'],
+            self.mix8_mute:      ['/Mixer/Mix8/Mix_mute'],
 
             self.ana1_pad:       ['/Mixer/Control/Ana1_pad'],
             self.ana2_pad:       ['/Mixer/Control/Ana2_pad'],
@@ -458,6 +798,10 @@ class Motu_Mark3(QWidget):
             self.mix2_dest:      ['/Mixer/Mix2/Mix_dest'],
             self.mix3_dest:      ['/Mixer/Mix3/Mix_dest'],
             self.mix4_dest:      ['/Mixer/Mix4/Mix_dest'],
+            self.mix5_dest:      ['/Mixer/Mix5/Mix_dest'],
+            self.mix6_dest:      ['/Mixer/Mix6/Mix_dest'],
+            self.mix7_dest:      ['/Mixer/Mix7/Mix_dest'],
+            self.mix8_dest:      ['/Mixer/Mix8/Mix_dest'],
 
             self.phones_src:     ['/Mixer/Control/Phones_src'],
 
@@ -569,6 +913,10 @@ class Motu_Mark3(QWidget):
             self.mix2_tab.setTabText(1, "Mic inputs");
             self.mix3_tab.setTabText(1, "Mic inputs");
             self.mix4_tab.setTabText(1, "Mic inputs");
+            self.mix5_tab.setTabText(1, "Mic inputs");
+            self.mix6_tab.setTabText(1, "Mic inputs");
+            self.mix7_tab.setTabText(1, "Mic inputs");
+            self.mix8_tab.setTabText(1, "Mic inputs");
         else:
             # Only the Traveler and 896HD have AES/EBU inputs, so disable the AES/EBU
             # tab for all other models.
@@ -577,6 +925,10 @@ class Motu_Mark3(QWidget):
                 self.mix2_tab.setTabEnabled(1, False)
                 self.mix3_tab.setTabEnabled(1, False)
                 self.mix4_tab.setTabEnabled(1, False)
+                self.mix5_tab.setTabEnabled(1, False)
+                self.mix6_tab.setTabEnabled(1, False)
+                self.mix7_tab.setTabEnabled(1, False)
+                self.mix8_tab.setTabEnabled(1, False)
 
         # All models except the 896HDmk3 have SPDIF inputs.
         if (self.model==MOTU_MODEL_896HDmk3):
@@ -584,6 +936,10 @@ class Motu_Mark3(QWidget):
             self.mix2_tab.setTabEnabled(2, False);
             self.mix3_tab.setTabEnabled(2, False);
             self.mix4_tab.setTabEnabled(2, False);
+            self.mix5_tab.setTabEnabled(2, False);
+            self.mix6_tab.setTabEnabled(2, False);
+            self.mix7_tab.setTabEnabled(2, False);
+            self.mix8_tab.setTabEnabled(2, False);
 
         # Devices without AES/EBU inputs/outputs (currently all except the
         # Traveler and 896HD) have dedicated "MainOut" outputs instead. 
@@ -598,12 +954,20 @@ class Motu_Mark3(QWidget):
             self.mix2_dest.setItemText(6, "MainOut")
             self.mix3_dest.setItemText(6, "MainOut")
             self.mix4_dest.setItemText(6, "MainOut")
+            self.mix5_dest.setItemText(6, "MainOut")
+            self.mix6_dest.setItemText(6, "MainOut")
+            self.mix7_dest.setItemText(6, "MainOut")
+            self.mix8_dest.setItemText(6, "MainOut")
             self.phones_src.setItemText(6, "MainOut")
         if (self.model == MOTU_MODEL_896HDmk3):
             self.mix1_dest.setItemText(7, "AES/EBU")
             self.mix2_dest.setItemText(7, "AES/EBU")
             self.mix3_dest.setItemText(7, "AES/EBU")
             self.mix4_dest.setItemText(7, "AES/EBU")
+            self.mix5_dest.setItemText(7, "AES/EBU")
+            self.mix6_dest.setItemText(7, "AES/EBU")
+            self.mix7_dest.setItemText(7, "AES/EBU")
+            self.mix8_dest.setItemText(7, "AES/EBU")
             self.phones_src.setItemText(7, "AES/EBU")
 
         # The Ultralite doesn't have ADAT channels (or any optical ports at
@@ -613,6 +977,10 @@ class Motu_Mark3(QWidget):
             self.mix2_tab.setTabEnabled(3, False)  # ADAT page
             self.mix3_tab.setTabEnabled(3, False)  # ADAT page
             self.mix4_tab.setTabEnabled(3, False)  # ADAT page
+            self.mix5_tab.setTabEnabled(3, False)  # ADAT page
+            self.mix6_tab.setTabEnabled(3, False)  # ADAT page
+            self.mix7_tab.setTabEnabled(3, False)  # ADAT page
+            self.mix8_tab.setTabEnabled(3, False)  # ADAT page
             self.optical_in_mode.setEnabled(False)
             self.optical_out_mode.setEnabled(False)
 
@@ -651,6 +1019,19 @@ class Motu_Mark3(QWidget):
             self.mix4_tab.setTabEnabled(3, False)  # ADAT
             self.mix4_tab.setTabEnabled(2, False)  # SPDIF
             self.mix4_tab.setTabEnabled(1, False)  # AES/EBU
+            self.mix5_tab.setTabEnabled(3, False)  # ADAT
+            self.mix5_tab.setTabEnabled(2, False)  # SPDIF
+            self.mix5_tab.setTabEnabled(1, False)  # AES/EBU
+            self.mix6_tab.setTabEnabled(3, False)  # ADAT
+            self.mix6_tab.setTabEnabled(2, False)  # SPDIF
+            self.mix6_tab.setTabEnabled(1, False)  # AES/EBU
+            self.mix7_tab.setTabEnabled(3, False)  # ADAT
+            self.mix7_tab.setTabEnabled(2, False)  # SPDIF
+            self.mix7_tab.setTabEnabled(1, False)  # AES/EBU
+            self.mix8_tab.setTabEnabled(3, False)  # ADAT
+            self.mix8_tab.setTabEnabled(2, False)  # SPDIF
+            self.mix8_tab.setTabEnabled(1, False)  # AES/EBU
+            
         if (self.sample_rate > 48000):
             log.debug("Disabling controls not present above 48 kHz")
             self.mix1adat5.setEnabled(False)
@@ -669,6 +1050,22 @@ class Motu_Mark3(QWidget):
             self.mix4adat6.setEnabled(False)
             self.mix4adat7.setEnabled(False)
             self.mix4adat8.setEnabled(False)
+            self.mix5adat5.setEnabled(False)
+            self.mix5adat6.setEnabled(False)
+            self.mix5adat7.setEnabled(False)
+            self.mix5adat8.setEnabled(False)
+            self.mix6adat5.setEnabled(False)
+            self.mix6adat6.setEnabled(False)
+            self.mix6adat7.setEnabled(False)
+            self.mix6adat8.setEnabled(False)
+            self.mix7adat5.setEnabled(False)
+            self.mix7adat6.setEnabled(False)
+            self.mix7adat7.setEnabled(False)
+            self.mix7adat8.setEnabled(False)
+            self.mix8adat5.setEnabled(False)
+            self.mix8adat6.setEnabled(False)
+            self.mix8adat7.setEnabled(False)
+            self.mix8adat8.setEnabled(False)
 
         # Ensure the correct input controls are active for a given interface.
         # Only the Ultralite has phase inversion switches.
