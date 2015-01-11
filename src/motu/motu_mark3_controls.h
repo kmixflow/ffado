@@ -38,7 +38,7 @@ class MotuDiscreteCtrlMk3
     : public Control::Discrete
 {
 public:
-    MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned long int bus,
+    MotuDiscreteCtrlMk3(MotuDevice &parent, unsigned short bus,
     		std::string name, std::string label, std::string descr);
 
     virtual bool setValue(int value) = 0;
@@ -56,15 +56,15 @@ public:
 
 protected:
     MotuDevice    &m_parent;
-    unsigned long int  m_key;
-    unsigned long int  m_bus;
+    unsigned long m_key;
+    unsigned short m_bus;
 };
 
 class MixDestMk3
     : public MotuDiscreteCtrlMk3
 {
 public:
-    MixDestMk3(MotuDevice &parent, unsigned long int bus,
+    MixDestMk3(MotuDevice &parent, unsigned short bus,
             std::string name, std::string label, std::string descr);
 
     virtual bool setValue(int value);
@@ -75,7 +75,7 @@ class MixMuteMk3
     : public MotuDiscreteCtrlMk3
 {
 public:
-    MixMuteMk3(MotuDevice &parent, unsigned long int bus,
+    MixMuteMk3(MotuDevice &parent, unsigned short bus,
             std::string name, std::string label, std::string descr);
 
     virtual bool setValue(int value);
@@ -86,7 +86,7 @@ class InputPadMk3
     : public MotuDiscreteCtrlMk3
 {
 public:
-    InputPadMk3(MotuDevice &parent, unsigned long int channel,
+    InputPadMk3(MotuDevice &parent, unsigned short channel,
             std::string name, std::string label, std::string descr);
 
     virtual bool setValue(int value);
@@ -97,7 +97,7 @@ class InputPhaseMk3
     : public MotuDiscreteCtrlMk3
 {
 public:
-    InputPhaseMk3(MotuDevice &parent, unsigned long int channel,
+    InputPhaseMk3(MotuDevice &parent, unsigned short channel,
             std::string name, std::string label, std::string descr);
 
     virtual bool setValue(int value);
@@ -142,17 +142,17 @@ public:
 
 protected:
     MotuDevice    &m_parent;
-    unsigned long int  m_key;
-    unsigned long int  m_bus;
-    unsigned long int  m_minimum;
-    unsigned long int  m_maximum;
+    unsigned long m_key;
+    unsigned short m_bus;
+    unsigned long m_minimum;
+    unsigned long m_maximum;
 };
 
 class MixFaderMk3
     : public MotuContinuousCtrlMk3
 {
 public:
-    MixFaderMk3(MotuDevice &parent, unsigned long int bus,
+    MixFaderMk3(MotuDevice &parent, unsigned short bus,
           std::string name, std::string label, std::string descr);
 
     virtual bool setValue(double v);
@@ -163,7 +163,7 @@ class InputTrimMk3
     : public MotuContinuousCtrlMk3
 {
 public:
-    InputTrimMk3(MotuDevice &parent, unsigned long int channel, unsigned long int mode,
+    InputTrimMk3(MotuDevice &parent, unsigned short channel, unsigned long mode,
           std::string name, std::string label, std::string descr);
 
     virtual bool setValue(double v);
@@ -177,7 +177,7 @@ public:
     ChannelCtrlMk3(MotuDevice &parent);
     // default implementations
     virtual bool setValue(double v) = 0;
-    virtual bool setValue(double v, int bus, int channel) = 0;
+    virtual bool setValue(double v, unsigned short bus, unsigned short channel) = 0;
     virtual double getValue() = 0;
 };
 
@@ -187,7 +187,7 @@ class ChannelFaderMk3
 public:
     ChannelFaderMk3(MotuDevice &parent);
 
-    virtual bool setValue(double v, int bus, int channel);
+    virtual bool setValue(double v, unsigned short bus, unsigned short channel);
     virtual bool setValue(double v);
     virtual double getValue();
 };
@@ -198,7 +198,7 @@ class ChannelPanMk3
 public:
     ChannelPanMk3(MotuDevice &parent);
 
-    virtual bool setValue(double v, int bus, int channel);
+    virtual bool setValue(double v, unsigned short bus, unsigned short channel);
     virtual bool setValue(double v);
     virtual double getValue();
 };

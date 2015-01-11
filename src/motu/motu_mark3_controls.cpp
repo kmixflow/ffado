@@ -32,7 +32,7 @@
 namespace Motu {
 
 MotuDiscreteCtrlMk3::MotuDiscreteCtrlMk3(MotuDevice &parent,
-        unsigned long int bus, std::string name, std::string label,
+        unsigned short bus, std::string name, std::string label,
         std::string descr) :
         Control::Discrete(&parent), m_parent(parent) {
     setName(name);
@@ -70,7 +70,7 @@ int MotuDiscreteCtrlMk3::getValue() {
     return 0;
 }
 
-MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned long int bus,
+MixDestMk3::MixDestMk3(MotuDevice &parent, unsigned short bus,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, bus, name, label, descr) {
     this->m_key = MOTU_MK3CTRL_MIX_DEST_ASSIGN;
@@ -97,7 +97,7 @@ int MixDestMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 
-MixMuteMk3::MixMuteMk3(MotuDevice &parent, unsigned long int bus,
+MixMuteMk3::MixMuteMk3(MotuDevice &parent, unsigned short bus,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, bus, name, label, descr) {
     this->m_key = MOTU_MK3CTRL_BUS_MUTE;
@@ -117,12 +117,12 @@ int MixMuteMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 
-InputPadMk3::InputPadMk3(MotuDevice &parent, unsigned long int channel,
+InputPadMk3::InputPadMk3(MotuDevice &parent, unsigned short channel,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, channel, name, label, descr) {
     if((0 > channel) || (MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL < channel))
     {
-        debugOutput(DEBUG_LEVEL_VERBOSE, "Invalid channel %d: max supported is %d\n",
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Invalid channel %x: max supported is %x\n",
                     channel, MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL);
         this->m_key = MOTU_MK3CTRL_NONE;
     }
@@ -133,7 +133,7 @@ bool InputPadMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
     if ((0 > val) || (1 < val))
     {
-        debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for InputGainPadInv control\n", val);
+        debugOutput(DEBUG_LEVEL_WARNING, "Value %x is not valid for InputGainPadInv control\n", val);
         return false;
     }
     return MotuDiscreteCtrlMk3::setValue(val);
@@ -143,12 +143,12 @@ int InputPadMk3::getValue() {
     return MotuDiscreteCtrlMk3::getValue();
 }
 
-InputPhaseMk3::InputPhaseMk3(MotuDevice &parent, unsigned long int channel,
+InputPhaseMk3::InputPhaseMk3(MotuDevice &parent, unsigned short channel,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, channel, name, label, descr) {
     if((0 > channel) || (MOTU_CTRL_GAINPHASEINV_MAX_CHANNEL < channel))
     {
-        debugOutput(DEBUG_LEVEL_VERBOSE, "Invalid channel %d: max supported is %d\n",
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Invalid channel %x: max supported is %x\n",
                     channel, MOTU_CTRL_GAINPHASEINV_MAX_CHANNEL);
         this->m_key = MOTU_MK3CTRL_NONE;
     }
@@ -159,7 +159,7 @@ bool InputPhaseMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
     if ((0 > val) || (1 < val))
     {
-        debugOutput(DEBUG_LEVEL_WARNING, "Value %d is not valid for InputPhaseInv control\n", val);
+        debugOutput(DEBUG_LEVEL_WARNING, "Value %x is not valid for InputPhaseInv control\n", val);
         return false;
     }
     return MotuDiscreteCtrlMk3::setValue(val);
@@ -210,7 +210,7 @@ MotuContinuousCtrlMk3::MotuContinuousCtrlMk3(MotuDevice &parent) :
     m_minimum = MOTU_MK3VALUE_NONE;
     m_maximum = MOTU_MK3VALUE_NONE;
     //FIXME: Check if bus is valid
-    m_bus = NULL;
+    m_bus = -1;
 }
 
 bool MotuContinuousCtrlMk3::setValue(double value) {
@@ -227,10 +227,10 @@ bool MotuContinuousCtrlMk3::setValue(double value) {
 
     if (val > this->m_maximum) {
         val = m_maximum;
-        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, higher than control maximum=%lu\n", val, this->m_maximum);
+        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, higher than control maximum=%lx\n", val, this->m_maximum);
     } else if (val < this->m_minimum) {
         val = m_minimum;
-        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lu\n", val, this->m_minimum);
+        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lx\n", val, this->m_minimum);
     }
 
     //Values sent to MOTU must be big-endian:
@@ -259,7 +259,7 @@ double MotuContinuousCtrlMk3::getMaximum() {
     return m_maximum;
 }
 
-MixFaderMk3::MixFaderMk3(MotuDevice &parent, unsigned long int bus,
+MixFaderMk3::MixFaderMk3(MotuDevice &parent, unsigned short bus,
         std::string name, std::string label, std::string descr) :
         MotuContinuousCtrlMk3(parent, bus, name, label, descr) {
     this->m_key = MOTU_MK3CTRL_BUS_MASTER_FADER;
@@ -279,7 +279,7 @@ double MixFaderMk3::getValue()
     return 0;
 }
 
-InputTrimMk3::InputTrimMk3(MotuDevice &parent, unsigned long int channel, unsigned long int mode,
+InputTrimMk3::InputTrimMk3(MotuDevice &parent, unsigned short channel, unsigned long mode,
         std::string name, std::string label, std::string descr) :
         MotuContinuousCtrlMk3(parent, channel, name, label, descr) {
     this->m_key = MOTU_MK3CTRL_INPUT_TRIM;
@@ -298,7 +298,7 @@ InputTrimMk3::InputTrimMk3(MotuDevice &parent, unsigned long int channel, unsign
         this->m_key = MOTU_MK3CTRL_NONE;
         this->m_minimum = MOTU_MK3VALUE_NONE;
         this->m_maximum = MOTU_MK3VALUE_NONE;
-        debugOutput(DEBUG_LEVEL_WARNING, "Invalid mode %d for InputTrim control\n", mode);
+        debugOutput(DEBUG_LEVEL_WARNING, "Invalid mode %lx for InputTrim control\n", mode);
     }
 }
 
@@ -316,7 +316,7 @@ ChannelCtrlMk3::ChannelCtrlMk3(MotuDevice &parent) :
         MotuContinuousCtrlMk3(parent) {
 }
 
-bool ChannelCtrlMk3::setValue(double value, int bus, int channel){
+bool ChannelCtrlMk3::setValue(double value, unsigned short bus, unsigned short channel){
     if (this->m_key == MOTU_MK3CTRL_NONE) {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with uninitialized control key\n");
         return false;
@@ -331,10 +331,10 @@ bool ChannelCtrlMk3::setValue(double value, int bus, int channel){
 
     if (val > this->m_maximum) {
         val = m_maximum;
-        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, higher than control maximum=%x\n", val, this->m_maximum);
+        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, higher than control maximum=%lx\n", val, this->m_maximum);
     } else if (val < this->m_minimum) {
         val = m_minimum;
-        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%x\n", val, this->m_minimum);
+        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lx\n", val, this->m_minimum);
     }
 
     //Values sent to MOTU must be big-endian:
@@ -363,7 +363,7 @@ ChannelFaderMk3::ChannelFaderMk3(MotuDevice &parent):
     this->m_minimum = MOTU_MK3CTRL_FADER_MIN;
 }
 
-bool ChannelFaderMk3::setValue(double value, int bus, int channel)
+bool ChannelFaderMk3::setValue(double value, unsigned short bus, unsigned short channel)
 {
     return ChannelCtrlMk3::setValue(value*MOTU_MK3CTRL_FADER_MAX/128, bus, channel);
 }
@@ -386,7 +386,7 @@ ChannelPanMk3::ChannelPanMk3(MotuDevice &parent):
     this->m_minimum = MOTU_MK3CTRL_PAN_RGHT;
 }
 
-bool ChannelPanMk3::setValue(double value, int bus, int channel)
+bool ChannelPanMk3::setValue(double value, unsigned short bus, unsigned short channel)
 {
     // FIXME: Values as described in motu_firewire_protocol-mk3.txt don't work
     //return ChannelCtrlMk3::setValue((this->m_maximum-this->m_minimum)/128*(value+64)+this->m_minimum, bus, channel);

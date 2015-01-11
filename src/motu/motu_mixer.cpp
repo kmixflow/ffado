@@ -419,7 +419,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             result &= m_MixerContainer->addElement(
                     new MixFaderMk3(*this, ctrl->key, name, label, ctrl->desc));
             type &= ~MOTU_CTRL_MIX_FADER;
-            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_FADER on bus 0x%08llx\n", ctrl->key);
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_FADER on bus 0x%08lx\n", ctrl->key);
         }
         if (type & MOTU_CTRL_MIX_MUTE) {
             snprintf(name, 100, "%s%s", ctrl->name, "mute");
@@ -427,7 +427,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             result &= m_MixerContainer->addElement(
                     new MixMuteMk3(*this, ctrl->key, name, label, ctrl->desc));
             type &= ~MOTU_CTRL_MIX_MUTE;
-            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_MUTE on bus 0x%08llx\n", ctrl->key);
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_MUTE on bus 0x%08lx\n", ctrl->key);
         }
         if (type & MOTU_CTRL_MIX_DEST) {
             snprintf(name, 100, "%s%s", ctrl->name, "dest");
@@ -435,7 +435,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             result &= m_MixerContainer->addElement(
                     new MixDestMk3(*this, ctrl->key, name, label, ctrl->desc));
             type &= ~MOTU_CTRL_MIX_DEST;
-            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_DEST on bus 0x%08llx\n", ctrl->key);
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_MIX_DEST on bus 0x%08lx\n", ctrl->key);
         }
         /*if (type & MOTU_CTRL_INPUT_UL_GAIN) {
          snprintf(name, 100, "%s%s", ctrl->name, "trimgain");
@@ -460,7 +460,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
                     new InputTrimMk3(*this, ctrl->key, MOTU_CTRL_INPUT_TRIMGAIN,
                             name, label, ctrl->desc));
             type &= ~MOTU_CTRL_INPUT_TRIMGAIN;
-            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_TRIMGAIN on channel 0x%08llx\n", ctrl->key);
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_TRIMGAIN on channel 0x%08lx\n", ctrl->key);
         }
         if (type & MOTU_CTRL_INPUT_LEVEL) {
             snprintf(name, 100, "%s%s", ctrl->name, "level");
@@ -468,7 +468,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             result &= m_MixerContainer->addElement(
                     new InputLevelMk3(*this, ctrl->key, name, label, ctrl->desc));
             type &= ~MOTU_CTRL_INPUT_LEVEL;
-            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_LEVEL on channel 0x%08llx\n", ctrl->key);
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_LEVEL on channel 0x%08lx\n", ctrl->key);
         }
         if (type & MOTU_CTRL_INPUT_PAD) {
             snprintf(name, 100, "%s%s", ctrl->name, "pad");
@@ -476,7 +476,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             result &= m_MixerContainer->addElement(
                     new InputPadMk3(*this, ctrl->key, name, label, ctrl->desc));
             type &= ~MOTU_CTRL_INPUT_PAD;
-            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_PAD on channel 0x%08llx\n", ctrl->key);
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_PAD on channel 0x%08lx\n", ctrl->key);
         }
         if (type & MOTU_CTRL_INPUT_BOOST) {
             snprintf(name, 100, "%s%s", ctrl->name, "boost");
@@ -484,7 +484,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             result &= m_MixerContainer->addElement(
                     new InputPadMk3(*this, ctrl->key, name, label, ctrl->desc));
             type &= ~MOTU_CTRL_INPUT_BOOST;
-            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_BOOST on channel 0x%08llx\n", ctrl->key);
+            debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_INPUT_BOOST on channel 0x%08lx\n", ctrl->key);
         }
         //TODO: Make a specific destination list for each device
         if (type & MOTU_CTRL_PHONES_SRC) {
