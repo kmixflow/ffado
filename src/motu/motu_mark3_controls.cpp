@@ -120,7 +120,7 @@ int MixMuteMk3::getValue() {
 InputPadMk3::InputPadMk3(MotuDevice &parent, unsigned long int channel,
         std::string name, std::string label, std::string descr) :
         MotuDiscreteCtrlMk3(parent, channel, name, label, descr) {
-    if((0 > channel) )//|| (MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL < channel))
+    if((0 > channel) || (MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL < channel))
     {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Invalid channel %d: max supported is %d\n",
                     channel, MOTU_CTRL_TRIMGAINPAD_MAX_CHANNEL);
@@ -518,8 +518,6 @@ double ChannelPanMatrixMixerMk3::getValue(const int row, const int col)
 
 ChannelBinSwMatrixMixerMk3::ChannelBinSwMatrixMixerMk3(MotuDevice &parent)
 : MotuMatrixMixerMk3(parent, "ChannelPanMatrixMixerMk3")
-, m_value_mask(0)
-, m_setenable_mask(0)
 {
 }
 
@@ -527,66 +525,42 @@ ChannelBinSwMatrixMixerMk3::ChannelBinSwMatrixMixerMk3(MotuDevice &parent)
  * pass zero in to setenable_mask.
  */
 ChannelBinSwMatrixMixerMk3::ChannelBinSwMatrixMixerMk3(MotuDevice &parent, std::string name,
-  unsigned int val_mask, unsigned int setenable_mask)
+  unsigned int key)
 : MotuMatrixMixerMk3(parent, name)
-, m_value_mask(val_mask)
-, m_setenable_mask(setenable_mask)
+, m_key(key)
 {
 }
 
 double ChannelBinSwMatrixMixerMk3::setValue(const int row, const int col, const double val)
 {
-    uint32_t v, reg;
-
-    debugOutput(DEBUG_LEVEL_VERBOSE, "BinSw setValue for row %d col %d to %lf (%d)\n",
-      row, col, val, val==0?0:1);
-    //reg = getCellRegister(row,col);
-
-    // Silently swallow attempts to set non-existent controls for now
-    if (reg == MOTU_CTRL_NONE) {
-        debugOutput(DEBUG_LEVEL_VERBOSE, "ignoring control marked as non-existent\n");
+    unsigned int m_bus = row;
+    unsigned int channel = col + 2;
+    unsigned int value = (unsigned int)val;
+    if (this->m_key == MOTU_MK3CTRL_NONE) {
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a discrete control with unintialized key\n");
         return true;
     }
+    quadlet_t data[2];
+    unsigned int serial = m_parent.getMk3MixerSerial();
 
-    // Set the value
-    if (m_setenable_mask) {
-      v = (val==0)?0:m_value_mask;
-      // Set the "write enable" bit for the value being set
-      v |= m_setenable_mask;
-    } else {
-      // It would be good to utilise the cached value from the receive
-      // processor (if running) later on.  For now we'll just fetch the
-      // current register value directly when needed.
-      v = m_parent.ReadRegister(reg);
-      if (v==0)
-        v &= ~m_value_mask;
-      else
-        v |= m_value_mask;
+    //Prepare data:
+    data[0] = MOTU_MK3CTRL_DISCRETE_CTRL | (serial << 16) | value;
+    data[1] = (m_bus << 24) | this->m_key | (channel << 8);
+
+    //Write data:
+    if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 2)) {
+        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) to mixer register\n", data[0], data[1]);
+        return false;
     }
-    m_parent.WriteRegister(reg, v);
-
+    //Everything is OK, let's update serial number for next communication
+    m_parent.updateMk3MixerSerial();
     return true;
 }
 
 double ChannelBinSwMatrixMixerMk3::getValue(const int row, const int col)
 {
-    uint32_t val, reg;
-    //reg = getCellRegister(row,col);
-
-    // Silently swallow attempts to read non-existent controls for now
-    if (reg == MOTU_CTRL_NONE) {
-        debugOutput(DEBUG_LEVEL_VERBOSE, "ignoring control marked as non-existent\n");
-        return 0;
-    }
-
-    // FIXME: we could just read the appropriate mixer status field from the
-    // receive stream processor once we work out an efficient way to do this.
-    val = m_parent.ReadRegister(reg);
-    val = (val & m_value_mask) != 0;
-
-    debugOutput(DEBUG_LEVEL_VERBOSE, "BinSw getValue for row %d col %d = %u\n",
-      row, col, val);
-    return val;
+    //FIXME
+    return 0;
 }
 
 }

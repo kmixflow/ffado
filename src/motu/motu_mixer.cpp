@@ -316,11 +316,9 @@ MotuDevice::buildMark3MixerAudioControls(void) {
     result &= m_MixerContainer->addElement(fader_mmixer);
     pan_mmixer = new ChannelPanMatrixMixerMk3(*this, "pan");
     result &= m_MixerContainer->addElement(pan_mmixer);
-    solo_mmixer = new ChannelBinSwMatrixMixerMk3(*this, "solo",
-            MOTU_CTRL_MASK_SOLO_VALUE, MOTU_CTRL_MASK_SOLO_SETENABLE);
+    solo_mmixer = new ChannelBinSwMatrixMixerMk3(*this, "solo", MOTU_MK3CTRL_MIX_CHANNEL_SOLO);
     result &= m_MixerContainer->addElement(solo_mmixer);
-    mute_mmixer = new ChannelBinSwMatrixMixerMk3(*this, "mute",
-            MOTU_CTRL_MASK_MUTE_VALUE, MOTU_CTRL_MASK_MUTE_SETENABLE);
+    mute_mmixer = new ChannelBinSwMatrixMixerMk3(*this, "mute", MOTU_MK3CTRL_MIX_CHANNEL_MUTE);
     result &= m_MixerContainer->addElement(mute_mmixer);
 
     for (bus = 0;

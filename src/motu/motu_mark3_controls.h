@@ -272,13 +272,12 @@ class ChannelBinSwMatrixMixerMk3 : public MotuMatrixMixerMk3
 public:
     ChannelBinSwMatrixMixerMk3(MotuDevice &parent);
     ChannelBinSwMatrixMixerMk3(MotuDevice &parent, std::string name,
-      unsigned int val_mask, unsigned int setenable_mask);
+      unsigned int key);
     virtual double setValue(const int row, const int col, const double val);
     virtual double getValue(const int row, const int col);
 
 protected:
-    unsigned int m_value_mask;
-    unsigned int m_setenable_mask;
+    unsigned int m_key;
 };
 
 
@@ -330,6 +329,7 @@ protected:
 #define MOTU_MK3CTRL_OUTPUT_MONITOR               0x000c03
 #define MOTU_MK3CTRL_INPUT_CHANNEL_MODE           0x010001
 #define MOTU_MK3CTRL_REVERB_SPLIT_POINT           0x010004
+#define MOTU_MK3CTRL_MIX_CHANNEL_MUTE             0x000002
 #define MOTU_MK3CTRL_MIX_CHANNEL_SOLO             0x010002 //mm
 #define MOTU_MK3CTRL_LVLR_OUTPUT_CHANNEL_MODE     0x010a03
 #define MOTU_MK3CTRL_TALKBACK_OUTPUT_CHANNEL_TALK 0x010c03
