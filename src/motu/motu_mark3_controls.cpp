@@ -322,7 +322,7 @@ bool ChannelCtrlMk3::setValue(double value, int bus, int channel){
         return false;
     }
 
-    channel += 2;
+    channel += 2; // TravelerMk3 channels have offset of 2... Need to check other models.
     unsigned int val, serial;
     quadlet_t data[3];
 
@@ -448,14 +448,6 @@ void MotuMatrixMixerMk3::addColInfo(std::string name, unsigned int flags,
     m_ColInfo.push_back(s);
 }
 
-//uint32_t MotuMatrixMixerMk3::getCellRegister(const unsigned int row, const unsigned int col)
-//{
-//    if (m_RowInfo.at(row).address==MOTU_CTRL_NONE ||
-//        m_ColInfo.at(col).address==MOTU_CTRL_NONE)
-//        return MOTU_CTRL_NONE;
-//    return m_RowInfo.at(row).address + m_ColInfo.at(col).address;
-//}
-
 void MotuMatrixMixerMk3::show()
 {
     debugOutput(DEBUG_LEVEL_NORMAL, "MOTU mk3 matrix mixer\n");
@@ -516,11 +508,6 @@ double ChannelPanMatrixMixerMk3::getValue(const int row, const int col)
     return 0;
 }
 
-ChannelBinSwMatrixMixerMk3::ChannelBinSwMatrixMixerMk3(MotuDevice &parent)
-: MotuMatrixMixerMk3(parent, "ChannelPanMatrixMixerMk3")
-{
-}
-
 /* If no "write enable" is implemented for a given switch it's safe to
  * pass zero in to setenable_mask.
  */
@@ -534,7 +521,7 @@ ChannelBinSwMatrixMixerMk3::ChannelBinSwMatrixMixerMk3(MotuDevice &parent, std::
 double ChannelBinSwMatrixMixerMk3::setValue(const int row, const int col, const double val)
 {
     unsigned int m_bus = row;
-    unsigned int channel = col + 2;
+    unsigned int channel = col + 2; // TravelerMk3 channels have offset of 2... Need to check other models.
     unsigned int value = (unsigned int)val;
     if (this->m_key == MOTU_MK3CTRL_NONE) {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a discrete control with unintialized key\n");

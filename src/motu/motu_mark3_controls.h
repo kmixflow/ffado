@@ -246,7 +246,6 @@ protected:
 class ChannelFaderMatrixMixerMk3 : public MotuMatrixMixerMk3
 {
 public:
-    ChannelFaderMatrixMixerMk3(MotuDevice &parent);
     ChannelFaderMatrixMixerMk3(MotuDevice &parent, std::string name);
     virtual double setValue(const int row, const int col, const double val);
     virtual double getValue(const int row, const int col);
@@ -258,7 +257,6 @@ protected:
 class ChannelPanMatrixMixerMk3 : public MotuMatrixMixerMk3
 {
 public:
-    ChannelPanMatrixMixerMk3(MotuDevice &parent);
     ChannelPanMatrixMixerMk3(MotuDevice &parent, std::string name);
     virtual double setValue(const int row, const int col, const double val);
     virtual double getValue(const int row, const int col);
@@ -270,9 +268,7 @@ protected:
 class ChannelBinSwMatrixMixerMk3 : public MotuMatrixMixerMk3
 {
 public:
-    ChannelBinSwMatrixMixerMk3(MotuDevice &parent);
-    ChannelBinSwMatrixMixerMk3(MotuDevice &parent, std::string name,
-      unsigned int key);
+    ChannelBinSwMatrixMixerMk3(MotuDevice &parent, std::string name, unsigned int key);
     virtual double setValue(const int row, const int col, const double val);
     virtual double getValue(const int row, const int col);
 
