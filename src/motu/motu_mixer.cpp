@@ -376,6 +376,7 @@ MotuDevice::buildMark3MixerAudioControls(void) {
             continue;
         }
         type = ctrl->type;
+
         /*
          if (type & MOTU_CTRL_CHANNEL_FADER) {
          snprintf(name, 100, "%s%s", ctrl->name, "fader");

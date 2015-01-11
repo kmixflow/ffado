@@ -204,6 +204,15 @@ MotuContinuousCtrlMk3::MotuContinuousCtrlMk3(MotuDevice &parent,
     m_bus = bus;
 }
 
+MotuContinuousCtrlMk3::MotuContinuousCtrlMk3(MotuDevice &parent) :
+        Control::Continuous(&parent), m_parent(parent) {
+    m_key = MOTU_MK3CTRL_NONE;
+    m_minimum = MOTU_MK3VALUE_NONE;
+    m_maximum = MOTU_MK3VALUE_NONE;
+    //FIXME: Check if bus is valid
+    m_bus = NULL;
+}
+
 bool MotuContinuousCtrlMk3::setValue(double value) {
     if (this->m_key == MOTU_MK3CTRL_NONE) {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with uninitialized control key\n");
@@ -303,6 +312,73 @@ double InputTrimMk3::getValue()
     return 0;
 }
 
+ChannelCtrlMk3::ChannelCtrlMk3(MotuDevice &parent) :
+        MotuContinuousCtrlMk3(parent) {
+}
+
+bool ChannelCtrlMk3::setValue(double value, int bus, int channel){
+    if (this->m_key == MOTU_MK3CTRL_NONE) {
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with uninitialized control key\n");
+        return false;
+    }
+
+    channel += 2;
+    unsigned int val, serial;
+    quadlet_t data[3];
+
+    val = (unsigned int)value;
+    serial = m_parent.getMk3MixerSerial();
+
+    if (val > this->m_maximum) {
+        val = m_maximum;
+        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, higher than control maximum=%lu\n", val, this->m_maximum);
+    } else if (val < this->m_minimum) {
+        val = m_minimum;
+        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lu\n", val, this->m_minimum);
+    }
+
+    //Values sent to MOTU must be big-endian:
+    val=CondSwapToBus32(val);
+
+    //Prepare data:
+    data[0] = MOTU_MK3CTRL_CONTINUOUS_CTRL | (serial << 16) | bus;
+    data[1] = this->m_key | (val >> 24) | (channel << 16);
+    data[2] = (val << 8);
+
+    //Write data:
+    if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 3)) {
+        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) data[2]=(0x%08x) to mixer register\n", data[0], data[1], data[2]);
+        return false;
+    }
+    //Everything is OK, let's update serial number for next communication
+    m_parent.updateMk3MixerSerial();
+    return true;
+}
+
+
+ChannelFaderMk3::ChannelFaderMk3(MotuDevice &parent):
+        ChannelCtrlMk3(parent){
+    this->m_key = MOTU_MK3CTRL_CHANNEL_FADER;
+    this->m_maximum = MOTU_MK3CTRL_FADER_MAX;
+    this->m_minimum = MOTU_MK3CTRL_FADER_MIN;
+}
+
+bool ChannelFaderMk3::setValue(double value, int bus, int channel)
+{
+    return ChannelCtrlMk3::setValue(value, bus, channel);
+}
+
+bool ChannelFaderMk3::setValue(double value)
+{
+    //FIXME: This shouldn't exist
+    return false;
+}
+
+double ChannelFaderMk3::getValue()
+{
+    return 0;
+}
+
 /*
  *
  *
@@ -347,13 +423,13 @@ void MotuMatrixMixerMk3::addColInfo(std::string name, unsigned int flags,
     m_ColInfo.push_back(s);
 }
 
-uint32_t MotuMatrixMixerMk3::getCellRegister(const unsigned int row, const unsigned int col)
-{
-    if (m_RowInfo.at(row).address==MOTU_CTRL_NONE ||
-        m_ColInfo.at(col).address==MOTU_CTRL_NONE)
-        return MOTU_CTRL_NONE;
-    return m_RowInfo.at(row).address + m_ColInfo.at(col).address;
-}
+//uint32_t MotuMatrixMixerMk3::getCellRegister(const unsigned int row, const unsigned int col)
+//{
+//    if (m_RowInfo.at(row).address==MOTU_CTRL_NONE ||
+//        m_ColInfo.at(col).address==MOTU_CTRL_NONE)
+//        return MOTU_CTRL_NONE;
+//    return m_RowInfo.at(row).address + m_ColInfo.at(col).address;
+//}
 
 void MotuMatrixMixerMk3::show()
 {
@@ -380,55 +456,35 @@ int MotuMatrixMixerMk3::getColCount()
     return m_ColInfo.size();
 }
 
-ChannelFaderMatrixMixerMk3::ChannelFaderMatrixMixerMk3(MotuDevice &parent)
-: MotuMatrixMixerMk3(parent, "ChannelFaderMatrixMixerMk3")
-{
-}
-
 ChannelFaderMatrixMixerMk3::ChannelFaderMatrixMixerMk3(MotuDevice &parent, std::string name)
-: MotuMatrixMixerMk3(parent, name)
+: MotuMatrixMixerMk3(parent, name),
+  virtual_fader(parent)
 {
+    //ChannelFaderMk3* fader_temp = new ChannelFaderMk3(m_parent, 0, 'VirtualFader', 'VirtualFader', 'VirtualFader');
 }
 
 double ChannelFaderMatrixMixerMk3::setValue(const int row, const int col, const double val)
 {
-    uint32_t v, reg;
-    v = val<0?0:(uint32_t)val;
-    if (v > 0x80)
-      v = 0x80;
-    debugOutput(DEBUG_LEVEL_VERBOSE, "ChannelFader setValue for row %d col %d to %lf (%d)\n",
-      row, col, val, v);
-    reg = getCellRegister(row,col);
+    //TODO:
+//    uint32_t reg;
+//    debugOutput(DEBUG_LEVEL_VERBOSE, "ChannelFader setValue for row %d col %d to %lf (%d)\n",
+//      row, col, val, v);
+    //reg = getCellRegister(row,col);
 
     // Silently swallow attempts to set non-existent controls for now
-    if (reg == MOTU_CTRL_NONE) {
-        debugOutput(DEBUG_LEVEL_VERBOSE, "ignoring control marked as non-existent\n");
-        return true;
-    }
-    // Bit 30 indicates that the channel fader is being set
-    v |= 0x40000000;
-    m_parent.WriteRegister(reg, v);
+//    if (reg == MOTU_CTRL_NONE) {
+//        debugOutput(DEBUG_LEVEL_VERBOSE, "ignoring control marked as non-existent\n");
+//        return true;
+//    }
 
-    return true;
+    return (this->virtual_fader.setValue(val, row, col));
 }
+
+
 
 double ChannelFaderMatrixMixerMk3::getValue(const int row, const int col)
 {
-    uint32_t val, reg;
-    reg = getCellRegister(row,col);
-
-    // Silently swallow attempts to read non-existent controls for now
-    if (reg == MOTU_CTRL_NONE) {
-        debugOutput(DEBUG_LEVEL_VERBOSE, "ignoring control marked as non-existent\n");
-        return 0;
-    }
-    // FIXME: we could just read the appropriate mixer status field from the
-    // receive stream processor once we work out an efficient way to do this.
-    val = m_parent.ReadRegister(reg) & 0xff;
-
-    debugOutput(DEBUG_LEVEL_VERBOSE, "ChannelFader getValue for row %d col %d = %u\n",
-      row, col, val);
-    return val;
+    return 0;
 }
 
 ChannelPanMatrixMixerMk3::ChannelPanMatrixMixerMk3(MotuDevice &parent)
@@ -450,7 +506,7 @@ double ChannelPanMatrixMixerMk3::setValue(const int row, const int col, const do
 
     debugOutput(DEBUG_LEVEL_VERBOSE, "ChannelPan setValue for row %d col %d to %lf (%d)\n",
       row, col, val, v);
-    reg = getCellRegister(row,col);
+    //reg = getCellRegister(row,col);
 
     // Silently swallow attempts to set non-existent controls for now
     if (reg == MOTU_CTRL_NONE) {
@@ -469,7 +525,7 @@ double ChannelPanMatrixMixerMk3::getValue(const int row, const int col)
 {
     int32_t val;
     uint32_t reg;
-    reg = getCellRegister(row,col);
+    //reg = getCellRegister(row,col);
 
     // Silently swallow attempts to read non-existent controls for now
     if (reg == MOTU_CTRL_NONE) {
@@ -511,7 +567,7 @@ double ChannelBinSwMatrixMixerMk3::setValue(const int row, const int col, const 
 
     debugOutput(DEBUG_LEVEL_VERBOSE, "BinSw setValue for row %d col %d to %lf (%d)\n",
       row, col, val, val==0?0:1);
-    reg = getCellRegister(row,col);
+    //reg = getCellRegister(row,col);
 
     // Silently swallow attempts to set non-existent controls for now
     if (reg == MOTU_CTRL_NONE) {
@@ -542,7 +598,7 @@ double ChannelBinSwMatrixMixerMk3::setValue(const int row, const int col, const 
 double ChannelBinSwMatrixMixerMk3::getValue(const int row, const int col)
 {
     uint32_t val, reg;
-    reg = getCellRegister(row,col);
+    //reg = getCellRegister(row,col);
 
     // Silently swallow attempts to read non-existent controls for now
     if (reg == MOTU_CTRL_NONE) {

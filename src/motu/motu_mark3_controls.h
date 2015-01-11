@@ -122,6 +122,8 @@ public:
     MotuContinuousCtrlMk3(MotuDevice &parent, unsigned long int bus,
             std::string name, std::string label, std::string descr);
 
+    MotuContinuousCtrlMk3(MotuDevice &parent);
+
     // default implementations
     virtual bool setValue(double v) = 0;
     virtual double getValue() = 0;
@@ -168,6 +170,39 @@ public:
     virtual double getValue();
 };
 
+class ChannelCtrlMk3
+    : public MotuContinuousCtrlMk3
+{
+public:
+    ChannelCtrlMk3(MotuDevice &parent);
+    // default implementations
+    virtual bool setValue(double v) = 0;
+    virtual bool setValue(double v, int bus, int channel) = 0;
+    virtual double getValue() = 0;
+};
+
+class ChannelFaderMk3
+    : public ChannelCtrlMk3
+{
+public:
+    ChannelFaderMk3(MotuDevice &parent);
+
+    virtual bool setValue(double v, int bus, int channel);
+    virtual bool setValue(double v);
+    virtual double getValue();
+};
+//class ChannelPan
+//    : public MotuDiscreteCtrl
+//{
+//public:
+//    ChannelPan(MotuDevice &parent, unsigned int dev_reg);
+//    ChannelPan(MotuDevice &parent, unsigned int dev_reg,
+//          std::string name, std::string label, std::string descr);
+//
+//    virtual bool setValue(int v);
+//    virtual int getValue();
+//};
+
 class MotuMatrixMixerMk3 : public Control::MatrixMixer
 {
 public:
@@ -177,7 +212,7 @@ public:
 
     void addRowInfo(std::string name, unsigned int flags, unsigned int address);
     void addColInfo(std::string name, unsigned int flags, unsigned int address);
-    uint32_t getCellRegister(const unsigned int row, const unsigned int col);
+//    uint32_t getCellRegister(const unsigned int row, const unsigned int col);
 
     virtual void show();
 
@@ -215,6 +250,10 @@ public:
     ChannelFaderMatrixMixerMk3(MotuDevice &parent, std::string name);
     virtual double setValue(const int row, const int col, const double val);
     virtual double getValue(const int row, const int col);
+
+
+protected:
+    ChannelFaderMk3 virtual_fader;
 };
 
 class ChannelPanMatrixMixerMk3 : public MotuMatrixMixerMk3
