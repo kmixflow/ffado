@@ -191,17 +191,17 @@ public:
     virtual bool setValue(double v);
     virtual double getValue();
 };
-//class ChannelPan
-//    : public MotuDiscreteCtrl
-//{
-//public:
-//    ChannelPan(MotuDevice &parent, unsigned int dev_reg);
-//    ChannelPan(MotuDevice &parent, unsigned int dev_reg,
-//          std::string name, std::string label, std::string descr);
-//
-//    virtual bool setValue(int v);
-//    virtual int getValue();
-//};
+
+class ChannelPanMk3
+    : public ChannelCtrlMk3
+{
+public:
+    ChannelPanMk3(MotuDevice &parent);
+
+    virtual bool setValue(double v, int bus, int channel);
+    virtual bool setValue(double v);
+    virtual double getValue();
+};
 
 class MotuMatrixMixerMk3 : public Control::MatrixMixer
 {
@@ -251,7 +251,6 @@ public:
     virtual double setValue(const int row, const int col, const double val);
     virtual double getValue(const int row, const int col);
 
-
 protected:
     ChannelFaderMk3 virtual_fader;
 };
@@ -263,6 +262,9 @@ public:
     ChannelPanMatrixMixerMk3(MotuDevice &parent, std::string name);
     virtual double setValue(const int row, const int col, const double val);
     virtual double getValue(const int row, const int col);
+
+protected:
+    ChannelPanMk3 virtual_fader;
 };
 
 class ChannelBinSwMatrixMixerMk3 : public MotuMatrixMixerMk3
