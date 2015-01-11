@@ -375,43 +375,6 @@ MotuDevice::buildMark3MixerAudioControls(void) {
         }
         type = ctrl->type;
 
-        /*
-         if (type & MOTU_CTRL_CHANNEL_FADER) {
-         snprintf(name, 100, "%s%s", ctrl->name, "fader");
-         snprintf(label,100, "%s%s", ctrl->label,"fader");
-         result &= m_MixerContainer->addElement(
-         new ChannelFaderMk3(*this, ctrl->key, name, label, ctrl->desc));
-         type &= ~MOTU_CTRL_CHANNEL_FADER;
-         debugOutput(DEBUG_LEVEL_WARNING, "Added a MOTU_CTRL_CHANNEL_FADER on bus 0x%08llx\n", ctrl->key);
-         }
-         if (type & MOTU_CTRL_CHANNEL_PAN) {
-         snprintf(name, 100, "%s%s", ctrl->name, "pan");
-         snprintf(label,100, "%s%s", ctrl->label,"pan");
-         result &= m_MixerContainer->addElement(
-         new ChannelPan(*this,
-         ctrl->key,
-         name, label,
-         ctrl->desc));
-         type &= ~MOTU_CTRL_CHANNEL_PAN;
-         }
-         if (type & MOTU_CTRL_CHANNEL_MUTE) {
-         snprintf(name, 100, "%s%s", ctrl->name, "mute");
-         snprintf(label,100, "%s%s", ctrl->label,"mute");
-         result &= m_MixerContainer->addElement(
-         new MotuBinarySwitch(*this, ctrl->key,
-         MOTU_CTRL_MASK_MUTE_VALUE, MOTU_CTRL_MASK_MUTE_SETENABLE,
-         name, label, ctrl->desc));
-         type &= ~MOTU_CTRL_CHANNEL_MUTE;
-         }
-         if (type & MOTU_CTRL_CHANNEL_SOLO) {
-         snprintf(name, 100, "%s%s", ctrl->name, "solo");
-         snprintf(label,100, "%s%s", ctrl->label,"solo");
-         result &= m_MixerContainer->addElement(
-         new MotuBinarySwitch(*this, ctrl->key,
-         MOTU_CTRL_MASK_SOLO_VALUE, MOTU_CTRL_MASK_SOLO_SETENABLE,
-         name, label, ctrl->desc));
-         type &= ~MOTU_CTRL_CHANNEL_SOLO;
-         }*/
 
         if (type & MOTU_CTRL_MIX_FADER) {
             snprintf(name, 100, "%s%s", ctrl->name, "fader");
