@@ -208,7 +208,7 @@ AmdtpReceiveStreamProcessor::processPacketData(unsigned char *data, unsigned int
     // frames, meaning that we might receive
     // this packet x*syt_interval*ticks_per_frame
     // later than expected (the real receive time)
-    #ifdef DEBUG
+    #if DEBUG_EXTREME_ENABLE
     static int64_t last_t = Util::SystemTimeSource::getCurrentTime();
     int64_t now_t = Util::SystemTimeSource::getCurrentTime();
     if(isRunning()) {
@@ -220,7 +220,9 @@ AmdtpReceiveStreamProcessor::processPacketData(unsigned char *data, unsigned int
                            m_last_timestamp, now_t-last_t, m_data_buffer->getBufferFill());*/
     }
     last_t = now_t;
+    #endif
 
+    #ifdef DEBUG
     // check whether nevents is a multiple of 8.
     if (nevents & 0x7) {
         debugError("Invalid nevents value for AMDTP (%u)\n", nevents);
@@ -288,7 +290,9 @@ AmdtpReceiveStreamProcessor::decodeAudioPortsInt24(quadlet_t *data,
     for (i = 0; i < m_nb_audio_ports; i++) {
         struct _MBLA_port_cache &p = m_audio_ports.at(i);
         target_event = (quadlet_t *)(data + i);
+#ifdef DEBUG
         assert(nevents + offset <= p.buffer_size );
+#endif
 
         if(p.buffer && p.enabled) {
             quadlet_t *buffer = (quadlet_t *)(p.buffer);
@@ -322,7 +326,9 @@ AmdtpReceiveStreamProcessor::decodeAudioPortsFloat(quadlet_t *data,
     for (i = 0; i < m_nb_audio_ports; i++) {
         struct _MBLA_port_cache &p = m_audio_ports.at(i);
         target_event = (quadlet_t *)(data + i);
+#ifdef DEBUG
         assert(nevents + offset <= p.buffer_size );
+#endif
 
         if(p.buffer && p.enabled) {
             float *buffer = (float *)(p.buffer);
@@ -359,7 +365,9 @@ AmdtpReceiveStreamProcessor::decodeAudioPortsInt24(quadlet_t *data,
     for (i = 0; i < m_nb_audio_ports; i++) {
         struct _MBLA_port_cache &p = m_audio_ports.at(i);
         target_event = (quadlet_t *)(data + i);
+#ifdef DEBUG
         assert(nevents + offset <= p.buffer_size );
+#endif
 
         if(p.buffer && p.enabled) {
             quadlet_t *buffer = (quadlet_t *)(p.buffer);
@@ -393,7 +401,9 @@ AmdtpReceiveStreamProcessor::decodeAudioPortsFloat(quadlet_t *data,
     for (i = 0; i < m_nb_audio_ports; i++) {
         struct _MBLA_port_cache &p = m_audio_ports.at(i);
         target_event = (quadlet_t *)(data + i);
+#ifdef DEBUG
         assert(nevents + offset <= p.buffer_size );
+#endif
 
         if(p.buffer && p.enabled) {
             float *buffer = (float *)(p.buffer);

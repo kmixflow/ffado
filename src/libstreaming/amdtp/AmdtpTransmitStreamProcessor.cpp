@@ -539,7 +539,9 @@ AmdtpTransmitStreamProcessor::encodeAudioPortsSilence(quadlet_t *data,
 
 #ifdef __SSE2__
 #include <emmintrin.h>
-#warning SSE2 build
+
+// There's no obvious reason to warn about this anymore - jwoithe.
+// #warning SSE2 build
 
 /**
  * @brief mux all audio ports to events
@@ -648,7 +650,9 @@ AmdtpTransmitStreamProcessor::encodeAudioPortsFloat(quadlet_t *data,
     for (; i < (int)m_nb_audio_ports; i++) {
         struct _MBLA_port_cache &p = m_audio_ports.at(i);
         target_event = (quadlet_t *)(data + i);
+#ifdef DEBUG
         assert(nevents + offset <= p.buffer_size );
+#endif
 
         if(likely(p.buffer && p.enabled)) {
             float *buffer = (float *)(p.buffer);
@@ -831,7 +835,9 @@ AmdtpTransmitStreamProcessor::encodeAudioPortsInt24(quadlet_t *data,
     for (; i < ((int)m_nb_audio_ports); i++) {
         struct _MBLA_port_cache &p = m_audio_ports.at(i);
         target_event = (quadlet_t *)(data + i);
+#ifdef DEBUG
         assert(nevents + offset <= p.buffer_size );
+#endif
 
         if(likely(p.buffer && p.enabled)) {
             uint32_t *buffer = (uint32_t *)(p.buffer);
@@ -916,7 +922,9 @@ AmdtpTransmitStreamProcessor::encodeAudioPortsInt24(quadlet_t *data,
     for (i = 0; i < m_nb_audio_ports; i++) {
         struct _MBLA_port_cache &p = m_audio_ports.at(i);
         target_event = (quadlet_t *)(data + i);
+#ifdef DEBUG
         assert(nevents + offset <= p.buffer_size );
+#endif
 
         if(likely(p.buffer && p.enabled)) {
             quadlet_t *buffer = (quadlet_t *)(p.buffer);
@@ -957,7 +965,9 @@ AmdtpTransmitStreamProcessor::encodeAudioPortsFloat(quadlet_t *data,
     for (i = 0; i < m_nb_audio_ports; i++) {
         struct _MBLA_port_cache &p = m_audio_ports.at(i);
         target_event = (quadlet_t *)(data + i);
+#ifdef DEBUG
         assert(nevents + offset <= p.buffer_size );
+#endif
 
         if(likely(p.buffer && p.enabled)) {
             quadlet_t *buffer = (quadlet_t *)(p.buffer);

@@ -227,7 +227,7 @@ RmeTransmitStreamProcessor::generatePacketHeader (
         {
             // we are too late
             debugOutput(DEBUG_LEVEL_VERBOSE,
-                        "Too late: CY=%04u, TC=%04u, CUT=%04d, TSP=%011llu (%04u)\n",
+                        "Too late: CY=%04u, TC=%04u, CUT=%04d, TSP=%011"PRIu64" (%04u)\n",
                         cycle,
                         transmit_at_cycle, cycles_until_transmit,
                         presentation_time, (unsigned int)TICKS_TO_CYCLES(presentation_time) );
@@ -265,7 +265,7 @@ RmeTransmitStreamProcessor::generatePacketHeader (
         else
         {
             debugOutput ( DEBUG_LEVEL_VERY_VERBOSE,
-                        "Too early: CY=%04u, TC=%04u, CUT=%04d, TST=%011llu (%04u), TSP=%011llu (%04u)\n",
+                        "Too early: CY=%04u, TC=%04u, CUT=%04d, TST=%011"PRIu64" (%04u), TSP=%011"PRIu64" (%04u)\n",
                         cycle,
                         transmit_at_cycle, cycles_until_transmit,
                         transmit_at_time, ( unsigned int ) TICKS_TO_CYCLES ( transmit_at_time ),
@@ -274,7 +274,7 @@ RmeTransmitStreamProcessor::generatePacketHeader (
             if ( cycles_until_transmit > RME_MAX_CYCLES_TO_TRANSMIT_EARLY + 1 )
             {
                 debugOutput ( DEBUG_LEVEL_VERY_VERBOSE,
-                            "Way too early: CY=%04u, TC=%04u, CUT=%04d, TST=%011llu (%04u), TSP=%011llu (%04u)\n",
+                            "Way too early: CY=%04u, TC=%04u, CUT=%04d, TST=%011"PRIu64" (%04u), TSP=%011"PRIu64" (%04u)\n",
                             cycle,
                             transmit_at_cycle, cycles_until_transmit,
                             transmit_at_time, ( unsigned int ) TICKS_TO_CYCLES ( transmit_at_time ),
@@ -292,9 +292,6 @@ enum StreamProcessor::eChildReturnValue
 RmeTransmitStreamProcessor::generatePacketData (
     unsigned char *data, unsigned int *length)
 {
-    // Size of a single data frame in quadlets
-//    unsigned dbs = m_event_size / 4;
-
     // Flag the successful start of streaming so generateEmptyPacketHeader()
     // knows that true empty packets are now required.
     streaming_has_run=1;
@@ -305,37 +302,18 @@ RmeTransmitStreamProcessor::generatePacketData (
     signed n_events = getNominalFramesPerPacket();
 
     if (m_data_buffer->readFrames(n_events, (char *)(data))) {
-//        float ticks_per_frame = m_Parent.getDeviceManager().getStreamProcessorManager().getSyncSource().getTicksPerFrame();
 
-//        for (int i=0; i < n_events; i++, quadlet += dbs) {
-//            int64_t ts_frame = addTicks(m_last_timestamp, (unsigned int)lrintf(i * ticks_per_frame));
-//            *quadlet = CondSwapToBus32(fullTicksToSph(ts_frame));
-//        }
-        // FIXME: temporary
-//        if (*length > 0) {
-//            memset(data, *length, 0);
-//        }
-//
-// 1 kHz tone into ch7 (phones L) for testing
-{
-static signed int dpy = 0;
-float ticks_per_frame = m_Parent.getDeviceManager().getStreamProcessorManager().getSyncSource().getTicksPerFrame();
-  signed int i, int_tpf = lrintf(ticks_per_frame);
-//signed int j;
-//  quadlet_t *sample = (quadlet_t *)data;
-  quadlet_t *sample = (quadlet_t *)data + 6;
-if (dpy==0) {
-  debugOutput(DEBUG_LEVEL_NORMAL, "ticks per frame: %d %d %d (len=%d)\n", int_tpf, n_events, m_event_size, *length);
-}
-if (++dpy == 8000)
-dpy=0;
+        // 1 kHz tone into ch7 (phones L) for testing, but only if a debug
+        // level is set.
 #if TESTTONE
         if (getDebugLevel() > 0) {
+            float ticks_per_frame = m_Parent.getDeviceManager().getStreamProcessorManager().getSyncSource().getTicksPerFrame();
+            signed int int_tpf = lrintf(ticks_per_frame);
+            quadlet_t *sample = (quadlet_t *)data + 6;
+            signed int i;
             for (i=0; i<n_events; i++, sample+=m_event_size/4) {
                 static signed int a_cx = 0;
                 signed int val = lrintf(0x7fffff*sin((1000.0*2.0*M_PI/24576000.0)*a_cx));
-//for (j=0; j<18;j++)
-//*(sample+j) = val << 8;
                 *sample = val << 8;
                 if ((a_cx+=int_tpf) >= 24576000) {
                     a_cx -= 24576000;
@@ -343,7 +321,6 @@ dpy=0;
             }
         }
 #endif
-}
 
         return eCRV_OK;
     }
@@ -364,7 +341,7 @@ RmeTransmitStreamProcessor::generateEmptyPacketHeader (
     unsigned char *tag, unsigned char *sy,
     uint32_t pkt_ctr )
 {
-    debugOutput ( DEBUG_LEVEL_VERY_VERBOSE, "XMIT EMPTY: CY=%04lu, TSP=%011llu (%04u)\n",
+    debugOutput ( DEBUG_LEVEL_VERY_VERBOSE, "XMIT EMPTY: CY=%04lu, TSP=%011"PRIu64" (%04u)\n",
                 CYCLE_TIMER_GET_CYCLES(pkt_ctr), m_last_timestamp, 
                 ( unsigned int ) TICKS_TO_CYCLES ( m_last_timestamp ) );
 
@@ -449,7 +426,7 @@ RmeTransmitStreamProcessor::generateSilentPacketHeader (
 {
     unsigned int cycle = CYCLE_TIMER_GET_CYCLES(pkt_ctr);
 
-    debugOutput( DEBUG_LEVEL_VERY_VERBOSE, "XMIT SILENT: CY=%04u, TSP=%011llu (%04u)\n",
+    debugOutput( DEBUG_LEVEL_VERY_VERBOSE, "XMIT SILENT: CY=%04u, TSP=%011"PRIu64" (%04u)\n",
                  cycle, m_last_timestamp,
                  ( unsigned int ) TICKS_TO_CYCLES ( m_last_timestamp ) );
 
@@ -470,9 +447,7 @@ RmeTransmitStreamProcessor::generateSilentPacketHeader (
     *length = 0;
 
     uint64_t presentation_time;
-    unsigned int presentation_cycle;
-    int cycles_until_presentation;
-            
+
     uint64_t transmit_at_time;
     unsigned int transmit_at_cycle;
     int cycles_until_transmit;
@@ -487,9 +462,10 @@ RmeTransmitStreamProcessor::generateSilentPacketHeader (
     presentation_time = addTicks(m_last_timestamp, (unsigned int)lrintf(n_events * ticks_per_frame));
 
     transmit_at_time = substractTicks(presentation_time, RME_TRANSMIT_TRANSFER_DELAY);
-    presentation_cycle = (unsigned int)(TICKS_TO_CYCLES(presentation_time));
     transmit_at_cycle = (unsigned int)(TICKS_TO_CYCLES(transmit_at_time));
-    cycles_until_presentation = diffCycles(presentation_cycle, cycle);
+    // Not currently used for silent packets:
+    //  unsigned int presentation_cycle = (unsigned int)(TICKS_TO_CYCLES(presentation_time));
+    //  int cycles_until_presentation = diffCycles(presentation_cycle, cycle);
     cycles_until_transmit = diffCycles(transmit_at_cycle, cycle);
 
     if (cycles_until_transmit < 0)

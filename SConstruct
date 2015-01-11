@@ -24,7 +24,7 @@
 #
 
 FFADO_API_VERSION = "9"
-FFADO_VERSION="2.1.9999"
+FFADO_VERSION="2.2.9999"
 
 from subprocess import Popen, PIPE
 import os
@@ -40,9 +40,10 @@ opts = Variables( "cache/options.cache" )
 
 opts.AddVariables(
     BoolVariable( "DEBUG", """\
-Toggle debug-build. DEBUG means \"-g -Wall\" and more, otherwise we will use
-  \"-O2\" to optimize.""", True ),
-    BoolVariable( "PROFILE", "Build with symbols and other profiling info", False ),
+Build with \"-g -Wall\" rather than \"-O2\", and include extra debugging
+checks in the code.""", True ),
+    BoolVariable( "DEBUG_MESSAGES", "Enable support for debug messages", True ),
+    BoolVariable( "PROFILE", "Build with symbols, warnings and other profiling info", False ),
     PathVariable( "PREFIX", "The prefix where ffado will be installed to.", "/usr/local", PathVariable.PathAccept ),
     PathVariable( "BINDIR", "Overwrite the directory where apps are installed to.", "$PREFIX/bin", PathVariable.PathAccept ),
     PathVariable( "LIBDIR", "Overwrite the directory where libs are installed to.", "$PREFIX/lib", PathVariable.PathAccept ),
@@ -76,7 +77,8 @@ Build the tests in their directory. As some contain quite some functionality,
     EnumVariable('DIST_TARGET', 'Build target for cross compiling packagers', 'auto', allowed_values=('auto', 'i386', 'i686', 'x86_64', 'powerpc', 'powerpc64', 'none' ), ignorecase=2),
     BoolVariable( "ENABLE_OPTIMIZATIONS", "Enable optimizations and the use of processor specific extentions (MMX/SSE/...).", False ),
     BoolVariable( "PEDANTIC", "Enable -Werror and more pedantic options during compile.", False ),
-    ( "COMPILE_FLAGS", "Add additional flags to the environment.\nOnly meant for distributors and gentoo-users who want to over-optimize their built.\n Using this is not supported by the ffado-devs!" ),
+    BoolVariable( "CUSTOM_ENV", "Respect CC, CXX, CFLAGS, CXXFLAGS and LDFLAGS.\nOnly meant for distributors and gentoo-users who want to over-optimize their build.\n Using this is not supported by the ffado-devs!", False ),
+    ( "COMPILE_FLAGS", "Deprecated (use CFLAGS and CXXFLAGS with CUSTOM_ENV=True instead).  Add additional flags to the environment.\nOnly meant for distributors and gentoo-users who want to over-optimize their build.\n Using this is not supported by the ffado-devs!" ),
     EnumVariable( "ENABLE_SETBUFFERSIZE_API_VER", "Report API version at runtime which includes support for dynamic buffer resizing (requires recent jack).", 'auto', allowed_values=('auto', 'true', 'false', 'force'), ignorecase=2),
 
     )
@@ -86,14 +88,42 @@ buildenv=os.environ
 
 env = Environment( tools=['default','scanreplace','pyuic','pyuic4','dbus','doxygen','pkgconfig'], toolpath=['admin'], ENV = buildenv, options=opts )
 
+custom_flags = False
+
 if env.has_key('COMPILE_FLAGS') and len(env['COMPILE_FLAGS']) > 0:
+    print "The COMPILE_FLAGS option is deprecated. Use CFLAGS and CXXFLAGS with CUSTOM_ENV=True instead"
+    custom_flags = True
+    env.MergeFlags(env['COMPILE_FLAGS'])
+
+if env['CUSTOM_ENV']:
+    custom_flags = True
+
+    # Honour the user choice of compiler (if any).
+    if os.environ.has_key('CC') and len(os.environ['CC']) > 0:
+        env['CC'] = os.environ['CC']
+    if os.environ.has_key('CXX') and len(os.environ['CXX']) > 0:
+        env['CXX'] = os.environ['CXX']
+
+    # Honour the user supplied flags (if any), but notify the user that this is not supported.
+    if os.environ.has_key('CFLAGS') and len(os.environ['CFLAGS']) > 0:
+        env.Append(CFLAGS = str(os.environ['CFLAGS'].replace('\"', '')))
+    if os.environ.has_key('CXXFLAGS') and len(os.environ['CXXFLAGS']) > 0:
+        env.Append(CXXFLAGS = str(os.environ['CXXFLAGS'].replace('\"', '')))
+    if os.environ.has_key('LDFLAGS') and len(os.environ['LDFLAGS']) > 0:
+        env.Append(LINKFLAGS = str(os.environ['LDFLAGS'].replace('\"', '')))
+
+if custom_flags:
     print '''
  * Usage of additional flags is not supported by the ffado-devs.
  * Use at own risk!
  *
- * Currentl value is '%s'
- ''' % env['COMPILE_FLAGS']
-    env.MergeFlags(env['COMPILE_FLAGS'])
+ * Flags in use:
+ *   CC = %s
+ *   CXX = %s
+ *   CFLAGS = %s
+ *   CXXFLAGS = %s
+ *   LDFLAGS = %s
+''' % (env['CC'], env['CXX'], env['CFLAGS'], env['CXXFLAGS'], env['LINKFLAGS'])
 
 Help( """
 For building ffado you can set different options as listed below. You have to
@@ -249,21 +279,21 @@ if not env.GetOption('clean'):
     # Provide a way for users to compile newer libffado which will work 
     # against older jack installations which will not accept the new API
     # version reported at runtime.
-    jackd_ver = CheckJackdVer()
-    if (jackd_ver != -1):
-        # If jackd is available, use the version number reported by it.  This
-        # means users don't have to have jack development files present on
-        # their system for this to work.
-        have_jack = (jackd_ver >= VersionInt('0.0.0'))
-        good_jack1 = (jackd_ver < VersionInt('1.9.0')) and (jackd_ver >= VersionInt('0.121.4'))
-        good_jack2 = (jackd_ver >= VersionInt('1.9.9'))
-    else:
-        # Jackd is not runnable.  Attempt to identify a version from
-        # pkgconfig on the off-chance jack details are available from there.
-        print "Will retry jack detection using pkg-config"
-        have_jack = conf.CheckPKG('jack >= 0.0.0')
-        good_jack1 = conf.CheckPKG('jack < 1.9.0') and conf.CheckPKG('jack >= 0.122.0')
+    have_jack = conf.CheckPKG('jack')
+    if have_jack:
+        good_jack1 = conf.CheckPKG('jack < 1.9.0') and conf.CheckPKG('jack >= 0.121.4')
         good_jack2 = conf.CheckPKG('jack >= 1.9.9')
+    else:
+        jackd_ver = CheckJackdVer()
+        if (jackd_ver != -1):
+            # If jackd is unknown to pkg-config but is never-the-less
+            # runnable, use the version number reported by it.  This means
+            # users don't have to have jack development files present on
+            # their system for this to work.
+            have_jack = (jackd_ver >= VersionInt('0.0.0'))
+            good_jack1 = (jackd_ver < VersionInt('1.9.0')) and (jackd_ver >= VersionInt('0.121.4'))
+            good_jack2 = (jackd_ver >= VersionInt('1.9.9'))
+
     if env['ENABLE_SETBUFFERSIZE_API_VER'] == 'auto':
         if not(have_jack):
             print """
@@ -330,7 +360,7 @@ results above get rechecked.
         oldcf = env['CFLAGS']
     else:
         oldcf = ""
-    oldcf = env.Append(CFLAGS = '-std=c99')
+    env.Append(CFLAGS = '-std=c99')
     if conf.CheckLibWithHeader( "m", "math.h", "c", "lrint(3.2);" ):
         HAVE_LRINT = 1
     else:
@@ -399,16 +429,27 @@ else:
     # always true
     env['DBUS1_FLAGS'] += " -DDBUS_HAS_THREADS_INIT_DEFAULT"
 
+    # The controlserver-glue.h file generated by dbusxx-xml2cpp generates
+    # a large number of instances where call.reader()'s return value is
+    # stored (in ri) but not used.  This generates a compiler warning which
+    # we can do nothing about.  Therefore when compiling dbus-related
+    # code, suppress the "set but not used" warning.
+    env['DBUS1_FLAGS'] += " -Wno-unused-but-set-variable"
 
 config_guess = conf.ConfigGuess()
 
 env = conf.Finish()
 
 if env['DEBUG']:
-    print "Doing a DEBUG build"
-    env.MergeFlags( "-DDEBUG -Wall -g" )
-else:
-    env.MergeFlags( "-O2 -DNDEBUG" )
+    print "Doing a debug build"
+    env.MergeFlags( "-Wall -g -DDEBUG" )
+    env['DEBUG_MESSAGES'] = True
+elif not custom_flags:
+    # Only merge -O2 to flags if the user has not specified custom flags.
+    env.MergeFlags( "-O2" )
+
+if env['DEBUG_MESSAGES']:
+    env.MergeFlags( "-DDEBUG_MESSAGES" )
 
 if env['PROFILE']:
     print "Doing a PROFILE build"

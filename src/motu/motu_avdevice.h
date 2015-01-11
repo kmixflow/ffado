@@ -321,12 +321,6 @@ struct VendorModelEntry {
     const char *model_name;
 };
 
-struct PortEntry {
-    const char *port_name;
-    unsigned int port_flags;
-    unsigned int port_offset;
-};
-
 struct PortGroupEntry {
     const char *group_name_format;
     signed int n_channels;
@@ -398,8 +392,6 @@ struct MotuMixerMk3 {
 struct DevicePropertyEntry {
     PortGroupEntry *portgroup_entry;
     unsigned int n_portgroup_entries;
-    const PortEntry* port_entry;
-    unsigned int n_port_entries;
     signed int MaxSampleRate;
     // A device will set at most one of the *mixer fields
     const struct MotuMixer *mixer;

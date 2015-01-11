@@ -25,9 +25,6 @@
 #include "devicemanager.h"
 #include "fireworks_device.h"
 #include "efc/efc_avc_cmd.h"
-#include "efc/efc_cmd.h"
-#include "efc/efc_cmds_hardware.h"
-#include "efc/efc_cmds_hardware_ctrl.h"
 #include "efc/efc_cmds_flash.h"
 
 #include "audiofire/audiofire_device.h"
@@ -38,14 +35,11 @@
 #include "fireworks/fireworks_control.h"
 
 #include "libutil/PosixMutex.h"
-#include "libutil/SystemTimeSource.h"
 
 #include "IntelFlashMap.h"
 
 #define ECHO_FLASH_ERASE_TIMEOUT_MILLISECS 2000
 #define FIREWORKS_MIN_FIRMWARE_VERSION 0x04080000
-#define AVC_MAX_TRIAL		2
-#define AVC_RETRY_INTERVAL	200000
 
 #include <sstream>
 #include <unistd.h>
@@ -180,15 +174,6 @@ Device::discoverUsingEFC()
         return false;
     }
 
-    // save the EFC version, since some stuff
-    // depends on this
-    m_efc_version = m_HwInfo.m_header.version;
-
-    if (!updatePolledValues()) {
-        debugError("Could not update polled values\n");
-        return false;
-    }
-
     m_current_clock = -1;
 
     m_efc_discovery_done = true;
@@ -209,8 +194,6 @@ Device::createDevice(DeviceManager& d, std::auto_ptr<ConfigRom>( configRom ))
 
 bool Device::doEfcOverAVC(EfcCmd &c)
 {
-    int trial;
-
     EfcOverAVCCmd cmd( get1394Service() );
     cmd.setCommandType( AVC::AVCCommand::eCT_Control );
     cmd.setNodeId( getConfigRom().getNodeId() );
@@ -220,16 +203,10 @@ bool Device::doEfcOverAVC(EfcCmd &c)
     cmd.setVerbose( getDebugLevel() );
     cmd.m_cmd = &c;
 
-    for (trial = 0; trial < AVC_MAX_TRIAL; trial++) {
-        if (cmd.fire())
-            break;
-        Util::SystemTimeSource::SleepUsecRelative(AVC_RETRY_INTERVAL);
-    }
-
-    if (trial == AVC_MAX_TRIAL) {
-            debugError( "EfcOverAVCCmd command failed\n" );
-            c.showEfcCmd();
-            return false;
+    if (!cmd.fire()) {
+        debugError( "EfcOverAVCCmd command failed\n" );
+        c.showEfcCmd();
+        return false;
     }
 
     if ( cmd.getResponse() != AVC::AVCCommand::eR_Accepted) {
@@ -455,6 +432,11 @@ Device::loadSession()
     return true;
 }
 
+/*
+ * NOTE:
+ * Firmware version 5.0 or later for AudioFire12 returns invalid values to
+ * contents of response against this command.
+ */
 bool
 Device::updatePolledValues() {
     Util::MutexLockHelper lock(*m_poll_lock);
@@ -489,7 +471,7 @@ Device::getSupportedClockSources() {
         return r;
     }
 
-    uint32_t active_clock=getClock();
+    uint32_t active_clock = getClockSrc();
 
     if(EFC_CMD_HW_CHECK_FLAG(m_HwInfo.m_supported_clocks, EFC_CMD_HW_CLOCK_INTERNAL)) {
         debugOutput(DEBUG_LEVEL_VERBOSE, "Internal clock supported\n");
@@ -533,10 +515,10 @@ Device::getSupportedClockSources() {
 bool
 Device::isClockValid(uint32_t id) {
     // always valid
-    if (id==EFC_CMD_HW_CLOCK_INTERNAL) return true;
+    if (id==EFC_CMD_HW_CLOCK_INTERNAL)
+        return true;
 
-    // the polled values are used to detect
-    // whether clocks are valid
+    // the polled values tell whether each clock source is detected or not
     if (!updatePolledValues()) {
         debugError("Could not update polled values\n");
         return false;
@@ -555,7 +537,7 @@ Device::setActiveClockSource(ClockSource s) {
         return false;
     }
 
-    result = setClock(s.id);
+    result = setClockSrc(s.id);
 
     // From the ECHO sources:
     // "If this is a 1200F and the sample rate is being set via EFC, then
@@ -576,7 +558,7 @@ Device::setActiveClockSource(ClockSource s) {
 FFADODevice::ClockSource
 Device::getActiveClockSource() {
     ClockSource s;
-    uint32_t active_clock=getClock();
+    uint32_t active_clock = getClockSrc();
     s=clockIdToClockSource(active_clock);
     s.active=true;
     return s;
@@ -586,13 +568,6 @@ FFADODevice::ClockSource
 Device::clockIdToClockSource(uint32_t clockid) {
     ClockSource s;
     debugOutput(DEBUG_LEVEL_VERBOSE, "clock id: %u\n", clockid);
-
-    // the polled values are used to detect
-    // whether clocks are valid
-    if (!updatePolledValues()) {
-        debugError("Could not update polled values\n");
-        return s;
-    }
 
     switch (clockid) {
         case EFC_CMD_HW_CLOCK_INTERNAL:
@@ -642,50 +617,133 @@ Device::clockIdToClockSource(uint32_t clockid) {
     return s;
 }
 
-uint32_t Device::getClock()
+bool Device::getClock(EfcGetClockCmd &gccmd)
 {
-    uint32_t clock;
-
-    EfcGetClockCmd gccmd;
-    if (!doEfcOverAVC(gccmd)) {
-        debugError("Could not get clock info\n");
-        /* fallback to cache */
-        if (m_current_clock >= 0)
-            clock = m_current_clock;
-	/* fallback to internal */
-        else if (setClock(EFC_CMD_HW_CLOCK_INTERNAL))
-            clock = EFC_CMD_HW_CLOCK_INTERNAL;
-	/* fatal error */
-        else
-            clock = EFC_CMD_HW_CLOCK_UNSPECIFIED;
-    } else
-        clock = gccmd.m_clock;
-
-    debugOutput(DEBUG_LEVEL_VERBOSE, "Active clock: 0x%08X\n", clock);
-    gccmd.showEfcCmd();
-
-    return clock;
-}
-
-bool Device::setClock(uint32_t id)
-{
-    int sampling_rate = getSamplingFrequency();
-    if (!sampling_rate)
+    if (!doEfcOverAVC(gccmd))
         return false;
 
-    debugOutput(DEBUG_LEVEL_VERBOSE, "Set clock: 0x%08X\n", id);
+    /*
+     * NOTE:
+     * Firmware version 5.0 or later for AudioFire12 returns invalid
+     * values in contents of response against this command.
+     */
+    if (gccmd.m_samplerate > 192000) {
+        debugOutput(DEBUG_LEVEL_NORMAL,
+                    "Could not get sampling rate. Do fallback\n");
+        int sampling_rate;
 
-    EfcSetClockCmd sccmd;
-    sccmd.m_clock=id;
-    sccmd.m_samplerate= sampling_rate;
-    sccmd.m_index=0;
+        /* fallback to 'input/output plug signal format' command */
+        sampling_rate = GenericAVC::Device::getSamplingFrequency();
+        /* fallback failed */
+        if (!sampling_rate) {
+            debugOutput(DEBUG_LEVEL_NORMAL, "Fallback failed\n");
+            return false;
+        }
+
+        gccmd.m_samplerate = sampling_rate;
+    }
+
+    if (gccmd.m_clock > EFC_CMD_HW_CLOCK_COUNT) {
+        debugOutput(DEBUG_LEVEL_NORMAL,
+                    "Could not get clock info. Do fallback\n");
+        if (m_current_clock < 0) {
+            /* fallback to internal clock source */
+            EfcSetClockCmd sccmd;
+            sccmd.m_clock = EFC_CMD_HW_CLOCK_INTERNAL;
+            sccmd.m_samplerate = gccmd.m_samplerate;
+            sccmd.m_index = 0;
+
+            if (!doEfcOverAVC(sccmd)) {
+                debugOutput(DEBUG_LEVEL_NORMAL, "Fallback failed\n");
+                return false;
+            }
+
+            /* Cache clock source */
+            m_current_clock = sccmd.m_clock;
+        }
+
+        /* Fallback to cache */
+        gccmd.m_clock = m_current_clock;
+    }
+
+    return true;
+}
+uint32_t Device::getClockSrc()
+{
+    EfcGetClockCmd gccmd;
+    if (!getClock(gccmd))
+        return EFC_CMD_HW_CLOCK_UNSPECIFIED;
+
+    debugOutput(DEBUG_LEVEL_VERBOSE, "Get current clock source: %d\n",
+                gccmd.m_clock);
+
+    return gccmd.m_clock;
+}
+int Device::getSamplingFrequency()
+{
+    EfcGetClockCmd gccmd;
+    if (!getClock(gccmd))
+        return 0;
+
+    debugOutput(DEBUG_LEVEL_VERBOSE, "Get current sample rate: %d\n",
+                gccmd.m_samplerate);
+
+    return gccmd.m_samplerate;
+}
+
+bool Device::setClock(EfcSetClockCmd sccmd)
+{
     if (!doEfcOverAVC(sccmd)) {
         debugError("Could not set clock info\n");
         return false;
     }
 
-    m_current_clock = id;
+    /* Cache clock source for fallback. */
+    m_current_clock = sccmd.m_clock;
+
     return true;
+}
+bool Device::setClockSrc(uint32_t id)
+{
+    bool err;
+
+    EfcGetClockCmd gccmd;
+    err = getClock(gccmd);
+    if (!err)
+        return err;
+
+    EfcSetClockCmd sccmd;
+    sccmd.m_clock = id;
+    sccmd.m_samplerate = gccmd.m_samplerate;
+    sccmd.m_index = 0;
+
+    err = setClock(sccmd);
+    if (err)
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Set current clock source: %d\n",
+                    sccmd.m_clock);
+
+    return err;
+}
+bool Device::setSamplingFrequency(int samplerate)
+{
+    bool err;
+
+    EfcGetClockCmd gccmd;
+    err = getClock(gccmd);
+    if (!err)
+        return err;
+
+    EfcSetClockCmd sccmd;
+    sccmd.m_clock = gccmd.m_clock;
+    sccmd.m_samplerate = samplerate;
+    sccmd.m_index = 0;
+
+    err = setClock(sccmd);
+    if (err)
+        debugOutput(DEBUG_LEVEL_VERBOSE, "Set current sample rate: %d\n",
+                    sccmd.m_samplerate);
+
+    return err;
 }
 
 bool
@@ -926,46 +984,6 @@ Device::getSessionBase()
         return 0; // FIXME: arbitrary
     }
     return cmd.m_address;
-}
-
-int
-Device::getSamplingFrequency()
-{
-    int sampling_rate;
-
-    EfcGetClockCmd gccmd;
-    if (!doEfcOverAVC(gccmd)) {
-        /* fallback to 'input/output plug signal format' command */
-        sampling_rate = GenericAVC::Device::getSamplingFrequency();
-        if (!sampling_rate) {
-            debugError("Could not get sample rate\n");
-            return false;
-        }
-        return sampling_rate;
-    }
-    return gccmd.m_samplerate;
-}
-bool
-Device::setSamplingFrequency(int s)
-{
-    uint32_t clock = getClock();
-    if (clock == EFC_CMD_HW_CLOCK_UNSPECIFIED)
-        return false;
-
-    debugOutput(DEBUG_LEVEL_VERBOSE, "Set samplerate: %d\n", s);
-
-    EfcSetClockCmd sccmd;
-    sccmd.m_clock = clock;
-    sccmd.m_samplerate = s;
-    sccmd.m_index = 0;
-    if (!doEfcOverAVC(sccmd)) {
-        /* fallback to 'input/output plug signal format' command */
-        if (!GenericAVC::Device::setSamplingFrequency(s)) {
-            debugError("Could not set sample rate\n");
-            return false;
-        }
-    }
-    return true;
 }
 
 
