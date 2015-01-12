@@ -80,13 +80,13 @@ bool MixDestMk3::setValue(int value) {
     unsigned int val = (unsigned int) value;
     //Check if there is a mix destination description for this device (motu_mark3_mixerdefs.cpp):
     if(DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->mix_destinations == NULL){
-        debugOutput(DEBUG_LEVEL_WARNING, "No mix destinations are defined for this model\n"); //FIXME: Which model?
+        debugOutput(DEBUG_LEVEL_WARNING, "No mix destinations are defined for this model\n"); //FIXME: What model?
         return false;
     }
     //Check if there is a mix destination description for selected value:
     if((0 > value) || (DevicesProperty[this->m_parent.m_motu_model-1].mk3mixer->n_mix_destinations <= val))
     {
-        debugOutput(DEBUG_LEVEL_WARNING, "Mix destination number %d is not defined for this model\n", val); //FIXME: Which model?
+        debugOutput(DEBUG_LEVEL_WARNING, "Mix destination number %d is not defined for this model\n", val); //FIXME: What model?
         return false;
     }
     //Ok, there is a destination description for selected value. Let's send corresponding key:
@@ -404,17 +404,6 @@ double ChannelPanMk3::getValue()
     return 0;
 }
 
-/*
- *
- *
- *
- *
- * MATRIX MIXER
- *
- *
- *
- *
- */
 
 MotuMatrixMixerMk3::MotuMatrixMixerMk3(MotuDevice &parent)
 : Control::MatrixMixer(&parent, "MatrixMixerMk3")
