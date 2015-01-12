@@ -170,39 +170,6 @@ public:
     virtual double getValue();
 };
 
-class ChannelCtrlMk3
-    : public MotuContinuousCtrlMk3
-{
-public:
-    ChannelCtrlMk3(MotuDevice &parent);
-    // default implementations
-    virtual bool setValue(double v) = 0;
-    virtual bool setValue(double v, unsigned short bus, unsigned short channel) = 0;
-    virtual double getValue() = 0;
-};
-
-class ChannelFaderMk3
-    : public ChannelCtrlMk3
-{
-public:
-    ChannelFaderMk3(MotuDevice &parent);
-
-    virtual bool setValue(double v, unsigned short bus, unsigned short channel);
-    virtual bool setValue(double v);
-    virtual double getValue();
-};
-
-class ChannelPanMk3
-    : public ChannelCtrlMk3
-{
-public:
-    ChannelPanMk3(MotuDevice &parent);
-
-    virtual bool setValue(double v, unsigned short bus, unsigned short channel);
-    virtual bool setValue(double v);
-    virtual double getValue();
-};
-
 class MotuMatrixMixerMk3 : public Control::MatrixMixer
 {
 public:
@@ -241,27 +208,33 @@ protected:
      MotuDevice& m_parent;
 };
 
+class ChannelContinuousMatrixMixerMk3: public MotuMatrixMixerMk3
+{
+public:
+    ChannelContinuousMatrixMixerMk3(MotuDevice &parent, std::string name);
+    virtual double setValue(const int row, const int col, const double value);
+    virtual double getValue(const int row, const int col);
 
-class ChannelFaderMatrixMixerMk3 : public MotuMatrixMixerMk3
+protected:
+    unsigned long m_key;
+    unsigned long m_minimum;
+    unsigned long m_maximum;
+};
+
+class ChannelFaderMatrixMixerMk3 : public ChannelContinuousMatrixMixerMk3
 {
 public:
     ChannelFaderMatrixMixerMk3(MotuDevice &parent, std::string name);
-    virtual double setValue(const int row, const int col, const double val);
+    virtual double setValue(const int row, const int col, const double value);
     virtual double getValue(const int row, const int col);
-
-protected:
-    ChannelFaderMk3 virtual_fader;
 };
 
-class ChannelPanMatrixMixerMk3 : public MotuMatrixMixerMk3
+class ChannelPanMatrixMixerMk3 : public ChannelContinuousMatrixMixerMk3
 {
 public:
     ChannelPanMatrixMixerMk3(MotuDevice &parent, std::string name);
-    virtual double setValue(const int row, const int col, const double val);
+    virtual double setValue(const int row, const int col, const double value);
     virtual double getValue(const int row, const int col);
-
-protected:
-    ChannelPanMk3 virtual_fader;
 };
 
 class ChannelBinSwMatrixMixerMk3 : public MotuMatrixMixerMk3

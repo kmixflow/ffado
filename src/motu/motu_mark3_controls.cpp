@@ -312,99 +312,6 @@ double InputTrimMk3::getValue()
     return 0;
 }
 
-ChannelCtrlMk3::ChannelCtrlMk3(MotuDevice &parent) :
-        MotuContinuousCtrlMk3(parent) {
-}
-
-bool ChannelCtrlMk3::setValue(double value, unsigned short bus, unsigned short channel){
-    if (this->m_key == MOTU_MK3CTRL_NONE) {
-        debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with uninitialized control key\n");
-        return false;
-    }
-
-    channel += 2; // TravelerMk3 channels have offset of 2... Need to check other models.
-    unsigned int val, serial;
-    quadlet_t data[3];
-
-    val = (unsigned int)value;
-    serial = m_parent.getMk3MixerSerial();
-
-    if (val > this->m_maximum) {
-        val = m_maximum;
-        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, higher than control maximum=%lx\n", val, this->m_maximum);
-    } else if (val < this->m_minimum) {
-        val = m_minimum;
-        debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lx\n", val, this->m_minimum);
-    }
-
-    //Values sent to MOTU must be big-endian:
-    val=CondSwapToBus32(val);
-
-    //Prepare data:
-    data[0] = MOTU_MK3CTRL_CONTINUOUS_CTRL | (serial << 16) | bus;
-    data[1] = this->m_key | (val >> 24) | (channel << 16);
-    data[2] = (val << 8);
-
-    //Write data:
-    if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 3)) {
-        debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) data[2]=(0x%08x) to mixer register\n", data[0], data[1], data[2]);
-        return false;
-    }
-    //Everything is OK, let's update serial number for next communication
-    m_parent.updateMk3MixerSerial();
-    return true;
-}
-
-
-ChannelFaderMk3::ChannelFaderMk3(MotuDevice &parent):
-        ChannelCtrlMk3(parent){
-    this->m_key = MOTU_MK3CTRL_CHANNEL_FADER;
-    this->m_maximum = MOTU_MK3CTRL_FADER_MAX;
-    this->m_minimum = MOTU_MK3CTRL_FADER_MIN;
-}
-
-bool ChannelFaderMk3::setValue(double value, unsigned short bus, unsigned short channel)
-{
-    return ChannelCtrlMk3::setValue(value*MOTU_MK3CTRL_FADER_MAX/128, bus, channel);
-}
-
-bool ChannelFaderMk3::setValue(double value)
-{
-    //FIXME: This shouldn't exist
-    return false;
-}
-
-double ChannelFaderMk3::getValue()
-{
-    return 0;
-}
-
-ChannelPanMk3::ChannelPanMk3(MotuDevice &parent):
-        ChannelCtrlMk3(parent){
-    this->m_key = MOTU_MK3CTRL_CHANNEL_PAN;
-    this->m_maximum = MOTU_MK3CTRL_PAN_LEFT;
-    this->m_minimum = MOTU_MK3CTRL_PAN_RGHT;
-}
-
-bool ChannelPanMk3::setValue(double value, unsigned short bus, unsigned short channel)
-{
-    // FIXME: Values as described in motu_firewire_protocol-mk3.txt don't work
-    //return ChannelCtrlMk3::setValue((this->m_maximum-this->m_minimum)/128*(value+64)+this->m_minimum, bus, channel);
-    return true;
-}
-
-bool ChannelPanMk3::setValue(double value)
-{
-    //FIXME: This shouldn't exist
-    return false;
-}
-
-double ChannelPanMk3::getValue()
-{
-    return 0;
-}
-
-
 MotuMatrixMixerMk3::MotuMatrixMixerMk3(MotuDevice &parent)
 : Control::MatrixMixer(&parent, "MatrixMixerMk3")
 , m_parent(parent)
@@ -462,16 +369,75 @@ int MotuMatrixMixerMk3::getColCount()
     return m_ColInfo.size();
 }
 
-ChannelFaderMatrixMixerMk3::ChannelFaderMatrixMixerMk3(MotuDevice &parent, std::string name)
-: MotuMatrixMixerMk3(parent, name),
-  virtual_fader(parent)
+ChannelContinuousMatrixMixerMk3::ChannelContinuousMatrixMixerMk3(MotuDevice &parent, std::string name)
+: MotuMatrixMixerMk3(parent, name)
 {
+    m_key = MOTU_MK3CTRL_NONE;
+    m_maximum = MOTU_MK3VALUE_NONE;
+    m_minimum = MOTU_MK3VALUE_NONE;
 }
 
-double ChannelFaderMatrixMixerMk3::setValue(const int row, const int col, const double val)
+double ChannelContinuousMatrixMixerMk3::setValue(const int row, const int col, const double value)
+{
+    unsigned short channel = (unsigned short)col;
+    unsigned short bus = (unsigned short)row;
+
+    if (this->m_key == MOTU_MK3CTRL_NONE) {
+            debugOutput(DEBUG_LEVEL_VERBOSE, "Trying to set a continuous control with uninitialized control key\n");
+            return false;
+        }
+
+        channel += 2; // TravelerMk3 channels have offset of 2... Need to check other models.
+        unsigned int val, serial;
+        quadlet_t data[3];
+
+        val = (unsigned int)value;
+        serial = m_parent.getMk3MixerSerial();
+
+        if (val > this->m_maximum) {
+            val = m_maximum;
+            debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, higher than control maximum=%lx\n", val, this->m_maximum);
+        } else if (val < this->m_minimum) {
+            val = m_minimum;
+            debugOutput(DEBUG_LEVEL_WARNING, "Trying to set a continuous control with value=%x, lower than control minimum=%lx\n", val, this->m_minimum);
+        }
+
+        //Values sent to MOTU must be big-endian:
+        val=CondSwapToBus32(val);
+
+        //Prepare data:
+        data[0] = MOTU_MK3CTRL_CONTINUOUS_CTRL | (serial << 16) | bus;
+        data[1] = this->m_key | (val >> 24) | (channel << 16);
+        data[2] = (val << 8);
+
+        //Write data:
+        if (m_parent.writeBlock(MOTU_G3_REG_MIXER, data, 3)) {
+            debugOutput(DEBUG_LEVEL_WARNING, "Error writing data[0]=(0x%08x) data[1]=(0x%08x) data[2]=(0x%08x) to mixer register\n", data[0], data[1], data[2]);
+            return false;
+        }
+        //Everything is OK, let's update serial number for next communication
+        m_parent.updateMk3MixerSerial();
+        return true;
+}
+
+double ChannelContinuousMatrixMixerMk3::getValue(const int row, const int col)
+{
+    //FIXME
+    return 0;
+}
+
+ChannelFaderMatrixMixerMk3::ChannelFaderMatrixMixerMk3(MotuDevice &parent, std::string name)
+: ChannelContinuousMatrixMixerMk3(parent, name)
+{
+    this->m_key = MOTU_MK3CTRL_CHANNEL_FADER;
+    this->m_maximum = MOTU_MK3CTRL_FADER_MAX;
+    this->m_minimum = MOTU_MK3CTRL_FADER_MIN;
+}
+
+double ChannelFaderMatrixMixerMk3::setValue(const int row, const int col, const double value)
 {
     //FIXME: Convert values to a nice scale
-    return (this->virtual_fader.setValue(val, row, col));
+    return ChannelContinuousMatrixMixerMk3::setValue(row, col, value*MOTU_MK3CTRL_FADER_MAX/128);
 }
 
 double ChannelFaderMatrixMixerMk3::getValue(const int row, const int col)
@@ -481,14 +447,18 @@ double ChannelFaderMatrixMixerMk3::getValue(const int row, const int col)
 }
 
 ChannelPanMatrixMixerMk3::ChannelPanMatrixMixerMk3(MotuDevice &parent, std::string name)
-: MotuMatrixMixerMk3(parent, name),
-  virtual_fader(parent)
+: ChannelContinuousMatrixMixerMk3(parent, name)
 {
+    this->m_key = MOTU_MK3CTRL_CHANNEL_PAN;
+    this->m_maximum = MOTU_MK3CTRL_PAN_LEFT;
+    this->m_minimum = MOTU_MK3CTRL_PAN_RGHT;
 }
 
 double ChannelPanMatrixMixerMk3::setValue(const int row, const int col, const double val)
 {
-    return (this->virtual_fader.setValue(val, row, col));
+    // FIXME: Values as described in motu_firewire_protocol-mk3.txt don't work
+    //return ChannelContinuousMatrixMixerMk3::setValue((this->m_maximum-this->m_minimum)/128*(value+64)+this->m_minimum, bus, channel);
+    return true;
 }
 
 double ChannelPanMatrixMixerMk3::getValue(const int row, const int col)
